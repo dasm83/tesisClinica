@@ -1,2 +1,6 @@
 /target/
 /home/
+.classpath
+.project
+*.class
+.settings/
