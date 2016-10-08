@@ -21,7 +21,7 @@ public class PacienteDatos implements java.io.Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 5343185452462976585L;
-	private int idPacienteDatos;
+	private Long idPacienteDatos;
 	private String nombres;
 	private String apellidos;
 	private Character sexo;
@@ -35,7 +35,7 @@ public class PacienteDatos implements java.io.Serializable {
 	public PacienteDatos() {
 	}
 
-	public PacienteDatos(int idPacienteDatos, String nombres, String apellidos, String dui, String nit) {
+	public PacienteDatos(Long idPacienteDatos, String nombres, String apellidos, String dui, String nit) {
 		this.idPacienteDatos = idPacienteDatos;
 		this.nombres = nombres;
 		this.apellidos = apellidos;
@@ -43,7 +43,7 @@ public class PacienteDatos implements java.io.Serializable {
 		this.nit = nit;
 	}
 
-	public PacienteDatos(int idPacienteDatos, String nombres, String apellidos, Character sexo, Integer edad,
+	public PacienteDatos(Long idPacienteDatos, String nombres, String apellidos, Character sexo, Integer edad,
 			String dui, String nit, String profesion, String nacionalidad, Set<Expediente> expedientes) {
 		this.idPacienteDatos = idPacienteDatos;
 		this.nombres = nombres;
@@ -60,11 +60,11 @@ public class PacienteDatos implements java.io.Serializable {
 	@Id
 
 	@Column(name = "id_paciente_datos", unique = true, nullable = false)
-	public int getIdPacienteDatos() {
+	public Long getIdPacienteDatos() {
 		return this.idPacienteDatos;
 	}
 
-	public void setIdPacienteDatos(int idPacienteDatos) {
+	public void setIdPacienteDatos(Long idPacienteDatos) {
 		this.idPacienteDatos = idPacienteDatos;
 	}
 

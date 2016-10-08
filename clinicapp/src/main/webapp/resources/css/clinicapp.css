@@ -1,0 +1,17 @@
+#myModal .row{
+	width: 100%;
+	margin-bottom: 5px;
+}
+#myModal .col{
+	float: left;
+}
+#myModal .label{
+	color: black;
+	width: 30%;
+}
+#myModal .input{
+	width: 70%;
+}
+#myModal .input > input{
+	width: 60%
+}
