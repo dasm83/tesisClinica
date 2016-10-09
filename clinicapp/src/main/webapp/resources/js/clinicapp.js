@@ -1,7 +1,7 @@
-/// we'll be calling this every time we click on "okBtn" on "myModal"; 
+/// we'll be calling validation function every time we click on "okBtn" on "myModal"; 
 /// it's supposed to be overriden on each maintenance jsp;
-/// if we don't override it, this empty function is used instead
-function validate(){} 
+/// if we don't override it, this function is used instead
+function validate(){return true;} 
 
 function openDialog(title){
 	var modal = $("#myModal");
@@ -22,7 +22,20 @@ function enaTempFields(dialog){
 }
 
 function sendData(){
-	
+	$.ajax({
+		url: url,
+		method: "POST",
+		data: $("#maintenanceForm").serialize(),
+		success: function(data){
+			$("#myModal").find('.modal-body').html("<div style='text-align:center'>"+data+"</div>");
+			setTimeout(function(){
+				location.reload(true);
+			}, 4000);
+		},
+		error: function(jqXHR, error, errorThrown){
+			$("#myModal").find('.modal-body').html("<div style='text-align:center'>"+jqXHR.responseText+"</div>");
+		}
+	});
 }
 
 $( function() { /// jquery start point
@@ -39,10 +52,15 @@ $( function() { /// jquery start point
 		
 		/// copying data from dialog to form
 		$("#myModal").find("input,select").each(function(){
-			var inputForm = "";
+			var idInputForm = $(this).attr("id").replace("_temp","");
+			$("#maintenanceForm #"+idInputForm).val($(this).val());
 		});
 		
 		sendData();
+		
+		$("#myModal").find(".modal-body").html("<div style='text-align:center'><i class='fa fa-spinner fa-pulse fa-3x fa-fw'></i><span class='sr-only'>Loading...</span></div>");
+		$("#myModal").find(".modal-header").hide();
+		$("#myModal").find(".modal-footer").hide();
 	});
 	
 } )

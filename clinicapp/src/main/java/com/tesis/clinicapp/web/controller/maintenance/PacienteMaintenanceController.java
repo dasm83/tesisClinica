@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
@@ -24,7 +25,7 @@ public class PacienteMaintenanceController {
 	private static final String URL = "/maintenance/pacientes.htm";
 	private static final String URLx = "/maintenance/pacient-ajax.htm";
 	private static final String JSP = "/maintenance/pacientes";
-	private static final String JSPx = "pacient-ajax";
+	private static final String JSPx = "/maintenance/pacient-ajax";
 	private static final String FORM = "pacientesMainForm";
 	
 	@Autowired
@@ -46,7 +47,24 @@ public class PacienteMaintenanceController {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, value = URLx)
-	public String postX(HttpServletRequest request){
+	public String postX(HttpServletRequest request, HttpServletResponse response, pacientesMainForm form){
+		PacienteDatos paciente = new PacienteDatos();
+		
+		if(form.getAction().equals("I")){ /// doing insert / new pacient
+			paciente.setNombres(form.getNames());
+			paciente.setApellidos(form.getSurnames());
+			paciente.setDui(form.getDui());
+			paciente.setNit(form.getNit());
+			paciente.setSexo(form.getSex());
+			paciente.setEdad(form.getAge());
+			paciente.setProfesion(form.getJob());
+			paciente.setNacionalidad(form.getNation());
+			
+			pacientService.save(paciente);
+			response.setStatus(200);
+			request.setAttribute("msj", "Paciente guardado satisfactoriamente");
+		}
+		
 		return JSPx;
 	}
 

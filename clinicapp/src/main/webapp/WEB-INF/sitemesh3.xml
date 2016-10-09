@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sitemesh>
   <mapping path="/*.htm" decorator="/WEB-INF/decorators/base_layout.jsp"/>
+  <mapping path="*-ajax.htm" exclue="true"/>
 </sitemesh>

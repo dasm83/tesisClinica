@@ -3,9 +3,12 @@ package com.tesis.clinicapp.model;
 
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -35,17 +38,15 @@ public class PacienteDatos implements java.io.Serializable {
 	public PacienteDatos() {
 	}
 
-	public PacienteDatos(Long idPacienteDatos, String nombres, String apellidos, String dui, String nit) {
-		this.idPacienteDatos = idPacienteDatos;
+	public PacienteDatos(String nombres, String apellidos, String dui, String nit) {
 		this.nombres = nombres;
 		this.apellidos = apellidos;
 		this.dui = dui;
 		this.nit = nit;
 	}
 
-	public PacienteDatos(Long idPacienteDatos, String nombres, String apellidos, Character sexo, Integer edad,
+	public PacienteDatos(String nombres, String apellidos, Character sexo, Integer edad,
 			String dui, String nit, String profesion, String nacionalidad, Set<Expediente> expedientes) {
-		this.idPacienteDatos = idPacienteDatos;
 		this.nombres = nombres;
 		this.apellidos = apellidos;
 		this.sexo = sexo;
@@ -58,7 +59,8 @@ public class PacienteDatos implements java.io.Serializable {
 	}
 
 	@Id
-
+	//@SequenceGenerator(name = "MySequence", sequenceName = "paciente_datos_id_pacienteDatos_seq", allocationSize=1, schema = "clinica")
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "id_paciente_datos", unique = true, nullable = false)
 	public Long getIdPacienteDatos() {
 		return this.idPacienteDatos;

@@ -155,6 +155,7 @@ $(document).ready(function(){
 });
 
 var title = "Paciente";
+var url = "pacient-ajax.htm";
 </script>
 </body>
 </html>
