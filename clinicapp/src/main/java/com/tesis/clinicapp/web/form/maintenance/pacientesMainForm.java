@@ -1,7 +1,16 @@
 package com.tesis.clinicapp.web.form.maintenance;
 
+/**
+ * @author dasm
+ * 
+ * This class maps to form in "pacientes" maintenance. Each property maps to a field inside the form.
+ * We don't need to worry about type conversion because there is a "conversion service" declared in 
+ * aplicationContext.xml
+ *
+ */
 public class pacientesMainForm {
 	
+	private Long id;
 	private String names;
 	private String surnames;
 	private Character sex;
@@ -13,6 +22,12 @@ public class pacientesMainForm {
 	private String action;
 	
 	
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
 	public String getNames() {
 		return names;
 	}

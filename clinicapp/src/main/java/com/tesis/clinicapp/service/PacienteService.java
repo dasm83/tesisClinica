@@ -5,4 +5,6 @@ import com.tesis.clinicapp.util.GenericService;
 
 public interface PacienteService extends GenericService<PacienteDatos, Long> {
 
+	public PacienteDatos findByAltId(String dui);
+
 }

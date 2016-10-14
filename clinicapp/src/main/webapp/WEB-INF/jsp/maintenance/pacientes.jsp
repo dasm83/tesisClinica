@@ -12,6 +12,8 @@
 <body>
 	
 	<a id="newMaintenance" href="#"><i class="fa fa-plus-square-o" aria-hidden="true"></i> Nuevo Paciente</a>
+	<a id="delMaintenance" href="#" style="margin-left:10px"><i class="fa fa-minus-square-o" aria-hidden="true"></i> Eliminar Paciente</a>
+	<a id="updMaintenance" href="#" style="margin-left:10px"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Modificar Paciente</a>
 	<table id="maintenanceTable" class="table table-striped table-bordered" width="100%">
 		<thead>
 			<tr>
@@ -48,12 +50,15 @@
 	
 	<form:form id="maintenanceForm" method="POST" commandName="pacientesMainForm" action="">
 		<div id="modalContent" style="display:none"> <!-- This div's content is gonna be placed inside modal -->
+			<div style="display:none">
+				<form:input path="id"/>
+			</div>
 			<div class="row">
 				<div class="label col">
 					<label>Nombres:</label>
 				</div>
 				<div class="input col">
-					<form:input path="names"/>
+					<form:input path="names" cssClass="text"/>
 				</div>
 			</div>
 			<div class="row">
@@ -61,7 +66,7 @@
 					<label>Apellidos:</label>
 				</div>
 				<div class="input col">
-					<form:input path="surnames"/>
+					<form:input path="surnames" cssClass="text"/>
 				</div>
 			</div>
 			<div class="row">
@@ -80,7 +85,7 @@
 					<label>Edad:</label>
 				</div>
 				<div class="input col">
-					<form:input path="age"/>
+					<form:input path="age" cssClass="number"/>
 				</div>
 			</div>
 			<div class="row">
@@ -88,7 +93,7 @@
 					<label>DUI:</label>
 				</div>
 				<div class="input col">
-					<form:input path="dui"/>
+					<form:input path="dui" cssClass="number"/>
 				</div>
 			</div>
 			<div class="row">
@@ -96,7 +101,7 @@
 					<label>NIT:</label>
 				</div>
 				<div class="input col">
-					<form:input path="nit"/>
+					<form:input path="nit" cssClass="number"/>
 				</div>
 			</div>
 			<div class="row">
@@ -104,7 +109,7 @@
 					<label>Profesión:</label>
 				</div>
 				<div class="input col">
-					<form:input path="job"/>
+					<form:input path="job" cssClass="text"/>
 				</div>
 			</div>
 			<div class="row">
@@ -112,7 +117,7 @@
 					<label>Nacionalidad:</label>
 				</div>
 				<div class="input col">
-					<form:input path="nation"/>
+					<form:input path="nation" cssClass="text"/>
 				</div>
 			</div>
 		</div>
@@ -156,6 +161,44 @@ $(document).ready(function(){
 
 var title = "Paciente";
 var url = "pacient-ajax.htm";
+
+// override
+function loadData(dialog){
+	var row = $("table.dataTable tbody tr.active");
+	dialog.find("#id_temp").val(row.children("td:eq(0)").text());
+	dialog.find("#names_temp").val(row.children("td:eq(1)").text());
+	dialog.find("#surnames_temp").val(row.children("td:eq(2)").text());
+	dialog.find("#sex_temp").val(row.children("td:eq(3)").text());
+	dialog.find("#age_temp").val(row.children("td:eq(4)").text());
+	dialog.find("#dui_temp").val(row.children("td:eq(5)").text());
+	dialog.find("#nit_temp").val(row.children("td:eq(6)").text());
+	dialog.find("#job_temp").val(row.children("td:eq(7)").text());
+	dialog.find("#nation_temp").val(row.children("td:eq(8)").text());
+}
+
+//override
+function validate(){
+	var valid = true;
+	
+	if(!$("#myModal #names_temp").val()){
+		$("#myModal #names_temp").addClass("error");
+		valid = false;
+	}
+	if(!$("#myModal #surnames_temp").val()){
+		$("#myModal #surnames_temp").addClass("error");
+		valid = false;
+	}
+	if(!$("#myModal #dui_temp").val()){
+		$("#myModal #dui_temp").addClass("error");
+		valid = false;
+	}
+	if(!$("#myModal #nit_temp").val()){
+		$("#myModal #nit_temp").addClass("error");
+		valid = false;
+	}
+	
+	return valid;
+}
 </script>
 </body>
 </html>

@@ -18,6 +18,8 @@
 
 <!-- JQUERY HAS TO BE PRESENT BEFORE ANY OTHER JS FILE -->
 <script src="<c:url value="/resources/js/jquery-2.2.3.min.js" />"></script>
+<!-- CALLING THIS BEFORE VIEW DRAWING, SO WE CAN OVERRIDE FUNCTIONS -->
+<script src="<c:url value="/resources/js/clinicapp.js" />"></script>
 
 <sitemesh:write property='head'/>
 
@@ -165,6 +167,5 @@
 <script src="<c:url value="/resources/js/bootstrap.min.js" />"></script>
 <script src="<c:url value="/resources/js/metisMenu.min.js" />"></script>
 <script src="<c:url value="/resources/js/sb-admin-2.js" />"></script>
-<script src="<c:url value="/resources/js/clinicapp.js" />"></script>
 </body>
 </html>

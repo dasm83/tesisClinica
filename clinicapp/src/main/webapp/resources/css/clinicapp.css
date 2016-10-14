@@ -15,3 +15,11 @@
 #myModal .input > input{
 	width: 60%
 }
+
+/********* status style *********/
+table.dataTable tbody tr.active td{
+	background-color: #337ab7; 
+}
+.error{
+	background-color: #a94442;
+}

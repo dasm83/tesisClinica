@@ -5,4 +5,6 @@ import com.tesis.clinicapp.util.GenericDAO;
 
 public interface PacienteDAO extends GenericDAO<PacienteDatos, Long> {
 
+	PacienteDatos findByAltId(String dui);
+
 }
