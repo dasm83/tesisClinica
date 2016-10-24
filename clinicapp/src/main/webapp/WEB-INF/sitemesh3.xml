@@ -2,4 +2,5 @@
 <sitemesh>
   <mapping path="/*.htm" decorator="/WEB-INF/decorators/base_layout.jsp"/>
   <mapping path="*-ajax.htm" exclue="true"/>
+  <mapping path="/login.htm" exclue="true"/>
 </sitemesh>

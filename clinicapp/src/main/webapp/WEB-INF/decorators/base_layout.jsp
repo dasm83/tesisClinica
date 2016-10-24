@@ -44,10 +44,8 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">Dashboard</a></li>
-            <li><a href="#">Settings</a></li>
-            <li><a href="#">Nombre del Usuario</a></li>
-            <li><a href="#">Salir</a></li>
+            <li><a href="#">${pageContext.request.userPrincipal.name}</a></li>
+            <li><a href="/j_spring_security_logout">Salir</a></li>
           </ul>
         </div>
       </div>
