@@ -45,7 +45,7 @@
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
             <li><a href="#">${pageContext.request.userPrincipal.name}</a></li>
-            <li><a href="/j_spring_security_logout">Salir</a></li>
+            <li><a href="<c:url value="/logout" />">Salir</a></li>
           </ul>
         </div>
       </div>

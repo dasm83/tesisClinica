@@ -7,9 +7,10 @@
     http://www.springframework.org/schema/security/spring-security.xsd">
   
 	<http authentication-manager-ref="authManager">
-		<form-login login-page="/login.htm" authentication-failure-url="/login.htm" login-processing-url="/login.htm"/>
-		<logout/>
-		<csrf/>
+		<form-login login-page="/login.htm" authentication-failure-url="/login.htm?error" login-processing-url="/login.htm"/>
+		<logout logout-success-url="/login.htm?logout"/>
+		<csrf disabled="true"/>
+		<access-denied-handler error-page="/denied.htm"/>
         <intercept-url pattern="/login.htm" access="permitAll"/>
         <intercept-url pattern="/resources/**" access="permitAll"/>
         <intercept-url pattern="/**" access="authenticated"/>

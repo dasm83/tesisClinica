@@ -22,6 +22,16 @@
                     <div class="panel-body">
                         <form role="form" action="login.htm" method='POST'>
                             <fieldset>
+                            	<c:if test="${param.error != null}">
+					                <div class="alert alert-danger">
+					                    Usuario o contraseña inválidos.
+					                </div>
+					            </c:if>
+					            <c:if test="${param.logout != null}">
+					                <div class="alert alert-success">
+					                    Ha salido exitosamente.
+					                </div>
+					            </c:if>
                                 <div class="form-group">
                                     <input class="form-control" placeholder="Usuario" id="username" name="username" type="text" autofocus>
                                 </div>
@@ -30,7 +40,6 @@
                                 </div>
                                 <button type="submit" class="btn btn-default pull-right">Entrar</button>
                             </fieldset>
-                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                         </form>
                     </div>
                 </div>

@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-public class LoginController {
+public class SecurityController {
 	
 	private static final String URL = "/login.htm";
 
@@ -15,6 +15,12 @@ public class LoginController {
 	public String get(HttpServletRequest request){
 		request.setAttribute("title", "Logueo");
 		return "login";
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/denied.htm")
+	public String getDenied(HttpServletRequest request){
+		request.setAttribute("title", "Acceso Denegado");
+		return "denied";
 	}
 	
 }
