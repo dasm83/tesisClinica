@@ -15,30 +15,27 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.tesis.clinicapp.model.Laboratorista;
 import com.tesis.clinicapp.model.PacienteDatos;
 import com.tesis.clinicapp.service.PacienteService;
-//import com.tesis.clinicapp.service.PacienteService;
-import com.tesis.clinicapp.web.form.maintenance.laboratoristaMainForm;
-
+import com.tesis.clinicapp.web.form.maintenance.examenesMainForm;
 
 @Controller
-public class LaboratoristaMaintenanceController {
-	
+public class ExameneMaintenanceController {
+
 	/**
 	 * where the request is coming from
 	 */
-	private static final String URL = "/maintenance/laboratorista.htm";
-	private static final String URLx = "/maintenance/laboratorista-ajax.htm";
+	private static final String URL = "/maintenance/examenes.htm";
+	private static final String URLx = "/maintenance/exam-ajax.htm";
 	/**
 	 * name of the jsp which corresponds to URL
 	 */
-	private static final String JSP = "/maintenance/laboratorista";
-	private static final String JSPx = "/maintenance/laboratorista-ajax";
+	private static final String JSP = "/maintenance/examenes";
+	private static final String JSPx = "/maintenance/exam-ajax";
 	/**
 	 * name of the form created in JSP
 	 */
-	private static final String FORM = "laboratoristaMainForm";
+	private static final String FORM = "examenesMainForm";
 	
 	/**
 	 * A service instance to access PacienteDatos table.
@@ -59,7 +56,8 @@ public class LaboratoristaMaintenanceController {
 		/// we have to set the view's title (text inserted on title html tag)
 //		request.setAttribute("title", "Pacientes");
 		
-		return new ModelAndView(JSP,FORM,new laboratoristaMainForm());
+		return new ModelAndView(JSP,FORM,new examenesMainForm());
 		
 	}
+	
 }

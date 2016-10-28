@@ -39,6 +39,7 @@
 	      </div>
 	      <div class="modal-body">
 	      	<!-- we'll be placing our content here -->
+	      	
 	      </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
