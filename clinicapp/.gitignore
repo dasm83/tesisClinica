@@ -1,6 +1,6 @@
 /target/
 /home/
-.classpath
-.project
+/.classpath
+/.project
 *.class
-.settings/
+/.settings/
