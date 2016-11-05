@@ -1,5 +1,5 @@
 package com.tesis.clinicapp.model;
-// Generated 10-05-2016 09:37:42 PM by Hibernate Tools 4.3.1.Final
+// Generated 11-02-2016 09:42:18 PM by Hibernate Tools 5.2.0.Beta1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -17,41 +17,39 @@ import javax.persistence.Table;
 @Table(name = "clasificacion", schema = "clinica")
 public class Clasificacion implements java.io.Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -7905873427439247032L;
-	private int idClasificacion;
+	private int id;
 	private String categoria;
 	private String descripcion;
-	private Set<Examen> examens = new HashSet<Examen>(0);
+	private Set<CatalogoExamen> catalogoExamens = new HashSet<CatalogoExamen>(0);
 
 	public Clasificacion() {
 	}
 
-	public Clasificacion(int idClasificacion) {
-		this.idClasificacion = idClasificacion;
-	}
-
-	public Clasificacion(int idClasificacion, String categoria, String descripcion, Set<Examen> examens) {
-		this.idClasificacion = idClasificacion;
+	public Clasificacion(int id, String categoria, String descripcion) {
+		this.id = id;
 		this.categoria = categoria;
 		this.descripcion = descripcion;
-		this.examens = examens;
+	}
+
+	public Clasificacion(int id, String categoria, String descripcion, Set<CatalogoExamen> catalogoExamens) {
+		this.id = id;
+		this.categoria = categoria;
+		this.descripcion = descripcion;
+		this.catalogoExamens = catalogoExamens;
 	}
 
 	@Id
 
-	@Column(name = "id_clasificacion", unique = true, nullable = false)
-	public int getIdClasificacion() {
-		return this.idClasificacion;
+	@Column(name = "id", unique = true, nullable = false)
+	public int getId() {
+		return this.id;
 	}
 
-	public void setIdClasificacion(int idClasificacion) {
-		this.idClasificacion = idClasificacion;
+	public void setId(int id) {
+		this.id = id;
 	}
 
-	@Column(name = "categoria")
+	@Column(name = "categoria", nullable = false)
 	public String getCategoria() {
 		return this.categoria;
 	}
@@ -60,7 +58,7 @@ public class Clasificacion implements java.io.Serializable {
 		this.categoria = categoria;
 	}
 
-	@Column(name = "descripcion")
+	@Column(name = "descripcion", nullable = false)
 	public String getDescripcion() {
 		return this.descripcion;
 	}
@@ -70,12 +68,12 @@ public class Clasificacion implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "clasificacion")
-	public Set<Examen> getExamens() {
-		return this.examens;
+	public Set<CatalogoExamen> getCatalogoExamens() {
+		return this.catalogoExamens;
 	}
 
-	public void setExamens(Set<Examen> examens) {
-		this.examens = examens;
+	public void setCatalogoExamens(Set<CatalogoExamen> catalogoExamens) {
+		this.catalogoExamens = catalogoExamens;
 	}
 
 }

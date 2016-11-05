@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.tesis.clinicapp.model.Laboratorista;
-import com.tesis.clinicapp.model.PacienteDatos;
+import com.tesis.clinicapp.model.Paciente;
 import com.tesis.clinicapp.service.PacienteService;
 //import com.tesis.clinicapp.service.PacienteService;
 import com.tesis.clinicapp.web.form.maintenance.laboratoristaMainForm;

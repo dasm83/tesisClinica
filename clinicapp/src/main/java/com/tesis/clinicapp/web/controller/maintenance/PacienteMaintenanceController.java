@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.tesis.clinicapp.model.PacienteDatos;
+import com.tesis.clinicapp.model.Paciente;
 import com.tesis.clinicapp.service.PacienteService;
 import com.tesis.clinicapp.web.form.maintenance.pacientesMainForm;
 
@@ -49,7 +49,7 @@ public class PacienteMaintenanceController {
 	public ModelAndView get(HttpServletRequest request) throws JsonGenerationException, JsonMappingException, IOException{
 		
 		/// we obtain a list with all the patients available in database
-		List<PacienteDatos> pacientes = pacientService.findAll();
+		List<Paciente> pacientes = pacientService.findAll();
 		/// patients list is converted to a json array
 		ObjectMapper mapper = new ObjectMapper();
 		request.setAttribute("pacientList", mapper.writeValueAsString(pacientes));
@@ -63,10 +63,10 @@ public class PacienteMaintenanceController {
 	
 	@RequestMapping(method = RequestMethod.POST, value = URLx)
 	public String postX(HttpServletRequest request, HttpServletResponse response, pacientesMainForm form){
-		PacienteDatos paciente = new PacienteDatos();
+		Paciente paciente = new Paciente();
 		
 		if(form.getAction().equals("I") || form.getAction().equals("U")){ /// doing insert or update; creating or modifying
-			paciente.setIdPacienteDatos(form.getId());
+			paciente.setId(form.getId());
 			paciente.setNombres(form.getNames());
 			paciente.setApellidos(form.getSurnames());
 			paciente.setDui(form.getDui());
@@ -75,6 +75,12 @@ public class PacienteMaintenanceController {
 			paciente.setEdad(form.getAge());
 			paciente.setProfesion(form.getJob());
 			paciente.setNacionalidad(form.getNation());
+			paciente.setEstadoCivil(form.getMaritalStatus());
+			paciente.setDepartamento(form.getDepartament());
+			paciente.setMunicipio(form.getMunicipio());
+			paciente.setDireccion(form.getAddress());
+			paciente.setTelefono(form.getPhone());
+			paciente.setEmail(form.getEmail());
 			
 			pacientService.saveOrUpdate(paciente);
 			/// this indicates an OK status

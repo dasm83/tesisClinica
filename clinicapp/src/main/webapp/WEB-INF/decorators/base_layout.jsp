@@ -57,8 +57,8 @@
                             <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Modulo Empleado<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
+                            <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Expedientes<span class="fa arrow"></span></a>
+                        <!--     <ul class="nav nav-second-level">
                                 <li>
                                     <a href="flot.html">Flot Charts</a>
                                 </li>
@@ -66,16 +66,28 @@
                                     <a href="morris.html">Morris.js Charts</a>
                                 </li>
                             </ul>
-                            <!-- /.nav-second-level -->
+                            	/.nav-second-level 
+                        </li>-->
+                        
+                        <li>
+                            <a href="#"><i class="fa fa-table fa-fw"></i> Reportes/consultas</a>
                         </li>
                         <li>
-                            <a href="tables.html"><i class="fa fa-table fa-fw"></i> Reportes/consultas</a>
+                            <a href="maintenance/pacientes.htm"><i class="fa fa-edit fa-fw"></i> Pacientes</a>
                         </li>
                         <li>
-                            <a href="forms.html"><i class="fa fa-edit fa-fw"></i> Planilla</a>
+                            <a href="examenes.htm"><i class="fa fa-files-o fa-fw"></i>Examenes</a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-wrench fa-fw"></i> Accion Personal<span class="fa arrow"></span></a>
+                            <a href="laboratorista.htm"><i class="fa fa-wrench fa-fw"></i>Laboratorista</a>
+                        </li>
+                        <li>
+                            <a href="laboratorista.htm"><i class="fa fa-sitemap fa-fw"></i>citas</a>
+                        </li>
+                        
+                        
+                    <!--      <li>
+                            <a href="examenes.htm"><i class="fa fa-wrench fa-fw"></i> Examenes<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
                                     <a href="panels-wells.html">Panels and Wells</a>
@@ -96,10 +108,10 @@
                                     <a href="grid.html">Grid</a>
                                 </li>
                             </ul>
-                            <!-- /.nav-second-level -->
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-sitemap fa-fw"></i> Multi-Level Dropdown<span class="fa arrow"></span></a>
+                            <!-- /.nav-second-level 
+                        </li>-->
+                     <!--   <li>
+                            <a href="/maintenance/laboratorista.htm"><i class="fa fa-sitemap fa-fw"></i>Laboratorista<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
                                     <a href="#">Second Level Item</a>
@@ -126,10 +138,10 @@
                                     <!-- /.nav-third-level -->
                                 </li>
                             </ul>
-                            <!-- /.nav-second-level -->
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-files-o fa-fw"></i> Sample Pages<span class="fa arrow"></span></a>
+                            <!-- /.nav-second-level 
+                        </li> -->
+                     <!--   <li>
+                            <a href="#"><i class="fa fa-files-o fa-fw"></i>Citas<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
                                     <a href="blank.html">Blank Page</a>
@@ -138,8 +150,8 @@
                                     <a href="login.html">Login Page</a>
                                 </li>
                             </ul>
-                            <!-- /.nav-second-level -->
-                        </li>
+                          <!--  /.nav-second-level 
+                        </li>-->
                     </ul>
                 </div>
                 <!-- /.sidebar-collapse -->

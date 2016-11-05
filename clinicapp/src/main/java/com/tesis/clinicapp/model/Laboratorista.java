@@ -1,5 +1,5 @@
 package com.tesis.clinicapp.model;
-// Generated 10-05-2016 09:37:42 PM by Hibernate Tools 4.3.1.Final
+// Generated 11-02-2016 09:42:18 PM by Hibernate Tools 5.2.0.Beta1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -17,32 +17,33 @@ import javax.persistence.Table;
 @Table(name = "laboratorista", schema = "clinica")
 public class Laboratorista implements java.io.Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -3836441663332099534L;
-	private int idLaboratorista;
-	private String nombre;
-	private String apellido;
+	private int id;
+	private String nombres;
+	private String apellidos;
 	private String profesion;
 	private Integer edad;
 	private String dui;
 	private String nit;
-	private String jvplc;
+	private int jvplc;
 	private Set<Examen> examens = new HashSet<Examen>(0);
 
 	public Laboratorista() {
 	}
 
-	public Laboratorista(int idLaboratorista) {
-		this.idLaboratorista = idLaboratorista;
+	public Laboratorista(int id, String nombres, String apellidos, String dui, String nit, int jvplc) {
+		this.id = id;
+		this.nombres = nombres;
+		this.apellidos = apellidos;
+		this.dui = dui;
+		this.nit = nit;
+		this.jvplc = jvplc;
 	}
 
-	public Laboratorista(int idLaboratorista, String nombre, String apellido, String profesion, Integer edad,
-			String dui, String nit, String jvplc, Set<Examen> examens) {
-		this.idLaboratorista = idLaboratorista;
-		this.nombre = nombre;
-		this.apellido = apellido;
+	public Laboratorista(int id, String nombres, String apellidos, String profesion, Integer edad, String dui,
+			String nit, int jvplc, Set<Examen> examens) {
+		this.id = id;
+		this.nombres = nombres;
+		this.apellidos = apellidos;
 		this.profesion = profesion;
 		this.edad = edad;
 		this.dui = dui;
@@ -53,31 +54,31 @@ public class Laboratorista implements java.io.Serializable {
 
 	@Id
 
-	@Column(name = "id_laboratorista", unique = true, nullable = false)
-	public int getIdLaboratorista() {
-		return this.idLaboratorista;
+	@Column(name = "id", unique = true, nullable = false)
+	public int getId() {
+		return this.id;
 	}
 
-	public void setIdLaboratorista(int idLaboratorista) {
-		this.idLaboratorista = idLaboratorista;
+	public void setId(int id) {
+		this.id = id;
 	}
 
-	@Column(name = "nombre")
-	public String getNombre() {
-		return this.nombre;
+	@Column(name = "nombres", nullable = false)
+	public String getNombres() {
+		return this.nombres;
 	}
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setNombres(String nombres) {
+		this.nombres = nombres;
 	}
 
-	@Column(name = "apellido")
-	public String getApellido() {
-		return this.apellido;
+	@Column(name = "apellidos", nullable = false)
+	public String getApellidos() {
+		return this.apellidos;
 	}
 
-	public void setApellido(String apellido) {
-		this.apellido = apellido;
+	public void setApellidos(String apellidos) {
+		this.apellidos = apellidos;
 	}
 
 	@Column(name = "profesion")
@@ -98,7 +99,7 @@ public class Laboratorista implements java.io.Serializable {
 		this.edad = edad;
 	}
 
-	@Column(name = "dui")
+	@Column(name = "dui", nullable = false)
 	public String getDui() {
 		return this.dui;
 	}
@@ -107,7 +108,7 @@ public class Laboratorista implements java.io.Serializable {
 		this.dui = dui;
 	}
 
-	@Column(name = "nit")
+	@Column(name = "nit", nullable = false)
 	public String getNit() {
 		return this.nit;
 	}
@@ -116,12 +117,12 @@ public class Laboratorista implements java.io.Serializable {
 		this.nit = nit;
 	}
 
-	@Column(name = "jvplc")
-	public String getJvplc() {
+	@Column(name = "jvplc", nullable = false)
+	public int getJvplc() {
 		return this.jvplc;
 	}
 
-	public void setJvplc(String jvplc) {
+	public void setJvplc(int jvplc) {
 		this.jvplc = jvplc;
 	}
 
