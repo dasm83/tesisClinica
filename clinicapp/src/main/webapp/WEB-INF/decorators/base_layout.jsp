@@ -73,7 +73,7 @@
                             <a href="#"><i class="fa fa-table fa-fw"></i> Reportes/consultas</a>
                         </li>
                         <li>
-                            <a href="pacientes.htm"><i class="fa fa-edit fa-fw"></i> Pacientes</a>
+                            <a href="maintenance/pacientes.htm"><i class="fa fa-edit fa-fw"></i> Pacientes</a>
                         </li>
                         <li>
                             <a href="examenes.htm"><i class="fa fa-files-o fa-fw"></i>Examenes</a>
