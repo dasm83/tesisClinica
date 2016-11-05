@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -20,7 +21,9 @@ import com.tesis.clinicapp.service.PacienteService;
 import com.tesis.clinicapp.web.form.maintenance.examenesMainForm;
 
 @Controller
-public class ExameneMaintenanceController {
+public class ExamenMaintenanceController {
+	
+	private static final Logger logger = Logger.getLogger(ExamenMaintenanceController.class);
 
 	/**
 	 * where the request is coming from
