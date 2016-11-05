@@ -20,7 +20,12 @@ public class pacientesMainForm {
 	private String job;
 	private String nation;
 	private String action;
-	
+	private String maritalStatus;
+	private String municipio;
+	private String departament;
+	private String address;
+	private String phone;
+	private String email;
 	
 	public Long getId() {
 		return id;
@@ -82,5 +87,42 @@ public class pacientesMainForm {
 	public void setAction(String action) {
 		this.action = action;
 	}
+	public String getMaritalStatus() {
+		return maritalStatus;
+	}
+	public void setMaritalStatus(String maritalStatus) {
+		this.maritalStatus = maritalStatus;
+	}
+	public String getMunicipio() {
+		return municipio;
+	}
+	public void setMunicipio(String municipio) {
+		this.municipio = municipio;
+	}
+	public String getDepartament() {
+		return departament;
+	}
+	public void setDepartament(String departament) {
+		this.departament = departament;
+	}
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	public String getPhone() {
+		return phone;
+	}
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
+	
 }

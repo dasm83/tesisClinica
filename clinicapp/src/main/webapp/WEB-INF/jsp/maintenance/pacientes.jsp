@@ -49,7 +49,149 @@
 	</div><!-- /.modal -->
 	
 	<form:form id="maintenanceForm" method="POST" commandName="pacientesMainForm" action="">
-		<div id="modalContent" style="display:none"> <!-- This div's content is gonna be placed inside modal -->
+		<div class="col-md-6" id="modalContent" style="display:none" >
+            <div class="panel with-nav-tabs panel-default">
+                <div class="panel-heading">
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a href="#tab1default" data-toggle="tab">Informacion del Paciente</a></li>
+                            <li><a href="#tab2default" data-toggle="tab">Contactos</a></li>                          
+                        </ul>
+                </div>
+				<div class="panel-body">
+                    <div class="tab-content">
+                        <div class="tab-pane fade in active" id="tab1default">
+                        	<div style="display:none">
+								<form:input path="id"/>
+							</div>
+							<div class="row">
+								<div class="label col">
+									<label>Nombres:</label>
+								</div>
+								<div class="input col">
+									<form:input path="names" cssClass="text"/>
+								</div>
+							</div>
+							<div class="row">
+								<div class="label col">
+									<label>Apellidos:</label>
+								</div>
+								<div class="input col">
+									<form:input path="surnames" cssClass="text"/>
+								</div>
+							</div>
+							<div class="row">
+								<div class="label col">
+									<label>Sexo:</label>
+								</div>
+								<div class="input col">
+									<form:select path="sex">
+										<form:option value="M">M</form:option>
+										<form:option value="F">F</form:option>
+									</form:select>
+								</div>
+							</div>
+							<div class="row">
+								<div class="label col">
+									<label>Edad:</label>
+								</div>
+								<div class="input col">
+									<form:input path="age" cssClass="number"/>
+								</div>
+							</div>
+							<div class="row">
+								<div class="label col">
+									<label>DUI:</label>
+								</div>
+								<div class="input col">
+									<form:input path="dui" cssClass="number"/>
+								</div>
+							</div>
+							<div class="row">
+								<div class="label col">
+									<label>NIT:</label>
+								</div>
+								<div class="input col">
+									<form:input path="nit" cssClass="number"/>
+								</div>
+							</div>
+							<div class="row">
+								<div class="label col">
+									<label>Profesión:</label>
+								</div>
+								<div class="input col">
+									<form:input path="job" cssClass="text"/>
+								</div>
+							</div>
+							<div class="row">
+								<div class="label col">
+									<label>Nacionalidad:</label>
+								</div>
+								<div class="input col">
+									<form:input path="nation" cssClass="text"/>
+								</div>
+							</div>
+							<div class="row">
+								<div class="label col">
+									<label>Estado Civil:</label>
+								</div>
+								<div class="input col">
+									<form:input path="maritalStatus" cssClass="text"/>
+								</div>
+							</div>
+						</div>
+			 <div class="tab-pane fade" id="tab2default">
+			 				<div class="row">
+								<div class="label col">
+									<label>Departamento:</label>
+								</div>
+								<div class="input col">
+									<form:input path="departament" cssClass="text"/>
+								</div>
+							</div>
+			 				<div class="row">
+								<div class="label col">
+									<label>Municipio:</label>
+								</div>
+								<div class="input col">
+									<form:input path="municipio" cssClass="text"/>
+								</div>
+							</div>
+							<div class="row">
+								<div class="label col">
+									<label>Direccion:</label>
+								</div>
+								<div class="input col">
+									<form:input path="address" cssClass="text"/>
+								</div>
+							</div>
+							<div class="row">
+								<div class="label col">
+									<label>Telefono:</label>
+								</div>
+								<div class="input col">
+									<form:input path="phone" cssClass="text"/>
+								</div>
+							</div>
+							<div class="row">
+								<div class="label col">
+									<label>Email:</label>
+								</div>
+								<div class="input col">
+									<form:input path="email" cssClass="text"/>
+								</div>
+							</div>	 
+			 </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+				
+		
+		
+		
+		
+		
+	<!--	<div id="modalContent" style="display:none"> <!-- This div's content is gonna be placed inside modal 
 			<div style="display:none">
 				<form:input path="id"/>
 			</div>
@@ -120,7 +262,7 @@
 					<form:input path="nation" cssClass="text"/>
 				</div>
 			</div>
-		</div>
+		</div> -->
 		
 		<form:input path="action" cssStyle="display:none"/>
 	</form:form>
@@ -132,7 +274,7 @@ $(document).ready(function(){
 	var table = $('#maintenanceTable').DataTable( {
 		"aaData": data,
 		"aoColumns": [
-			{ "mData": "idPacienteDatos"},
+			{ "mData": "id"},
 			{ "mData": "nombres"},
 			{ "mData": "apellidos"},
 			{ "mData": "sexo"},

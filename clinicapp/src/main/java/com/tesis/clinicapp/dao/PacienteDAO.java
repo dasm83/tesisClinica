@@ -1,10 +1,10 @@
 package com.tesis.clinicapp.dao;
 
-import com.tesis.clinicapp.model.PacienteDatos;
+import com.tesis.clinicapp.model.Paciente;
 import com.tesis.clinicapp.util.GenericDAO;
 
-public interface PacienteDAO extends GenericDAO<PacienteDatos, Long> {
+public interface PacienteDAO extends GenericDAO<Paciente, Long> {
 
-	PacienteDatos findByAltId(String dui);
+	Paciente findByAltId(String dui);
 
 }
