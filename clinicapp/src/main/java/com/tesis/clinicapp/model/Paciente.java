@@ -19,6 +19,10 @@ import javax.persistence.Table;
 @Table(name = "paciente", schema = "clinica")
 public class Paciente implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7706793308653839954L;
 	private Long id;
 	private String nombres;
 	private String apellidos;
@@ -40,9 +44,8 @@ public class Paciente implements java.io.Serializable {
 	public Paciente() {
 	}
 
-	public Paciente(Long id, String nombres, String apellidos, char sexo, int edad, String dui, String nit,
+	public Paciente(String nombres, String apellidos, char sexo, int edad, String dui, String nit,
 			String nacionalidad, String municipio, String departamento, String direccion, String telefono) {
-		this.id = id;
 		this.nombres = nombres;
 		this.apellidos = apellidos;
 		this.sexo = sexo;
@@ -56,10 +59,9 @@ public class Paciente implements java.io.Serializable {
 		this.telefono = telefono;
 	}
 
-	public Paciente(Long id, String nombres, String apellidos, char sexo, int edad, String dui, String nit,
+	public Paciente(String nombres, String apellidos, char sexo, int edad, String dui, String nit,
 			String nacionalidad, String profesion, String estadoCivil, String municipio, String departamento,
 			String direccion, String email, String telefono, Set<Examen> examens, Set<Citas> citases) {
-		this.id = id;
 		this.nombres = nombres;
 		this.apellidos = apellidos;
 		this.sexo = sexo;

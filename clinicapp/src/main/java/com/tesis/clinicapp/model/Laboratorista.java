@@ -6,6 +6,8 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -17,7 +19,11 @@ import javax.persistence.Table;
 @Table(name = "laboratorista", schema = "clinica")
 public class Laboratorista implements java.io.Serializable {
 
-	private int id;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7398199516231337190L;
+	private Long id;
 	private String nombres;
 	private String apellidos;
 	private String profesion;
@@ -30,8 +36,7 @@ public class Laboratorista implements java.io.Serializable {
 	public Laboratorista() {
 	}
 
-	public Laboratorista(int id, String nombres, String apellidos, String dui, String nit, int jvplc) {
-		this.id = id;
+	public Laboratorista(String nombres, String apellidos, String dui, String nit, int jvplc) {
 		this.nombres = nombres;
 		this.apellidos = apellidos;
 		this.dui = dui;
@@ -39,9 +44,8 @@ public class Laboratorista implements java.io.Serializable {
 		this.jvplc = jvplc;
 	}
 
-	public Laboratorista(int id, String nombres, String apellidos, String profesion, Integer edad, String dui,
+	public Laboratorista(String nombres, String apellidos, String profesion, Integer edad, String dui,
 			String nit, int jvplc, Set<Examen> examens) {
-		this.id = id;
 		this.nombres = nombres;
 		this.apellidos = apellidos;
 		this.profesion = profesion;
@@ -53,13 +57,13 @@ public class Laboratorista implements java.io.Serializable {
 	}
 
 	@Id
-
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
-	public int getId() {
+	public Long getId() {
 		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

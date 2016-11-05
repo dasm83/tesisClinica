@@ -18,8 +18,8 @@
 		<thead>
 			<tr>
 				<th>Id</th>
-				<th>Nombre</th>
-				<th>Descripcion</th>
+				<th>Tipo</th>
+				<th>Laboratorista</th>
 			</tr>
 		</thead>
 	</table>
@@ -85,13 +85,13 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
-	var data =eval('${examenesList}');
+	var data =eval('${examsList}');
 	var table = $('#maintenanceTable').DataTable( {
 		"aaData": data,
 		"aoColumns": [
-			{ "mData": "idExamen"},
-			{ "mData": "nombreExamen"},
-			{ "mData": "descripcion"},
+			{ "mData": "id"},
+			{ "mData": "catalogoExamen.id"},
+			{ "mData": "laboratorista.id"},
 		],
 		"language":{
 			"info": "Mostrando  _START_ a _END_ de _MAX_",

@@ -6,6 +6,8 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -19,7 +21,11 @@ import javax.persistence.Table;
 @Table(name = "catalogo_examen", schema = "clinica")
 public class CatalogoExamen implements java.io.Serializable {
 
-	private int id;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1825701132245904232L;
+	private Long id;
 	private Clasificacion clasificacion;
 	private String nombre;
 	private String descripcion;
@@ -29,16 +35,14 @@ public class CatalogoExamen implements java.io.Serializable {
 	public CatalogoExamen() {
 	}
 
-	public CatalogoExamen(int id, Clasificacion clasificacion, String nombre, String descripcion) {
-		this.id = id;
+	public CatalogoExamen(Clasificacion clasificacion, String nombre, String descripcion) {
 		this.clasificacion = clasificacion;
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 	}
 
-	public CatalogoExamen(int id, Clasificacion clasificacion, String nombre, String descripcion,
+	public CatalogoExamen(Clasificacion clasificacion, String nombre, String descripcion,
 			Set<CatalogoItemsExamen> catalogoItemsExamens, Set<Examen> examens) {
-		this.id = id;
 		this.clasificacion = clasificacion;
 		this.nombre = nombre;
 		this.descripcion = descripcion;
@@ -47,13 +51,13 @@ public class CatalogoExamen implements java.io.Serializable {
 	}
 
 	@Id
-
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
-	public int getId() {
+	public Long getId() {
 		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
