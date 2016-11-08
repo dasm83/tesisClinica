@@ -1,10 +1,12 @@
 package com.tesis.clinicapp.web.form.maintenance;
 
+import java.util.Date;
+
 public class examenesMainForm {
 	
 	private Long id;
-	private String name;
-	private String description;
+	private Date fecha;
+	private String observaciones;
 	private String action;
 	
 	public String getAction() {
@@ -19,17 +21,18 @@ public class examenesMainForm {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public String getName() {
-		return name;
+	public Date getFecha() {
+		return fecha;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setFecha(Date fecha) {
+		this.fecha = fecha;
 	}
-	public String getDescription() {
-		return description;
+	public String getObservaciones() {
+		return observaciones;
 	}
-	public void setDescription(String description) {
-		this.description = description;
+	public void setObservaciones(String observaciones) {
+		this.observaciones = observaciones;
 	}
+	
 
 }

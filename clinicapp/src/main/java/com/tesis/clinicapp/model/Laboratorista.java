@@ -17,7 +17,7 @@ import javax.persistence.Table;
 @Table(name = "laboratorista", schema = "clinica")
 public class Laboratorista implements java.io.Serializable {
 
-	private int id;
+	private Long id;
 	private String nombres;
 	private String apellidos;
 	private String profesion;
@@ -30,7 +30,7 @@ public class Laboratorista implements java.io.Serializable {
 	public Laboratorista() {
 	}
 
-	public Laboratorista(int id, String nombres, String apellidos, String dui, String nit, int jvplc) {
+	public Laboratorista(Long id, String nombres, String apellidos, String dui, String nit, int jvplc) {
 		this.id = id;
 		this.nombres = nombres;
 		this.apellidos = apellidos;
@@ -39,7 +39,7 @@ public class Laboratorista implements java.io.Serializable {
 		this.jvplc = jvplc;
 	}
 
-	public Laboratorista(int id, String nombres, String apellidos, String profesion, Integer edad, String dui,
+	public Laboratorista(Long id, String nombres, String apellidos, String profesion, Integer edad, String dui,
 			String nit, int jvplc, Set<Examen> examens) {
 		this.id = id;
 		this.nombres = nombres;
@@ -55,11 +55,11 @@ public class Laboratorista implements java.io.Serializable {
 	@Id
 
 	@Column(name = "id", unique = true, nullable = false)
-	public int getId() {
+	public Long getId() {
 		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

@@ -17,7 +17,7 @@
 	<table id="maintenanceTable" class="table table-striped table-bordered" width="100%">
 		<thead>
 			<tr>
-				<th>Id</th>
+				<th><p>Id<p></th>
 				<th>Nombres</th>
 				<th>Apellidos</th>
 				<th>Sexo</th>
@@ -273,6 +273,7 @@ $(document).ready(function(){
 	var data =eval('${pacientList}');
 	var table = $('#maintenanceTable').DataTable( {
 		"aaData": data,
+		
 		"aoColumns": [
 			{ "mData": "id"},
 			{ "mData": "nombres"},
@@ -284,6 +285,19 @@ $(document).ready(function(){
 			{ "mData": "profesion"},
 			{ "mData": "nacionalidad"}
 		],
+		
+		"columnDefs": [
+            {
+                "targets": [ 7 ],
+                "visible": false,
+                "searchable": false
+            },
+            {
+                "targets": [ 8 ],
+                "visible": false
+            }
+        ],
+                		
 		"language":{
 			"info": "Mostrando  _START_ a _END_ de _MAX_",
 			"infoEmpty": "Mostrando  0 a 0 de _TOTAL_",
@@ -298,8 +312,11 @@ $(document).ready(function(){
 			"search": "Buscar:"
 		},
 		"lengthChange": false
+	
 	});
 });
+			
+	
 
 var title = "Paciente";
 var url = "pacient-ajax.htm";
