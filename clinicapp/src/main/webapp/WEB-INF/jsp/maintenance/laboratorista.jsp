@@ -108,7 +108,7 @@
 					<label>Junta de Vigilancia:</label>
 				</div>
 				<div class="input col">
-					<form:input path="jvplc" cssClass="text"/>
+					<form:input path="jvplc" cssClass="number"/>
 				</div>
 			</div>
 		</div>
@@ -123,7 +123,7 @@ $(document).ready(function(){
 	var table = $('#maintenanceTable').DataTable( {
 		"aaData": data,
 		"aoColumns": [
-			{ "mData": "idLaboratorista"},
+			{ "mData": "id"},
 			{ "mData": "nombres"},
 			{ "mData": "apellidos"},
 			{ "mData": "profesion"},
@@ -185,11 +185,6 @@ function validate(){
 		$("#myModal #nit_temp").addClass("error");
 		valid = false;
 	}
-	if(!$("#myModal #jvplc_temp").val()){
-		$("#myModal #jvplc_temp").addClass("error");
-		valid = false;
-	}
-	
 	return valid;
 }
 </script>

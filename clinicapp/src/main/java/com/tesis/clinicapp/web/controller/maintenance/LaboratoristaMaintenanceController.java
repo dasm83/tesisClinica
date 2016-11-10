@@ -17,9 +17,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.tesis.clinicapp.model.Laboratorista;
 import com.tesis.clinicapp.model.Paciente;
+import com.tesis.clinicapp.service.LaboratoristaService;
 import com.tesis.clinicapp.service.PacienteService;
 //import com.tesis.clinicapp.service.PacienteService;
 import com.tesis.clinicapp.web.form.maintenance.laboratoristaMainForm;
+import com.tesis.clinicapp.web.form.maintenance.pacientesMainForm;
 
 
 @Controller
@@ -45,21 +47,53 @@ public class LaboratoristaMaintenanceController {
 	 * We always access database through services.
 	 */
 	@Autowired
-	private PacienteService pacientService;
+	private LaboratoristaService laboratoristService;
 	
 	@RequestMapping(method = RequestMethod.GET, value = URL)
     public ModelAndView get(HttpServletRequest request) throws JsonGenerationException, JsonMappingException, IOException{
 		
 		/// we obtain a list with all the patients available in database
-	//	List<PacienteDatos> pacientes = pacientService.findAll();
+		List<Laboratorista> laboratoristas= laboratoristService.findAll();
 		/// patients list is converted to a json array
-//		ObjectMapper mapper = new ObjectMapper();
-//		request.setAttribute("pacientList", mapper.writeValueAsString(pacientes));
+		ObjectMapper mapper = new ObjectMapper();
+		request.setAttribute("laboratoristaList", mapper.writeValueAsString(laboratoristas));
 		
 		/// we have to set the view's title (text inserted on title html tag)
 //		request.setAttribute("title", "Pacientes");
 		
 		return new ModelAndView(JSP,FORM,new laboratoristaMainForm());
 		
+	}
+	
+	@RequestMapping(method = RequestMethod.POST, value = URLx)
+	public String postX(HttpServletRequest request, HttpServletResponse response, laboratoristaMainForm form){
+	
+		Laboratorista laboratorista= new Laboratorista();
+		
+		if(form.getAction().equals("I") || form.getAction().equals("U")){
+			
+			laboratorista.setId(form.getId());
+			laboratorista.setNombres(form.getNames());
+			laboratorista.setApellidos(form.getSurnames());
+			laboratorista.setDui(form.getDui());
+			laboratorista.setEdad(form.getAge());
+			laboratorista.setNit(form.getNit());
+			laboratorista.setJvplc(form.getJvplc());
+			laboratorista.setProfesion(form.getJob());
+
+			laboratoristService.saveOrUpdate(laboratorista);
+			response.setStatus(200);
+			request.setAttribute("msj", "Guarado Satisfactoriamente");
+			
+		}
+		else if(form.getAction().equals("d")){
+			laboratorista = laboratoristService.findByAltId(form.getDui());
+			laboratoristService.delete(laboratorista);
+			response.setStatus(200);
+			request.setAttribute("msj", "Paciente eliminado satisfactoriamente");
+		}
+	
+		return JSPx;
+	
 	}
 }
