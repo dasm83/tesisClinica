@@ -98,7 +98,7 @@ public class CatalogoExamen implements java.io.Serializable {
 		this.catalogoItemsExamens = catalogoItemsExamens;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "catalogoExamen")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "catalogoExamen",orphanRemoval=true)
 	public Set<Examen> getExamens() {
 		return this.examens;
 	}

@@ -23,3 +23,9 @@ table.dataTable tbody tr.active td{
 .error{
 	background-color: #a94442;
 }
+
+.btnAct{
+	font-size: 25px;
+	display: inline;
+	margin-right: 10px;
+}

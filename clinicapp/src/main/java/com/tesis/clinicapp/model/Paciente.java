@@ -217,7 +217,7 @@ public class Paciente implements java.io.Serializable {
 		this.telefono = telefono;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "paciente")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "paciente",orphanRemoval=true)
 	public Set<Examen> getExamens() {
 		return this.examens;
 	}

@@ -130,13 +130,17 @@ public class Laboratorista implements java.io.Serializable {
 		this.jvplc = jvplc;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "laboratorista")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "laboratorista",orphanRemoval=true)
 	public Set<Examen> getExamens() {
 		return this.examens;
 	}
 
 	public void setExamens(Set<Examen> examens) {
 		this.examens = examens;
+	}
+	
+	public String toString(){
+		return this.nombres+" "+this.apellidos;
 	}
 
 }

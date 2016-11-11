@@ -1,22 +1,13 @@
 package com.tesis.clinicapp.web.controller.maintenance;
 
-import java.io.IOException;
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
-import org.codehaus.jackson.JsonGenerationException;
-import org.codehaus.jackson.map.JsonMappingException;
-import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.tesis.clinicapp.model.Laboratorista;
-import com.tesis.clinicapp.model.Paciente;
 import com.tesis.clinicapp.service.PacienteService;
 //import com.tesis.clinicapp.service.PacienteService;
 import com.tesis.clinicapp.web.form.maintenance.laboratoristaMainForm;
@@ -48,7 +39,7 @@ public class LaboratoristaMaintenanceController {
 	private PacienteService pacientService;
 	
 	@RequestMapping(method = RequestMethod.GET, value = URL)
-    public ModelAndView get(HttpServletRequest request) throws JsonGenerationException, JsonMappingException, IOException{
+    public ModelAndView get(HttpServletRequest request){
 		
 		/// we obtain a list with all the patients available in database
 	//	List<PacienteDatos> pacientes = pacientService.findAll();

@@ -1,5 +1,8 @@
 package com.tesis.clinicapp.dao.impl;
 
+import java.util.List;
+
+import org.hibernate.Criteria;
 import org.springframework.stereotype.Repository;
 
 import com.tesis.clinicapp.dao.ExamenDAO;
@@ -11,6 +14,16 @@ public class ExamenDAOImpl extends GenericDAOImpl<Examen, Long> implements Exame
 	
 	public ExamenDAOImpl(){
 		super(Examen.class);
+	}
+	
+	@SuppressWarnings("rawtypes")
+	public List getFilteredList(int draw, int start, int length){
+		
+		Criteria crit = getCriteria();
+		crit.setFirstResult(start);
+		crit.setMaxResults(length);
+		
+		return crit.list();
 	}
 
 }

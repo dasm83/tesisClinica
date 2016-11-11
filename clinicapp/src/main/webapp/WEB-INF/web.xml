@@ -22,6 +22,8 @@
 	<servlet-mapping>
 		<servlet-name>clinicServlet</servlet-name>
 		<url-pattern>*.htm</url-pattern>
+		<url-pattern>*.json</url-pattern>
+		<url-pattern>*.txt</url-pattern>
 		<url-pattern>/index.htm</url-pattern>
 	</servlet-mapping>
 
@@ -64,6 +66,8 @@
 	<filter-mapping>
      	<filter-name>hibernateFilter</filter-name>
     	<url-pattern>*.htm</url-pattern>
+    	<url-pattern>*.json</url-pattern>
+    	<url-pattern>*.txt</url-pattern>
    	</filter-mapping>
 	
 </web-app>

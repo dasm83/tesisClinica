@@ -1,14 +1,10 @@
 package com.tesis.clinicapp.web.controller.maintenance;
 
-import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.codehaus.jackson.JsonGenerationException;
-import org.codehaus.jackson.map.JsonMappingException;
-import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -46,13 +42,13 @@ public class PacienteMaintenanceController {
 	private PacienteService pacientService;
 	
 	@RequestMapping(method = RequestMethod.GET, value = URL)
-	public ModelAndView get(HttpServletRequest request) throws JsonGenerationException, JsonMappingException, IOException{
+	public ModelAndView get(HttpServletRequest request){
 		
 		/// we obtain a list with all the patients available in database
 		List<Paciente> pacientes = pacientService.findAll();
 		/// patients list is converted to a json array
-		ObjectMapper mapper = new ObjectMapper();
-		request.setAttribute("pacientList", mapper.writeValueAsString(pacientes));
+//		ObjectMapper mapper = new ObjectMapper();
+//		request.setAttribute("pacientList", mapper.writeValueAsString(pacientes));
 		
 		/// we have to set the view's title (text inserted on title html tag)
 		request.setAttribute("title", "Pacientes");
@@ -86,13 +82,13 @@ public class PacienteMaintenanceController {
 			/// this indicates an OK status
 			response.setStatus(200);
 			/// message to be displayed as an ajax response. "msj" attribute exists on ajax jsp
-			request.setAttribute("msj", "Paciente guardado satisfactoriamente");
+			request.setAttribute("msj", "Registro guardado");
 		}
 		else if(form.getAction().equals("D")){ // doing delete; bye to patient
 			paciente = pacientService.findByAltId(form.getDui()); // by dui so we don't rely on sequence
 			pacientService.delete(paciente);
 			response.setStatus(200);
-			request.setAttribute("msj", "Paciente eliminado satisfactoriamente");
+			request.setAttribute("msj", "Registro eliminado");
 		}
 		
 		return JSPx;

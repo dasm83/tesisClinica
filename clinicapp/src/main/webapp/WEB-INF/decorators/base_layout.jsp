@@ -56,102 +56,33 @@
                         <li>
                             <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                         </li>
-                        <li>
-                            <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Expedientes<span class="fa arrow"></span></a>
-                        <!--     <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="flot.html">Flot Charts</a>
-                                </li>
-                                <li>
-                                    <a href="morris.html">Morris.js Charts</a>
-                                </li>
-                            </ul>
-                            	/.nav-second-level 
-                        </li>-->
+<!--                         <li> -->
+<!--                             <a href="#"><i class="fa fa-database"></i> Cat&#225;logos<span class="fa arrow"></span></a> -->
+<!--                             <ul class="nav nav-second-level"> -->
+<!--                                 <li> -->
+<%--                                     <a href="<c:url value="/maintenance/pacientes.htm" />">Pacientes</a> --%>
+<!--                                 </li> -->
+<!--                                 <li> -->
+<!--                                     <a href="#">Tipos de Examen</a> -->
+<!--                                 </li> -->
+<!--                                 <li> -->
+<%--                                     <a href="<c:url value="/maintenance/laboratorista.htm" />">Laboratoristas</a> --%>
+<!--                                 </li> -->
+<!--                             </ul> -->
+<!--                         </li> -->
                         
                         <li>
-                            <a href="#"><i class="fa fa-table fa-fw"></i> Reportes/consultas</a>
+                            <a href="<c:url value="/maintenance/examenes.htm" />"><i class="fa fa-file-o"></i> Ex&#225;menes</a>
                         </li>
                         <li>
-                            <a href="maintenance/pacientes.htm"><i class="fa fa-edit fa-fw"></i> Pacientes</a>
+                            <a href="<c:url value="/maintenance/pacientes.htm" />"><i class="fa fa-users"></i> Pacientes</a>
                         </li>
                         <li>
-                            <a href="examenes.htm"><i class="fa fa-files-o fa-fw"></i>Examenes</a>
+                            <a href="<c:url value="/maintenance/laboratorista.htm" />"><i class="fa fa-user-md"></i> Laboratoristas</a>
                         </li>
                         <li>
-                            <a href="laboratorista.htm"><i class="fa fa-wrench fa-fw"></i>Laboratorista</a>
+                            <a href="#"><i class="fa fa-calendar-check-o"></i> Citas</a>
                         </li>
-                        <li>
-                            <a href="laboratorista.htm"><i class="fa fa-sitemap fa-fw"></i>citas</a>
-                        </li>
-                        
-                        
-                    <!--      <li>
-                            <a href="examenes.htm"><i class="fa fa-wrench fa-fw"></i> Examenes<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="panels-wells.html">Panels and Wells</a>
-                                </li>
-                                <li>
-                                    <a href="buttons.html">Buttons</a>
-                                </li>
-                                <li>
-                                    <a href="notifications.html">Notifications</a>
-                                </li>
-                                <li>
-                                    <a href="typography.html">Typography</a>
-                                </li>
-                                <li>
-                                    <a href="icons.html"> Icons</a>
-                                </li>
-                                <li>
-                                    <a href="grid.html">Grid</a>
-                                </li>
-                            </ul>
-                            <!-- /.nav-second-level 
-                        </li>-->
-                     <!--   <li>
-                            <a href="/maintenance/laboratorista.htm"><i class="fa fa-sitemap fa-fw"></i>Laboratorista<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="#">Second Level Item</a>
-                                </li>
-                                <li>
-                                    <a href="#">Second Level Item</a>
-                                </li>
-                                <li>
-                                    <a href="#">Third Level <span class="fa arrow"></span></a>
-                                    <ul class="nav nav-third-level">
-                                        <li>
-                                            <a href="#">Third Level Item</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Third Level Item</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Third Level Item</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Third Level Item</a>
-                                        </li>
-                                    </ul>
-                                    <!-- /.nav-third-level -->
-                                </li>
-                            </ul>
-                            <!-- /.nav-second-level 
-                        </li> -->
-                     <!--   <li>
-                            <a href="#"><i class="fa fa-files-o fa-fw"></i>Citas<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="blank.html">Blank Page</a>
-                                </li>
-                                <li>
-                                    <a href="login.html">Login Page</a>
-                                </li>
-                            </ul>
-                          <!--  /.nav-second-level 
-                        </li>-->
                     </ul>
                 </div>
                 <!-- /.sidebar-collapse -->

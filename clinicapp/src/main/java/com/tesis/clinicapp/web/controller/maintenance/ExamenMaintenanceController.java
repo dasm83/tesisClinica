@@ -1,22 +1,23 @@
 package com.tesis.clinicapp.web.controller.maintenance;
 
-import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
-import org.codehaus.jackson.JsonGenerationException;
-import org.codehaus.jackson.map.JsonMappingException;
-import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.tesis.clinicapp.model.Examen;
 import com.tesis.clinicapp.service.ExamenService;
+import com.tesis.clinicapp.web.dataTable.DataToJSON;
 import com.tesis.clinicapp.web.form.maintenance.examenesMainForm;
 
 @Controller
@@ -28,12 +29,13 @@ public class ExamenMaintenanceController {
 	 * where the request is coming from
 	 */
 	private static final String URL = "/maintenance/examenes.htm";
-	private static final String URLx = "/maintenance/exam-ajax.htm";
+	private static final String URLj = "/maintenance/exam-ajax.json";
+	private static final String URLops = "/maintenance/examOp.txt";
+	
 	/**
 	 * name of the jsp which corresponds to URL
 	 */
 	private static final String JSP = "/maintenance/examenes";
-	private static final String JSPx = "/maintenance/exam-ajax";
 	/**
 	 * name of the form created in JSP
 	 */
@@ -45,18 +47,55 @@ public class ExamenMaintenanceController {
 
 	
 	@RequestMapping(method = RequestMethod.GET, value = URL)
-    public ModelAndView get(HttpServletRequest request) throws JsonGenerationException, JsonMappingException, IOException{
-		
-		List<Examen> exams = examService.findAll();
-		
-		ObjectMapper mapper = new ObjectMapper();
-		request.setAttribute("examsList", mapper.writeValueAsString(exams));
+    public ModelAndView get(HttpServletRequest request){
 		
 		/// we have to set the view's title (text inserted on title html tag)
-		request.setAttribute("title", "Examenes");
+		request.setAttribute("title", "Exámenes");
 		
 		return new ModelAndView(JSP,FORM,new examenesMainForm());
 		
+	}
+	
+	@RequestMapping(method = RequestMethod.POST, value = URLj, params = "draw", produces = "application/json")
+	public @ResponseBody DataToJSON dataTable(HttpServletRequest request){
+		DataToJSON json = new DataToJSON();
+		json.setDraw(Integer.parseInt(request.getParameter("draw")));
+		json.setRecordsTotal(1);
+		json.setRecordsFiltered(1);
+		json.setData(getExamsList(Integer.parseInt(request.getParameter("draw")),
+				Integer.parseInt(request.getParameter("start")),
+				Integer.parseInt(request.getParameter("length"))));
+		return json;
+	}
+	
+	@RequestMapping(method = RequestMethod.POST, value = URLops, params = "op=del", produces = "text/plain")
+	public @ResponseBody String delExam(HttpServletRequest request){
+		Long id = new Long(request.getParameter("id"));
+		Examen ex = examService.findById(id);
+		examService.delete(ex);
+		return "Registro eliminado";
+	}
+	
+	/**
+	 * We only get the data we want to show in the view
+	 * 
+	 * @return a list filled with maps; each map holds specific values of a single exam
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Map<String,String>> getExamsList(int draw,int start,int length){
+		List<Map<String,String>> brief = new ArrayList<>();
+		List<Examen> exams = examService.getFilteredList(draw,start,length);
+		
+		for(Examen exam : exams){
+			Map<String,String> list = new HashMap<>();
+			list.put("DT_RowId", exam.getId().toString());
+			list.put("tipo", exam.getCatalogoExamen().getNombre());
+			list.put("lab", exam.getLaboratorista().toString());
+			list.put("date", exam.transformDateForView());
+			brief.add(list);
+		}
+		
+		return brief;
 	}
 	
 }

@@ -1,3 +1,5 @@
+var id = 0;
+
 //////////////// PER VIEW FUNCTIONS ////////////////
 /// These functions are supposed to be overriden on each maintenance jsp;
 /// if we don't override them, these are called instead
@@ -105,6 +107,38 @@ $( function() { /// jquery start point
             $(this).addClass('active');
         }
     } );
+	
+	/// ----------------- these apply for big maintenances -----------------
+	$("body").on('click','#delMainOnView',function(){
+		var tr = $(this).closest('tr');
+		id = tr.attr('id');
+		$("#myModalOnView").modal({ /// configuring modal before launching
+		  backdrop: 'static'
+		});
+		$("#myModalOnView").modal('show');
+	});
+	
+	$("body").on("click","#myModalOnView #okBtn",function(){
+		$.ajax({
+			url: url,
+			method: "POST",
+			data: 'op=del&id='+id,
+			dataType: 'text',
+			success: function(data){
+				$("#myModalOnView").find('.modal-body').html("<div style='text-align:center'>"+data+"</div>");
+				setTimeout(function(){
+					location.reload(true);
+				}, 4000);
+			},
+			error: function(jqXHR, error, errorThrown){
+				$("#myModalOnView").find('.modal-body').html("<div style='text-align:center'>"+jqXHR.responseText+"</div>");
+				
+			}
+		});
+		$("#myModalOnView").find(".modal-body").html("<div style='text-align:center'><i class='fa fa-spinner fa-pulse fa-3x fa-fw'></i><span class='sr-only'>Loading...</span></div>");
+		$("#myModalOnView").find(".modal-header").hide();
+		$("#myModalOnView").find(".modal-footer").hide();
+	});
 	
 	/// ----------------- style and format of form elements -----------------
 	$('body').on( 'focusin', '#myModal input,select', function () {

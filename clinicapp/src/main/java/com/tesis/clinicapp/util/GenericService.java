@@ -10,13 +10,13 @@ public interface GenericService<T extends Serializable, ID extends Serializable>
 	
 	@Transactional(readOnly=false)
 	T save(final T o);
-	@Transactional(readOnly=false)
+	@Transactional
 	void delete(final Object object);
-	@Transactional(readOnly=true)
+	
 	T findById(ID id);
 	@Transactional(readOnly=false)
 	void saveOrUpdate(final T o);
-	@Transactional(readOnly=true)
+	
 	List<T> findAll();
 	Criteria getCriteria();
 
