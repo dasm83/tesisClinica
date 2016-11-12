@@ -37,7 +37,7 @@ public class Examen implements java.io.Serializable {
 	private CatalogoExamen catalogoExamen;
 	private Laboratorista laboratorista;
 	private Paciente paciente;
-	private Date fechaProcesamiento;
+	private Date fecha;
 	private String observaciones;
 	private Set<ItemsExamen> itemsExamens = new HashSet<ItemsExamen>(0);
 	
@@ -58,7 +58,7 @@ public class Examen implements java.io.Serializable {
 		this.catalogoExamen = catalogoExamen;
 		this.laboratorista = laboratorista;
 		this.paciente = paciente;
-		this.fechaProcesamiento = fechaProcesamiento;
+		this.fecha = fechaProcesamiento;
 		this.observaciones = observaciones;
 		this.itemsExamens = itemsExamens;
 	}
@@ -106,12 +106,12 @@ public class Examen implements java.io.Serializable {
 
 	@Temporal(TemporalType.DATE)
 	@Column(name = "fecha_procesamiento", length = 13)
-	public Date getFechaProcesamiento() {
-		return this.fechaProcesamiento;
+	public Date getFecha() {
+		return this.fecha;
 	}
 
-	public void setFechaProcesamiento(Date fechaProcesamiento) {
-		this.fechaProcesamiento = fechaProcesamiento;
+	public void setFecha(Date fechaProcesamiento) {
+		this.fecha = fechaProcesamiento;
 	}
 
 	@Column(name = "observaciones")
@@ -134,7 +134,7 @@ public class Examen implements java.io.Serializable {
 	}
 	
 	public String transformDateForView(){
-		return format.format(this.getFechaProcesamiento());
+		return format.format(this.getFecha());
 	}
 
 }

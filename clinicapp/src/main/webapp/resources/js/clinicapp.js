@@ -118,6 +118,12 @@ $( function() { /// jquery start point
 		$("#myModalOnView").modal('show');
 	});
 	
+	$("body").on("click","#updMainOnView",function(){
+		var tr = $(this).closest('tr');
+		id = tr.attr('id');
+		window.location.href = urlDetail + "?id="+id;
+	});
+	
 	$("body").on("click","#myModalOnView #okBtn",function(){
 		$.ajax({
 			url: url,

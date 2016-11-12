@@ -234,5 +234,9 @@ public class Paciente implements java.io.Serializable {
 	public void setCitases(Set<Citas> citases) {
 		this.citases = citases;
 	}
+	
+	public String toString(){
+		return this.nombres + " " + this.apellidos;
+	}
 
 }

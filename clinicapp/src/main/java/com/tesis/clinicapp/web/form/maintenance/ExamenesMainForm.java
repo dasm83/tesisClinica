@@ -1,6 +1,6 @@
 package com.tesis.clinicapp.web.form.maintenance;
 
-public class examenesMainForm {
+public class ExamenesMainForm {
 	
 	private Long id;
 	private String name;
