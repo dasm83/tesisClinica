@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Projections;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -55,6 +56,13 @@ public class GenericDAOImpl<T extends Serializable, ID extends Serializable> imp
 	
 	public Criteria getCriteria(){
 		return sf.getCurrentSession().createCriteria(persistentClass);
+	}
+
+	@Override
+	public long count() {
+		long count = (Long)getCriteria().setProjection(Projections.rowCount()).uniqueResult();
+		return count;
+		
 	}
 
 }

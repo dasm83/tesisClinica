@@ -108,7 +108,7 @@
 					<label>Junta de Vigilancia:</label>
 				</div>
 				<div class="input col">
-					<form:input path="jvplc" cssClass="text"/>
+					<form:input path="jvplc" cssClass="number"/>
 				</div>
 			</div>
 		</div>
@@ -123,7 +123,7 @@ $(document).ready(function(){
 	var table = $('#maintenanceTable').DataTable( {
 		"aaData": data,
 		"aoColumns": [
-			{ "mData": "idLaboratorista"},
+			{ "mData": "id"},
 			{ "mData": "nombres"},
 			{ "mData": "apellidos"},
 			{ "mData": "profesion"},
@@ -150,7 +150,7 @@ $(document).ready(function(){
 });
 
 var title = "Laboratorista";
-var url = "laboratorista-ajax.htm";
+var url = "lab.txt";
 
 //override
 function loadData(dialog){

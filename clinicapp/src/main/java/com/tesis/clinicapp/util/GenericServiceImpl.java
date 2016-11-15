@@ -41,4 +41,9 @@ public class GenericServiceImpl<T extends Serializable, ID extends Serializable>
 		return dao.getCriteria();
 	}
 
+	@Override
+	public Long count(){
+		return dao.count();
+	}
+
 }
