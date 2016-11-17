@@ -42,7 +42,7 @@ public class GenericServiceImpl<T extends Serializable, ID extends Serializable>
 	}
 
 	@Override
-	public Long count(){
+	public int count(){
 		return dao.count();
 	}
 

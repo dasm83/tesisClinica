@@ -19,5 +19,5 @@ public interface GenericService<T extends Serializable, ID extends Serializable>
 	
 	List<T> findAll();
 	Criteria getCriteria();
-	Long count();
+	int count();
 }

@@ -13,5 +13,5 @@ public interface GenericDAO<T, ID extends Serializable> {
 	void saveOrUpdate(final T o);
 	List<T> findAll();
 	Criteria getCriteria();
-	long count();
+	int count();
 }
