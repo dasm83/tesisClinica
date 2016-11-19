@@ -16,7 +16,7 @@ public class laboratoristaMainForm {
 	private String dui;
 	private String nit;
 	private String job;
-	private String jvplc;
+	private int jvplc;
 	private String action;
 	
 	
@@ -62,10 +62,10 @@ public class laboratoristaMainForm {
 	public void setJob(String job) {
 		this.job = job;
 	}
-	public String getJvplc() {
+	public int getJvplc() {
 		return jvplc;
 	}
-	public void setJvplc(String jvplc) {
+	public void setJvplc(int jvplc) {
 		this.jvplc = jvplc;
 	}
 	public String getAction() {

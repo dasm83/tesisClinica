@@ -18,14 +18,12 @@
 	<table id="maintenanceTable" class="table table-striped table-bordered" width="100%">
 		<thead>
 			<tr>
-				<th>Id</th>
 				<th>Nombres</th>
 				<th>Apellidos</th>
 				<th>profesion</th>
 				<th>Edad</th>
 				<th>DUI</th>
 				<th>NIT</th>
-				<th>Junta de Vigilancia</th>
 			</tr>
 		</thead>
 	</table>
@@ -108,7 +106,7 @@
 					<label>Junta de Vigilancia:</label>
 				</div>
 				<div class="input col">
-					<form:input path="jvplc" cssClass="text"/>
+					<form:input path="jvplc" cssClass="number"/>
 				</div>
 			</div>
 		</div>
@@ -119,18 +117,20 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
-	var data =eval('${laboratoristaList}');
 	var table = $('#maintenanceTable').DataTable( {
-		"aaData": data,
-		"aoColumns": [
-			{ "mData": "idLaboratorista"},
-			{ "mData": "nombres"},
-			{ "mData": "apellidos"},
-			{ "mData": "profesion"},
-			{ "mData": "edad"},
-			{ "mData": "dui"},
-			{ "mData": "nit"},
-			{ "mData": "jvplc"}
+		"serverSide": true,
+	    "ajax":{
+	    	"url": "lab-ajax.json",
+	    	"type": "POST"
+	    },
+		
+		"columns": [
+			{ "data": "nombres"},
+			{ "data": "apellidos"},
+			{ "data": "profesion"},
+			{ "data": "edad"},
+			{ "data": "dui"},
+			{ "data": "nit"}
 		],
 		"language":{
 			"info": "Mostrando  _START_ a _END_ de _MAX_",
@@ -142,15 +142,16 @@ $(document).ready(function(){
 				"next": "Siguiente",
 				"first": "Primera",
 				"last": "Última"
-			},
-			"search": "Buscar:"
+			}
 		},
-		"lengthChange": false
+		"searching": false,
+		"lengthChange": false,
+		"pageLength": 20
 	});
 });
 
 var title = "Laboratorista";
-var url = "laboratorista-ajax.htm";
+var url = "lab.txt";
 
 //override
 function loadData(dialog){
