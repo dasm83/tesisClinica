@@ -17,7 +17,7 @@ import javax.persistence.Table;
 @Table(name = "clasificacion", schema = "clinica")
 public class Clasificacion implements java.io.Serializable {
 
-	private int id;
+	private Long id;
 	private String categoria;
 	private String descripcion;
 	private Set<CatalogoExamen> catalogoExamens = new HashSet<CatalogoExamen>(0);
@@ -25,13 +25,13 @@ public class Clasificacion implements java.io.Serializable {
 	public Clasificacion() {
 	}
 
-	public Clasificacion(int id, String categoria, String descripcion) {
+	public Clasificacion(Long id, String categoria, String descripcion) {
 		this.id = id;
 		this.categoria = categoria;
 		this.descripcion = descripcion;
 	}
 
-	public Clasificacion(int id, String categoria, String descripcion, Set<CatalogoExamen> catalogoExamens) {
+	public Clasificacion(Long id, String categoria, String descripcion, Set<CatalogoExamen> catalogoExamens) {
 		this.id = id;
 		this.categoria = categoria;
 		this.descripcion = descripcion;
@@ -41,11 +41,11 @@ public class Clasificacion implements java.io.Serializable {
 	@Id
 
 	@Column(name = "id", unique = true, nullable = false)
-	public int getId() {
+	public Long getId() {
 		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

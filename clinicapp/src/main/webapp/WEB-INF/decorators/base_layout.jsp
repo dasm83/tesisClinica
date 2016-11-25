@@ -73,7 +73,19 @@
                         
                         <li>
                             <a href="<c:url value="/maintenance/examenes.htm" />"><i class="fa fa-file-o"></i> Ex&#225;menes</a>
+                      		  <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="<c:url value="/maintenance/examenes.htm"/>">Examenes</a>
+                                </li>
+                                <li>
+                                    <a href="<c:url value="/maintenance/clasificacion.htm"/>">Clasificacion</a>
+                                </li>
+                                <li>
+                                    <a href="<c:url value="/maintenance/clasificacion.htm"/>">Catalogo Examenes</a>
+                                </li>
+                            </ul>
                         </li>
+                      		
                         <li>
                             <a href="<c:url value="/maintenance/pacientes.htm" />"><i class="fa fa-users"></i> Pacientes</a>
                         </li>

@@ -48,12 +48,14 @@ public class LaboratoristaMaintenanceController {
 	@Autowired
 	private LaboratoristaService LabService;
 	
+	
 	@RequestMapping(method = RequestMethod.GET, value = URL)
     public ModelAndView get(HttpServletRequest request){
 		request.setAttribute("title", "Laboratorista");
 		return new ModelAndView(JSP,FORM,new laboratoristaMainForm());
 		
 	}
+	
 	
 	@RequestMapping(method = RequestMethod.POST, value = URLops, produces = "text/plain")
     public @ResponseBody String delExam(HttpServletRequest request, laboratoristaMainForm form){

@@ -7,6 +7,6 @@ import com.tesis.clinicapp.util.GenericService;
 public interface LaboratoristaService extends GenericService<Laboratorista,Long> {
 	
 	public Laboratorista findByAltId(String dui);
-	public List getFilteredList(int draw,int star, int length);
+	public List getFilteredList(int draw,int start, int length);
 
 }
