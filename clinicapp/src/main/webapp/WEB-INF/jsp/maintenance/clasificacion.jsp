@@ -19,7 +19,7 @@
 		<thead>
 			<tr>
 				<th>Categoria</th>
-				<th>Descripcion</th>
+				<th>Descripciones</th>
 			</tr>
 		</thead>
 	</table>
