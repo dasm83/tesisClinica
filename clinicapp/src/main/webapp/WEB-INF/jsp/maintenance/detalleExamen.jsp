@@ -19,7 +19,7 @@
 			<br>
 			<c:forEach items="${items}" var="item" varStatus="loop">
 				<label>${item.nombre}:</label>
-				<form:input id="item${loop.index}" path="${item[loop.index]}" cssClass="form-control"/>
+				<form:input id="item${loop.index}" path="${items[loop.index]}" cssClass="form-control"/>
 				<br>
 			</c:forEach>
 		</div>
