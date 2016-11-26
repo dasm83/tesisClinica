@@ -29,10 +29,10 @@ public class LaboratoristaDAOImpl extends GenericDAOImpl<Laboratorista,Long> imp
 	}
 
 	@Override
-	public List getFilteredList(int draw, int star, int length) {
+	public List getFilteredList(int draw, int start, int length) {
 		Criteria crit = getCriteria();
 		
-		crit.setFirstResult(star);
+		crit.setFirstResult(start);
 		crit.setMaxResults(length);
 
 		return crit.list();

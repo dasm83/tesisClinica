@@ -22,8 +22,8 @@ public class LaboratoristaServiceImpl extends GenericServiceImpl<Laboratorista,L
 	}
 
 	@Override
-	public List getFilteredList(int draw, int star, int length) {
-          return dao.getFilteredList(draw, star, length);
+	public List getFilteredList(int draw, int start, int length) {
+          return dao.getFilteredList(draw, start, length);
 	}
 	
 

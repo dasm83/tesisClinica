@@ -1,5 +1,7 @@
 package com.tesis.clinicapp.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +21,10 @@ public class PacienteServiceImpl extends GenericServiceImpl<Paciente, Long> impl
 	
 	public Paciente findByAltId(String dui){
 		return dao.findByAltId(dui);
+	}
+	
+	public List<Paciente> getByName(String name){
+		return dao.getByName(name);
 	}
 	
 }

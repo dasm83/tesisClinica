@@ -8,6 +8,6 @@ import com.tesis.clinicapp.util.GenericDAO;
 public interface LaboratoristaDAO extends GenericDAO<Laboratorista,Long> {
 	
 	Laboratorista findByAltId(String dui);
-    public List getFilteredList(int draw,int star, int length);
+    public List getFilteredList(int draw,int start, int length);
 
 }
