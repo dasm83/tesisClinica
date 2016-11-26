@@ -10,14 +10,21 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.tesis.clinicapp.model.CatalogoExamen;
 import com.tesis.clinicapp.model.Examen;
+import com.tesis.clinicapp.model.Laboratorista;
+import com.tesis.clinicapp.model.Paciente;
+import com.tesis.clinicapp.service.CatExamenService;
 import com.tesis.clinicapp.service.ExamenService;
-import com.tesis.clinicapp.web.dataTable.DataToJSON;
+import com.tesis.clinicapp.service.PacienteService;
+import com.tesis.clinicapp.util.AutocompleteData;
+import com.tesis.clinicapp.util.TableData;
 import com.tesis.clinicapp.web.form.maintenance.ExamDetailForm;
 import com.tesis.clinicapp.web.form.maintenance.ExamDetailFormItem;
 import com.tesis.clinicapp.web.form.maintenance.ExamenesMainForm;
@@ -25,7 +32,6 @@ import com.tesis.clinicapp.web.form.maintenance.ExamenesMainForm;
 @Controller
 public class ExamenMaintenanceController {
 	
-	@SuppressWarnings("unused")
 	private static final Logger logger = Logger.getLogger(ExamenMaintenanceController.class);
 
 	/**
@@ -50,8 +56,22 @@ public class ExamenMaintenanceController {
 	
 	@Autowired
 	private ExamenService examService;
+	
+	@Autowired
+	private CatExamenService catExamService;
+	
+	@Autowired
+	private PacienteService pacientService;
+	
+	
 
 	
+	/**
+	 * Visualize exams view
+	 * 
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(method = RequestMethod.GET, value = URL)
     public ModelAndView get(HttpServletRequest request){
 		
@@ -62,9 +82,15 @@ public class ExamenMaintenanceController {
 		
 	}
 	
+	/**
+	 * Read all exams in database for displaying on datatable
+	 * 
+	 * @param request
+	 * @return {@link TableData} holds datatable params including all exams in db
+	 */
 	@RequestMapping(method = RequestMethod.POST, value = URLj, params = "draw", produces = "application/json")
-	public @ResponseBody DataToJSON dataTable(HttpServletRequest request){
-		DataToJSON json = new DataToJSON();
+	public @ResponseBody TableData dataTable(HttpServletRequest request){
+		TableData json = new TableData();
 		json.setDraw(Integer.parseInt(request.getParameter("draw")));
 		json.setRecordsTotal(1);
 		json.setRecordsFiltered(1);
@@ -74,6 +100,30 @@ public class ExamenMaintenanceController {
 		return json;
 	}
 	
+	/**
+	 * Read pacients in db whose name is like "query" param
+	 * 
+	 * @param request
+	 * @return {@link AutocompleteData}
+	 */
+	@RequestMapping(method = RequestMethod.POST, value = URLj, params = "sug", produces = "application/json")
+	public @ResponseBody AutocompleteData getPacientList(HttpServletRequest request){
+		AutocompleteData suggestions = new AutocompleteData();
+		List<Paciente> pacientList = pacientService.getByName(request.getParameter("query"));
+		
+		pacientList.forEach(p->{
+			suggestions.addPair(p.toString(), p.getId().toString());
+		});
+		
+		return suggestions;
+	}
+	
+	/**
+	 * Delete exam op
+	 * 
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(method = RequestMethod.POST, value = URLops, params = "op=del", produces = "text/plain")
 	public @ResponseBody String delExam(HttpServletRequest request){
 		Long id = new Long(request.getParameter("id"));
@@ -82,11 +132,18 @@ public class ExamenMaintenanceController {
 		return "Registro eliminado";
 	}
 	
+	/**
+	 * Visualize exam details view for an update op
+	 * 
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(method = RequestMethod.GET, value = URLdet, params = "id")
 	public ModelAndView getOldDetail(HttpServletRequest request){
 		Examen ex = examService.findById(new Long(request.getParameter("id")));
 		
 		ExamDetailForm form = new ExamDetailForm();
+		form.setExamId(ex.getId());
 		form.setPaciente(ex.getPaciente().toString());
 		form.setLaboratorista(ex.getLaboratorista().toString());
 		form.setFecha(ex.transformDateForView());
@@ -108,12 +165,71 @@ public class ExamenMaintenanceController {
 	}
 	
 	/**
+	 * Visualize exam detail view to create exam
+	 * 
+	 * @param request
+	 * @return {@link ModelAndView}
+	 */
+	@RequestMapping(method = RequestMethod.POST, value = URLdet, params = "type")
+	public ModelAndView getNewDetail(HttpServletRequest request){
+		CatalogoExamen cat = catExamService.findById(new Long(request.getParameter("type")));
+		
+		ExamDetailForm form = new ExamDetailForm();
+		
+		List<ExamDetailFormItem> items = new ArrayList<>();
+		cat.getCatalogoItemsExamens().forEach(item->{
+			ExamDetailFormItem formItem = new ExamDetailFormItem();
+			formItem.setNombre(item.getNombre());
+			formItem.setValor("");
+			items.add(formItem);
+		});
+		
+		form.setItems(items);
+		
+		request.setAttribute("title", "Exámen de "+cat.getNombre());
+		
+		return new ModelAndView(JSPdet,FORMdet,form);
+	}
+	
+	/**
+	 * Insert or Update op
+	 * 
+	 * @param request
+	 * @param form
+	 * @return
+	 */
+	@RequestMapping(method = RequestMethod.POST, value = URLops, params = "op=iou", produces = "text/plain")
+	public @ResponseBody String updExam(HttpServletRequest request, ExamDetailForm form){
+		Long id = form.getExamId();
+		Examen ex = new Examen();
+		Laboratorista lab = new Laboratorista();
+		String msj = "";
+		
+		msj = validate(ex, lab);
+		
+		if(id != null){ // this is an update because we have an exam id, so we'll read exam from db
+			ex = examService.findById(id);
+			//ex.setLaboratorista();
+		}
+		
+		return msj;
+	}
+	
+	private String validate(Examen ex, Laboratorista lab) {
+		String msj = "";
+		
+		
+		
+		return msj;
+	}
+
+	/**
 	 * We only get the data we want to show in the view
 	 * 
 	 * @return a list filled with maps; each map holds specific values of a single exam
 	 */
 	@SuppressWarnings("unchecked")
-	public List<Map<String,String>> getExamsList(int draw,int start,int length){
+	private List<Map<String,String>> getExamsList(int draw,int start,int length){
 		List<Map<String,String>> brief = new ArrayList<>();
 		List<Examen> exams = examService.getFilteredList(draw,start,length);
 		
@@ -125,6 +241,21 @@ public class ExamenMaintenanceController {
 			list.put("date", exam.transformDateForView());
 			brief.add(list);
 		}
+		
+		return brief;
+	}
+	
+	@ModelAttribute(value="examTypes")
+	private List<Map<String,String>> getExamTypes(){
+		List<Map<String,String>> brief = new ArrayList<>();
+		List<CatalogoExamen> types = catExamService.findAll();
+		
+		types.forEach(type->{
+			Map<String,String> list = new HashMap<>();
+			list.put("id", type.getId().toString());
+			list.put("name", type.getNombre());
+			brief.add(list);
+		});
 		
 		return brief;
 	}

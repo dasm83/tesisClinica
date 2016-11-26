@@ -146,6 +146,25 @@ $( function() { /// jquery start point
 		$("#myModalOnView").find(".modal-footer").hide();
 	});
 	
+	$("saveBtn").click(function(){
+		$.ajax({
+			url: url,
+			method: "POST",
+			data: 'op=del&id='+id,
+			dataType: 'text',
+			success: function(data){
+				$("#myModalOnView").find('.modal-body').html("<div style='text-align:center'>"+data+"</div>");
+				setTimeout(function(){
+					location.reload(true);
+				}, 4000);
+			},
+			error: function(jqXHR, error, errorThrown){
+				$("#myModalOnView").find('.modal-body').html("<div style='text-align:center'>"+jqXHR.responseText+"</div>");
+				
+			}
+		});
+	});
+	
 	/// ----------------- style and format of form elements -----------------
 	$('body').on( 'focusin', '#myModal input,select', function () {
 		if($(this).hasClass("error")){
