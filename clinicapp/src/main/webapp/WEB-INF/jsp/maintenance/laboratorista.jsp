@@ -20,7 +20,7 @@
 			<tr>
 				<th>Nombres</th>
 				<th>Apellidos</th>
-				<th>profesion</th>
+				<th>Profesion</th>
 			</tr>
 		</thead>
 	</table>
