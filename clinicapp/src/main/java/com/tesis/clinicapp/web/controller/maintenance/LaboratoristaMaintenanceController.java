@@ -77,10 +77,10 @@ public class LaboratoristaMaintenanceController {
 			mensaje="Guardado Satisfactoriamente";
 			
 		}
-		else if(form.getAction().equals("d")){
+		else if(form.getAction().equals("D")){
 			laboratorista = LabService.findByAltId(form.getDui());
 			LabService.delete(laboratorista);
-			mensaje="Paciente eliminado satisfactoriamente";
+			mensaje="Eliminado satisfactoriamente";
 		}
 		
 		return mensaje;
@@ -115,7 +115,7 @@ public class LaboratoristaMaintenanceController {
 			list.put("edad", labo.getEdad().toString());
 			list.put("dui", labo.getDui().toString());
 			list.put("nit", labo.getNit().toString());
-			
+			list.put("jvplc", String.valueOf(labo.getJvplc()));
 			brief.add(list);
 		}
 		

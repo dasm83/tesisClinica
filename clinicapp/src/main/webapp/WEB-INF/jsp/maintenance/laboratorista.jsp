@@ -12,7 +12,7 @@
 </head>
 <body>
 
-	<a id="newMaintenance" href="#"><i class="fa fa-plus-square-o" aria-hidden="true"></i> Laboratorista Paciente</a>
+	<a id="newMaintenance" href="#"><i class="fa fa-plus-square-o" aria-hidden="true"></i> Nuevo Laboratorista </a>
 	<a id="delMaintenance" href="#" style="margin-left:10px"><i class="fa fa-minus-square-o" aria-hidden="true"></i> Eliminar Laboratorista</a>
 	<a id="updMaintenance" href="#" style="margin-left:10px"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Modificar Laboratorista</a>
 	<table id="maintenanceTable" class="table table-striped table-bordered" width="100%">
@@ -21,9 +21,6 @@
 				<th>Nombres</th>
 				<th>Apellidos</th>
 				<th>profesion</th>
-				<th>Edad</th>
-				<th>DUI</th>
-				<th>NIT</th>
 			</tr>
 		</thead>
 	</table>
@@ -116,6 +113,7 @@
 <script src="<c:url value="/resources/js/datatables.min.js" />"></script>
 
 <script type="text/javascript">
+
 $(document).ready(function(){
 	var table = $('#maintenanceTable').DataTable( {
 		"serverSide": true,
@@ -127,10 +125,7 @@ $(document).ready(function(){
 		"columns": [
 			{ "data": "nombres"},
 			{ "data": "apellidos"},
-			{ "data": "profesion"},
-			{ "data": "edad"},
-			{ "data": "dui"},
-			{ "data": "nit"}
+			{ "data": "profesion"}
 		],
 		"language":{
 			"info": "Mostrando  _START_ a _END_ de _MAX_",
@@ -155,15 +150,19 @@ var url = "lab.txt";
 
 //override
 function loadData(dialog){
-	var row = $("table.dataTable tbody tr.active");
-	dialog.find("#id_temp").val(row.children("td:eq(0)").text());
-	dialog.find("#names_temp").val(row.children("td:eq(1)").text());
-	dialog.find("#surnames_temp").val(row.children("td:eq(2)").text());
-	dialog.find("#job_temp").val(row.children("td:eq(3)").text());
-	dialog.find("#age_temp").val(row.children("td:eq(4)").text());
-	dialog.find("#dui_temp").val(row.children("td:eq(5)").text());
-	dialog.find("#nit_temp").val(row.children("td:eq(6)").text());
-	dialog.find("#jvplc_temp").val(row.children("td:eq(7)").text());
+	var row = $("table.dataTable tbody tr.active");	
+	var table = $('#maintenanceTable').DataTable();
+	var datarow= table.row(row);
+	var data = datarow.data();
+	var id = data.DT_RowId;
+	dialog.find("#id_temp").val(id);
+	dialog.find("#names_temp").val(data.nombres);
+	dialog.find("#surnames_temp").val(data.apellidos);
+	dialog.find("#job_temp").val(data.profesion);
+	dialog.find("#age_temp").val(data.edad);
+	dialog.find("#dui_temp").val(data.dui);
+	dialog.find("#nit_temp").val(data.nit);
+	dialog.find("#jvplc_temp").val(data.jvplc);
 }
 
 //override
