@@ -13,7 +13,7 @@ public class SecurityController {
 
 	@RequestMapping(method = RequestMethod.GET, value = URL)
 	public String get(HttpServletRequest request){
-		request.setAttribute("title", "Logueo");
+		request.setAttribute("title", "Entrar");
 		return "login";
 	}
 	

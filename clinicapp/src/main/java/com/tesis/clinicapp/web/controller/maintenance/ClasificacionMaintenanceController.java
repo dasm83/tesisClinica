@@ -17,7 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.tesis.clinicapp.model.Clasificacion;
 import com.tesis.clinicapp.model.Laboratorista;
 import com.tesis.clinicapp.service.ClasificacionService;
-import com.tesis.clinicapp.web.dataTable.DataToJSON;
+import com.tesis.clinicapp.util.TableData;
 import com.tesis.clinicapp.web.form.maintenance.clasificacionMainForm;
 import com.tesis.clinicapp.web.form.maintenance.laboratoristaMainForm;
 
@@ -57,13 +57,13 @@ public class ClasificacionMaintenanceController {
 			cla.setDescripcion(form.getDescription());
 
 			clasifiService.saveOrUpdate(cla);
-			mensaje="Guardado Satisfactoriamente";
+			mensaje="Registro guardado";
 			
 		}
 		else if(form.getAction().equals("d")){
 			cla = clasifiService.findById(form.getId());
 			clasifiService.delete(cla);	
-			mensaje="Paciente eliminado satisfactoriamente";
+			mensaje="Registro eliminado";
 		}
 		
 		return mensaje;
@@ -72,8 +72,8 @@ public class ClasificacionMaintenanceController {
 	
 	
 	@RequestMapping(method= RequestMethod.POST, value= URLj, produces="application/json")
-	public @ResponseBody DataToJSON dataTable(HttpServletRequest request){
-		DataToJSON json = new DataToJSON();
+	public @ResponseBody TableData dataTable(HttpServletRequest request){
+		TableData json = new TableData();
 		json.setDraw(Integer.parseInt(request.getParameter("draw")));
 		json.setRecordsFiltered(clasifiService.count());
 		json.setRecordsTotal(clasifiService.count());

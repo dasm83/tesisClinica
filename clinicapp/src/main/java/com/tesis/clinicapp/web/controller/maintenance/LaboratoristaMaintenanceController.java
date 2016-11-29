@@ -13,7 +13,7 @@ import com.tesis.clinicapp.model.Examen;
 import com.tesis.clinicapp.model.Laboratorista;
 import com.tesis.clinicapp.service.LaboratoristaService;
 import com.tesis.clinicapp.service.PacienteService;
-import com.tesis.clinicapp.web.dataTable.DataToJSON;
+import com.tesis.clinicapp.util.TableData;
 import com.tesis.clinicapp.web.form.maintenance.laboratoristaMainForm;
 
 import java.util.ArrayList;
@@ -89,8 +89,8 @@ public class LaboratoristaMaintenanceController {
 	
 	
 	@RequestMapping(method = RequestMethod.POST, value = URLj, produces = "application/json")
-	public @ResponseBody DataToJSON dataTable(HttpServletRequest request){
-		DataToJSON json = new DataToJSON();
+	public @ResponseBody TableData dataTable(HttpServletRequest request){
+		TableData json = new TableData();
 		json.setDraw(Integer.parseInt(request.getParameter("draw")));
 		json.setRecordsTotal(LabService.count());
 		json.setRecordsFiltered(LabService.count());

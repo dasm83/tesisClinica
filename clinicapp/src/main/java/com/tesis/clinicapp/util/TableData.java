@@ -1,8 +1,8 @@
-package com.tesis.clinicapp.web.dataTable;
+package com.tesis.clinicapp.util;
 
 import java.util.List;
 
-public class DataToJSON {
+public class TableData {
 	
 	private int draw;
 	private int recordsTotal;

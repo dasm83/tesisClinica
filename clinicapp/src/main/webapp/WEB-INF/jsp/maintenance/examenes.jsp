@@ -10,7 +10,7 @@
 </head>
 <body>
 
-	<a id="newMainOnView" href="#"><i class="fa fa-plus-square-o" aria-hidden="true"></i> Crear Ex&#225;men</a>
+	<a id="newExam" href="#"><i class="fa fa-plus-square-o" aria-hidden="true"></i> Crear Ex&#225;men</a>
 	<table id="mainTableOnView" class="table table-striped table-bordered" width="100%">
 		<thead>
 			<tr>
@@ -27,7 +27,6 @@
 	    <div class="modal-content">
 	      <div class="modal-header">
 	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	        <h4 class="modal-title">Confirmar</h4>
 	      </div>
 	      <div class="modal-body">
 	      	¿Está seguro que desea eliminar este registro?
@@ -40,12 +39,38 @@
 	  </div><!-- /.modal-dialog -->
 	</div><!-- /.modal -->
 
+	<form action="<c:url value='/maintenance/detalleExamen.htm'/>" method="POST">	
+		<div id="myModalOnView2" class="modal fade" tabindex="-1" role="dialog">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		      </div>
+		      <div class="modal-body">
+		      	
+	      		<label>Tipo de ex&#225;men:</label>
+		      	<select id="type" name="type">
+					<c:forEach items="${examTypes}" var="type" varStatus="loop">
+						<option value="${type.id}">${type.name}</option>
+					</c:forEach>
+				</select>
+				
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+		        <button type="submit" class="btn btn-primary">Aceptar</button>
+		      </div>
+		    </div><!-- /.modal-content -->
+		  </div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
+	</form>
+
 <script src="<c:url value="/resources/js/datatables.min.js" />"></script>
 
 <script type="text/javascript">
 
 var url = "examOp.txt";
-var urlDetail = "detalleExamen.htm"
+var urlDetail = "detalleExamen.htm";
 
 $(document).ready(function(){
 	var table = $('#mainTableOnView').DataTable( {
@@ -82,6 +107,14 @@ $(document).ready(function(){
 		"lengthChange": false,
 		"pageLength": 20
 	});
+	
+	$("#newExam").click(function(){
+		$("#myModalOnView2").modal({ /// configuring modal before launching
+		  backdrop: 'static'
+		});
+		$("#myModalOnView2").modal('show');
+	});
+	
 });
 </script>
 

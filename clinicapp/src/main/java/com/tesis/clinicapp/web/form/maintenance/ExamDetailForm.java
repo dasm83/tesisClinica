@@ -4,12 +4,20 @@ import java.util.List;
 
 public class ExamDetailForm {
 	
+	private Long examId;
 	private String paciente;
 	private String laboratorista;
 	private String fecha;
 	private String observaciones;
 	private List<ExamDetailFormItem> items;
 	
+	
+	public Long getExamId() {
+		return examId;
+	}
+	public void setExamId(Long examId) {
+		this.examId = examId;
+	}
 	public String getPaciente() {
 		return paciente;
 	}
