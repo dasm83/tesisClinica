@@ -16,7 +16,7 @@
 	<a id="delMaintenance" href="#" style="margin-left:10px"><i class="fa fa-minus-square-o" aria-hidden="true"></i> Eliminar Clasificacion</a>
 	<a id="updMaintenance" href="#" style="margin-left:10px"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Modificar Clasificacion</a>
 	<table id="maintenanceTable" class="table table-striped table-bordered" width="100%">
-		<thead>
+		<thead> 
 			<tr>
 				<th>Id</th>
 				<th>Categoria</th>
