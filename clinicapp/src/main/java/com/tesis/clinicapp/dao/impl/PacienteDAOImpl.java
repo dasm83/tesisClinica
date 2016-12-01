@@ -49,4 +49,12 @@ public class PacienteDAOImpl extends GenericDAOImpl<Paciente, Long> implements P
 		return list;
 	}
 	
+	public Paciente getByExactName(String pName){
+		Criteria crit = getCriteria();
+		
+		crit.add(Restrictions.sqlRestriction("nombres||' '||apellidos = '"+pName+"'"));
+		
+		return (Paciente) crit.uniqueResult();
+	}
+	
 }

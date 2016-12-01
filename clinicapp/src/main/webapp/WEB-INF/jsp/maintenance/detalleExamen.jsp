@@ -15,7 +15,7 @@
 <div class="row">
 
 	<form:form id="detailForm" method="POST" commandName="ExamDetailForm" 
-	action="<c:url value='/maintenance/examOp.txt?op=iou'/>">
+	action="examOp.txt?op=iou">
 		<div class="row">
 			<div class="col-lg-6">
 				<form:label for="pacient" path="paciente">Paciente:</form:label>
@@ -40,13 +40,31 @@
 		</div>
 		<div class="row">
 			<button type="button" class="btn btn-primary pull-right" style="margin-top:40px; margin-right:15px">Cancelar</button>
-			<button id="saveBtn" type="submit" class="btn btn-primary pull-right" style="margin-top:40px; margin-right:15px">Guardar</button>
+			<button id="saveBtn" type="button" class="btn btn-primary pull-right" style="margin-top:40px; margin-right:15px">Guardar</button>
 		</div>
 		<form:input path="examId" cssStyle="display:none"/>
 	</form:form>
 
 </div>
+
+	<div id="myModalOnViewDet" class="modal fade" tabindex="-1" role="dialog">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	      </div>
+	      <div class="modal-body">
+	      	
+	      </div>
+	      <div class="modal-footer">
+	        <button id="okBtn" type="button" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
+	      </div>
+	    </div><!-- /.modal-content -->
+	  </div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
 <script type="text/javascript">
+var url = "examOp.txt";
+
 $( function() {
 	$('#pacient').autocomplete({
 		serviceUrl: 'exam-ajax.json?sug',

@@ -27,4 +27,8 @@ public class PacienteServiceImpl extends GenericServiceImpl<Paciente, Long> impl
 		return dao.getByName(name);
 	}
 	
+	public Paciente getByExactName(String pName){
+		return dao.getByExactName(pName);
+	}
+	
 }

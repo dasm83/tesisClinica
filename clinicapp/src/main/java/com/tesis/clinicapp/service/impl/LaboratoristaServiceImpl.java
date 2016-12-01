@@ -26,6 +26,8 @@ public class LaboratoristaServiceImpl extends GenericServiceImpl<Laboratorista,L
           return dao.getFilteredList(draw, start, length);
 	}
 	
-
+	public Laboratorista getByExactName(String lName){
+		return dao.getByExactName(lName);
+	}
 		
 }

@@ -12,4 +12,6 @@ public interface PacienteService extends GenericService<Paciente, Long> {
 
 	public List<Paciente> getByName(String name);
 
+	public Paciente getByExactName(String pName);
+
 }

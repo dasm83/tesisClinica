@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,7 @@ import com.tesis.clinicapp.model.Laboratorista;
 import com.tesis.clinicapp.model.Paciente;
 import com.tesis.clinicapp.service.CatExamenService;
 import com.tesis.clinicapp.service.ExamenService;
+import com.tesis.clinicapp.service.LaboratoristaService;
 import com.tesis.clinicapp.service.PacienteService;
 import com.tesis.clinicapp.util.AutocompleteData;
 import com.tesis.clinicapp.util.TableData;
@@ -63,7 +65,8 @@ public class ExamenMaintenanceController {
 	@Autowired
 	private PacienteService pacientService;
 	
-	
+	@Autowired
+	private LaboratoristaService labService;
 
 	
 	/**
@@ -199,26 +202,41 @@ public class ExamenMaintenanceController {
 	 * @return
 	 */
 	@RequestMapping(method = RequestMethod.POST, value = URLops, params = "op=iou", produces = "text/plain")
-	public @ResponseBody String updExam(HttpServletRequest request, ExamDetailForm form){
+	public @ResponseBody String modExamTable(HttpServletRequest request, HttpServletResponse response, ExamDetailForm form){
 		Long id = form.getExamId();
 		Examen ex = new Examen();
 		Laboratorista lab = new Laboratorista();
+		Paciente pt = new Paciente();
 		String msj = "";
 		
-		msj = validate(ex, lab);
+		msj = validate(form.getPaciente(), pt, form.getLaboratorista(), lab);
+		
+		if(!msj.isEmpty()){
+			response.setStatus(500);
+			return msj;
+		}
 		
 		if(id != null){ // this is an update because we have an exam id, so we'll read exam from db
 			ex = examService.findById(id);
 			//ex.setLaboratorista();
 		}
 		
+		response.setStatus(200);
 		return msj;
 	}
 	
-	private String validate(Examen ex, Laboratorista lab) {
+	private String validate(String pName, Paciente p, String lName, Laboratorista l) {
 		String msj = "";
 		
+		p = pacientService.getByExactName(pName);
+		l = labService.getByExactName(lName);
 		
+		if(p == null){
+			msj = "Paciente ingresado no existe<br>";
+		} 
+		if(l == null){
+			msj = msj+"Laboratorista ingresado no existe";
+		}
 		
 		return msj;
 	}
@@ -259,5 +277,7 @@ public class ExamenMaintenanceController {
 		
 		return brief;
 	}
+	
+	
 	
 }
