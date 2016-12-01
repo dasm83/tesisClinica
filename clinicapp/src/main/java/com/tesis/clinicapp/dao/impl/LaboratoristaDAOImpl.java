@@ -38,7 +38,13 @@ public class LaboratoristaDAOImpl extends GenericDAOImpl<Laboratorista,Long> imp
 		return crit.list();
 	}
 	
-	
+	public Laboratorista getByExactName(String lName){
+		Criteria crit = getCriteria();
+		
+		crit.add(Restrictions.sqlRestriction("nombres||' '||apellidos = '"+lName+"'"));
+		
+		return (Laboratorista) crit.uniqueResult();
+	}
 	
 	
 }

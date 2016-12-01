@@ -124,7 +124,7 @@ $( function() { /// jquery start point
 		window.location.href = urlDetail + "?id="+id;
 	});
 	
-	$("body").on("click","#myModalOnView #okBtn",function(){
+	$("#myModalOnView #okBtn").click(function(){
 		$.ajax({
 			url: url,
 			method: "POST",
@@ -146,21 +146,28 @@ $( function() { /// jquery start point
 		$("#myModalOnView").find(".modal-footer").hide();
 	});
 	
-	$("saveBtn").click(function(){
+	$("#saveBtn").click(function(){
+		var data = $('#detailForm').serialize();
+		
+		$("#myModalOnViewDet").modal({ /// configuring modal before launching
+			  backdrop: 'static'
+		});
+		$("#myModalOnViewDet").find(".modal-body").html("<div style='text-align:center'><i class='fa fa-spinner fa-pulse fa-3x fa-fw'></i><span class='sr-only'>Loading...</span></div>");
+		$("#myModalOnViewDet").find(".modal-header").hide();
+		$("#myModalOnViewDet").find(".modal-footer").hide();
+		$("#myModalOnViewDet").modal('show');
+		
 		$.ajax({
 			url: url,
 			method: "POST",
-			data: 'op=del&id='+id,
+			data: 'op=iou&form='+data,
 			dataType: 'text',
 			success: function(data){
-				$("#myModalOnView").find('.modal-body').html("<div style='text-align:center'>"+data+"</div>");
-				setTimeout(function(){
-					location.reload(true);
-				}, 4000);
+				$("#myModalOnViewDet").find(".modal-footer").show();
+				$("#myModalOnViewDet").find('.modal-body').html("<div style='text-align:center'>"+data+"</div>");
 			},
 			error: function(jqXHR, error, errorThrown){
-				$("#myModalOnView").find('.modal-body').html("<div style='text-align:center'>"+jqXHR.responseText+"</div>");
-				
+				$("#myModalOnViewDet").find('.modal-body').html("<div style='text-align:center'>"+jqXHR.responseText+"</div>");
 			}
 		});
 	});
