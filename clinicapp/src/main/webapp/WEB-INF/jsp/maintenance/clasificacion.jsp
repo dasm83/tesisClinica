@@ -12,14 +12,14 @@
 </head>
 <body>
 
-	<a id="newMaintenance" href="#"><i class="fa fa-plus-square-o" aria-hidden="true"></i> Laboratorista Paciente</a>
-	<a id="delMaintenance" href="#" style="margin-left:10px"><i class="fa fa-minus-square-o" aria-hidden="true"></i> Eliminar Laboratorista</a>
-	<a id="updMaintenance" href="#" style="margin-left:10px"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Modificar Laboratorista</a>
+	<a id="newMaintenance" href="#"><i class="fa fa-plus-square-o" aria-hidden="true"></i> Nueva Clasificacion</a>
+	<a id="delMaintenance" href="#" style="margin-left:10px"><i class="fa fa-minus-square-o" aria-hidden="true"></i> Eliminar Clasificacion</a>
+	<a id="updMaintenance" href="#" style="margin-left:10px"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Modificar Clasificacion</a>
 	<table id="maintenanceTable" class="table table-striped table-bordered" width="100%">
 		<thead>
 			<tr>
+				<th>Id</th>
 				<th>Categoria</th>
-				<th>Descripciones</th>
 			</tr>
 		</thead>
 	</table>
@@ -61,8 +61,8 @@
 				<div class="label col">
 					<label>Descripcion:</label>
 				</div>
-				<div class="input col">
-					<form:input path="description" cssClass="text"/>
+				<div class="textarea col">
+					<form:textarea path="description" cssClass="text"/>
 				</div>
 			</div>
 		</div>
@@ -81,8 +81,8 @@ $(document).ready(function(){
 	    },
 		
 		"columns": [
-			{ "data": "categoria"},
-			{ "data": "descripcion"}
+			{ "data": "DT_RowId"},
+			{ "data": "categoria"}
 		],
 		"language":{
 			"info": "Mostrando  _START_ a _END_ de _MAX_",
@@ -108,9 +108,14 @@ var url = "clasificacion.txt";
 //override
 function loadData(dialog){
 	var row = $("table.dataTable tbody tr.active");
-	dialog.find("#id_temp").val(row.children("td:eq(0)").text());
-	dialog.find("#category_temp").val(row.children("td:eq(1)").text());
-	dialog.find("#description_temp").val(row.children("td:eq(2)").text());
+	var table= $('#maintenanceTable').DataTable();
+	var datarow= table.row(row);
+	var data = datarow.data();
+	var id = data.DT_RowId;
+	
+	dialog.find("#id_temp").val(id);
+	dialog.find("#category_temp").val(data.categoria);
+	dialog.find("#description_temp").val(data.descripcion);
 }
 
 //override

@@ -54,13 +54,13 @@ public class ClasificacionMaintenanceController {
 			
 			cla.setId(form.getId());
 			cla.setCategoria(form.getCategory());
-			cla.setDescripcion(form.getDescription());
+			cla.setDescripcion(form.getDescription().toString());
 
 			clasifiService.saveOrUpdate(cla);
 			mensaje="Registro guardado";
 			
 		}
-		else if(form.getAction().equals("d")){
+		else if(form.getAction().equals("D")){
 			cla = clasifiService.findById(form.getId());
 			clasifiService.delete(cla);	
 			mensaje="Registro eliminado";

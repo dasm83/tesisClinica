@@ -34,7 +34,7 @@ function openDialog(title){
 }
 
 function enaTempFields(dialog){
-	dialog.find("input,select").each(function(){ /// getting all fields on modal dialog
+	dialog.find("input,select,textarea").each(function(){ /// getting all fields on modal dialog
 		var id = $(this).attr("id");
 		$(this).attr("id",id+"_temp");
 	});
@@ -42,7 +42,7 @@ function enaTempFields(dialog){
 
 /// disables all dialog fields; useful for a delete operation when user only needs to see info
 function disableAllFields(dialog){
-	dialog.find("input,select").attr("disabled","true");
+	dialog.find("input,select,textarea").attr("disabled","true");
 }
 
 function sendData(){
@@ -85,7 +85,7 @@ $( function() { /// jquery start point
 		}
 		
 		/// copying data from dialog to form
-		$("#myModal").find("input,select").each(function(){
+		$("#myModal").find("input,select,textarea").each(function(){
 			var idInputForm = $(this).attr("id").replace("_temp","");
 			$("#maintenanceForm #"+idInputForm).val($(this).val());
 		});
