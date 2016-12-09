@@ -1,6 +1,7 @@
 package com.tesis.clinicapp.model;
 // Generated 11-02-2016 09:42:18 PM by Hibernate Tools 5.2.0.Beta1
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
@@ -135,6 +136,10 @@ public class Examen implements java.io.Serializable {
 	
 	public String transformDateForView(){
 		return format.format(this.getFecha());
+	}
+	
+	public void setDateForModel(String date) throws ParseException{
+		this.setFecha(format.parse(date));
 	}
 
 }

@@ -1,9 +1,11 @@
 package com.tesis.clinicapp.web.controller.maintenance;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.tesis.clinicapp.model.CatalogoExamen;
 import com.tesis.clinicapp.model.Examen;
+import com.tesis.clinicapp.model.ItemsExamen;
 import com.tesis.clinicapp.model.Laboratorista;
 import com.tesis.clinicapp.model.Paciente;
 import com.tesis.clinicapp.service.CatExamenService;
@@ -200,16 +203,17 @@ public class ExamenMaintenanceController {
 	 * @param request
 	 * @param form
 	 * @return
+	 * @throws ParseException 
 	 */
 	@RequestMapping(method = RequestMethod.POST, value = URLops, params = "op=iou", produces = "text/plain")
-	public @ResponseBody String modExamTable(HttpServletRequest request, HttpServletResponse response, ExamDetailForm form){
+	public @ResponseBody String modExamTable(HttpServletRequest request, HttpServletResponse response, ExamDetailForm form) throws ParseException{
 		Long id = form.getExamId();
 		Examen ex = new Examen();
-		Laboratorista lab = new Laboratorista();
-		Paciente pt = new Paciente();
+		Laboratorista lab = labService.getByExactName(form.getLaboratorista());
+		Paciente pt = pacientService.getByExactName(form.getPaciente());
 		String msj = "";
 		
-		msj = validate(form.getPaciente(), pt, form.getLaboratorista(), lab);
+		msj = validate(pt, lab);
 		
 		if(!msj.isEmpty()){
 			response.setStatus(500);
@@ -218,18 +222,33 @@ public class ExamenMaintenanceController {
 		
 		if(id != null){ // this is an update because we have an exam id, so we'll read exam from db
 			ex = examService.findById(id);
-			//ex.setLaboratorista();
+			ex.setLaboratorista(lab);
+			ex.setPaciente(pt);
+			ex.setDateForModel(form.getFecha());
+			ex.setObservaciones(form.getObservaciones());
+			
+			Set<ItemsExamen> exItems = ex.getItemsExamens();;
+			
+			form.getItems().forEach(formItem->{
+				for(ItemsExamen exItem:exItems){
+					if(exItem.getCatalogoItemsExamen().getNombre().equals(formItem.getNombre())){
+						exItem.setValor(formItem.getValor());
+						break;
+					}
+				}
+			});
+			
+			ex.setItemsExamens(exItems);
+			msj = "Registro guardado";
 		}
 		
+		examService.saveOrUpdate(ex);
 		response.setStatus(200);
 		return msj;
 	}
 	
-	private String validate(String pName, Paciente p, String lName, Laboratorista l) {
+	private String validate(Paciente p, Laboratorista l) {
 		String msj = "";
-		
-		p = pacientService.getByExactName(pName);
-		l = labService.getByExactName(lName);
 		
 		if(p == null){
 			msj = "Paciente ingresado no existe<br>";

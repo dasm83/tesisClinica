@@ -124,6 +124,7 @@ $( function() { /// jquery start point
 		window.location.href = urlDetail + "?id="+id;
 	});
 	
+	/// delete operation
 	$("#myModalOnView #okBtn").click(function(){
 		$.ajax({
 			url: url,
@@ -146,7 +147,11 @@ $( function() { /// jquery start point
 		$("#myModalOnView").find(".modal-footer").hide();
 	});
 	
+	/// insert or update
 	$("#saveBtn").click(function(){
+		console.log($('#pacient').val());
+		console.log($('#detailForm').serialize());
+		
 		var data = $('#detailForm').serialize();
 		
 		$("#myModalOnViewDet").modal({ /// configuring modal before launching
@@ -160,7 +165,7 @@ $( function() { /// jquery start point
 		$.ajax({
 			url: url,
 			method: "POST",
-			data: 'op=iou&form='+data,
+			data: 'op=iou&'+data,
 			dataType: 'text',
 			success: function(data){
 				$("#myModalOnViewDet").find(".modal-footer").show();

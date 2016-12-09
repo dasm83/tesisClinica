@@ -32,8 +32,9 @@
 			</div>
 			<div class="col-lg-6">
 				<c:forEach items="${ExamDetailForm.items}" var="item" varStatus="loop">
-					<label><c:out value="${item.nombre}" />:</label>
-					<input name="ExamDetailForm[${loop.index}].valor" value="${item.valor}" class="form-control"/>
+					<input type="hidden" name="items[${loop.index}].nombre" value="${item.nombre}"/>
+					<form:label for="items[${loop.index}].valor" path="items[${loop.index}].nombre"><c:out value="${item.nombre}" />:</form:label>
+					<input name="items[${loop.index}].valor" value="${item.valor}" class="form-control"/>
 					<br>
 				</c:forEach>
 			</div>
