@@ -149,6 +149,10 @@ $( function() { /// jquery start point
 	
 	/// insert or update
 	$("#saveBtn").click(function(){
+		if(!validate()){
+			return;
+		}
+		
 		console.log($('#pacient').val());
 		console.log($('#detailForm').serialize());
 		
@@ -168,7 +172,6 @@ $( function() { /// jquery start point
 			data: 'op=iou&'+data,
 			dataType: 'text',
 			success: function(data){
-				$("#myModalOnViewDet").find(".modal-footer").show();
 				$("#myModalOnViewDet").find('.modal-body').html("<div style='text-align:center'>"+data+"</div>");
 			},
 			error: function(jqXHR, error, errorThrown){

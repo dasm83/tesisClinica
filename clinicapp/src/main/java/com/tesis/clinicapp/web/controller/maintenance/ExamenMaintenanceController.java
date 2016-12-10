@@ -28,7 +28,6 @@ import com.tesis.clinicapp.service.CatExamenService;
 import com.tesis.clinicapp.service.ExamenService;
 import com.tesis.clinicapp.service.LaboratoristaService;
 import com.tesis.clinicapp.service.PacienteService;
-import com.tesis.clinicapp.util.AutocompleteData;
 import com.tesis.clinicapp.util.TableData;
 import com.tesis.clinicapp.web.form.maintenance.ExamDetailForm;
 import com.tesis.clinicapp.web.form.maintenance.ExamDetailFormItem;
@@ -37,6 +36,7 @@ import com.tesis.clinicapp.web.form.maintenance.ExamenesMainForm;
 @Controller
 public class ExamenMaintenanceController {
 	
+	@SuppressWarnings("unused")
 	private static final Logger logger = Logger.getLogger(ExamenMaintenanceController.class);
 
 	/**
@@ -104,24 +104,6 @@ public class ExamenMaintenanceController {
 				Integer.parseInt(request.getParameter("start")),
 				Integer.parseInt(request.getParameter("length"))));
 		return json;
-	}
-	
-	/**
-	 * Read pacients in db whose name is like "query" param
-	 * 
-	 * @param request
-	 * @return {@link AutocompleteData}
-	 */
-	@RequestMapping(method = RequestMethod.POST, value = URLj, params = "sug", produces = "application/json")
-	public @ResponseBody AutocompleteData getPacientList(HttpServletRequest request){
-		AutocompleteData suggestions = new AutocompleteData();
-		List<Paciente> pacientList = pacientService.getByName(request.getParameter("query"));
-		
-		pacientList.forEach(p->{
-			suggestions.addPair(p.toString(), p.getId().toString());
-		});
-		
-		return suggestions;
 	}
 	
 	/**
@@ -222,10 +204,6 @@ public class ExamenMaintenanceController {
 		
 		if(id != null){ // this is an update because we have an exam id, so we'll read exam from db
 			ex = examService.findById(id);
-			ex.setLaboratorista(lab);
-			ex.setPaciente(pt);
-			ex.setDateForModel(form.getFecha());
-			ex.setObservaciones(form.getObservaciones());
 			
 			Set<ItemsExamen> exItems = ex.getItemsExamens();;
 			
@@ -239,9 +217,16 @@ public class ExamenMaintenanceController {
 			});
 			
 			ex.setItemsExamens(exItems);
-			msj = "Registro guardado";
+		} else{ // this is an insert 'cuz we don't have an exam id yet
+			
 		}
 		
+		ex.setLaboratorista(lab);
+		ex.setPaciente(pt);
+		ex.setDateForModel(form.getFecha());
+		ex.setObservaciones(form.getObservaciones());
+		
+		msj = "Registro guardado";
 		examService.saveOrUpdate(ex);
 		response.setStatus(200);
 		return msj;

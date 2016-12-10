@@ -8,7 +8,9 @@ import com.tesis.clinicapp.util.GenericDAO;
 public interface LaboratoristaDAO extends GenericDAO<Laboratorista,Long> {
 	
 	Laboratorista findByAltId(String dui);
-    public List getFilteredList(int draw,int start, int length);
+    @SuppressWarnings("rawtypes")
+	public List getFilteredList(int draw,int start, int length);
 	Laboratorista getByExactName(String lName);
+	List<Laboratorista> getByName(String name);
 
 }

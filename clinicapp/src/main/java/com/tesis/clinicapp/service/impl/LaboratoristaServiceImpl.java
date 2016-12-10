@@ -4,11 +4,11 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.tesis.clinicapp.service.LaboratoristaService;
-import com.tesis.clinicapp.model.Laboratorista;
-import com.tesis.clinicapp.util.GenericServiceImpl;
+
 import com.tesis.clinicapp.dao.LaboratoristaDAO;
-import com.tesis.clinicapp.dao.PacienteDAO;
+import com.tesis.clinicapp.model.Laboratorista;
+import com.tesis.clinicapp.service.LaboratoristaService;
+import com.tesis.clinicapp.util.GenericServiceImpl;
 
 @Service
 public class LaboratoristaServiceImpl extends GenericServiceImpl<Laboratorista,Long> implements LaboratoristaService{
@@ -21,6 +21,7 @@ public class LaboratoristaServiceImpl extends GenericServiceImpl<Laboratorista,L
 		return dao.findByAltId(dui);
 	}
 
+	@SuppressWarnings("rawtypes")
 	@Override
 	public List getFilteredList(int draw, int start, int length) {
           return dao.getFilteredList(draw, start, length);
@@ -28,6 +29,10 @@ public class LaboratoristaServiceImpl extends GenericServiceImpl<Laboratorista,L
 	
 	public Laboratorista getByExactName(String lName){
 		return dao.getByExactName(lName);
+	}
+	
+	public List<Laboratorista> getByName(String name){
+		return dao.getByName(name);
 	}
 		
 }

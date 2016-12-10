@@ -7,8 +7,13 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>${title}</title>
+<!-- autocomplete -->
 <script src="<c:url value="/resources/js/jquery.autocomplete.js" />"></script>
 <link href="<c:url value='/resources/css/autocomplete.css' />" rel="stylesheet">
+
+<!-- datepicker -->
+<script src="<c:url value="/resources/js/bootstrap-datepicker.min.js" />"></script>
+<link href="<c:url value='/resources/css/bootstrap-datepicker3.css' />" rel="stylesheet">
 </head>
 <body>
 
@@ -22,7 +27,7 @@
 				<form:input id="pacient" path="paciente" cssClass="form-control"/>
 				<br>
 				<form:label for="date" path="fecha">Fecha de procesamiento:</form:label>
-				<form:input id="date" path="fecha" cssClass="form-control"/>
+				<form:input id="date" path="fecha" cssClass="form-control datepicker" data-provide="datepicker" data-date-format="mm/dd/yyyy"/>
 				<br>
 				<form:label for="lab" path="laboratorista">Laboratorista:</form:label>
 				<form:input id="lab" path="laboratorista" cssClass="form-control"/>
@@ -68,7 +73,12 @@ var url = "examOp.txt";
 
 $( function() {
 	$('#pacient').autocomplete({
-		serviceUrl: 'exam-ajax.json?sug',
+		serviceUrl: 'auto.json?sugP',
+		type: 'POST'
+	});
+	
+	$('#lab').autocomplete({
+		serviceUrl: 'auto.json?sugL',
 		type: 'POST'
 	});
 });
