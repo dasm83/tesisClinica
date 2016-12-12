@@ -20,12 +20,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.tesis.clinicapp.model.CatalogoExamen;
+import com.tesis.clinicapp.model.CatalogoItemsExamen;
 import com.tesis.clinicapp.model.Examen;
 import com.tesis.clinicapp.model.ItemsExamen;
+import com.tesis.clinicapp.model.ItemsExamenId;
 import com.tesis.clinicapp.model.Laboratorista;
 import com.tesis.clinicapp.model.Paciente;
 import com.tesis.clinicapp.service.CatExamenService;
 import com.tesis.clinicapp.service.ExamenService;
+import com.tesis.clinicapp.service.ItemsExamenService;
 import com.tesis.clinicapp.service.LaboratoristaService;
 import com.tesis.clinicapp.service.PacienteService;
 import com.tesis.clinicapp.util.TableData;
@@ -70,6 +73,9 @@ public class ExamenMaintenanceController {
 	
 	@Autowired
 	private LaboratoristaService labService;
+	
+	@Autowired
+	private ItemsExamenService itemService;
 
 	
 	/**
@@ -173,6 +179,7 @@ public class ExamenMaintenanceController {
 		});
 		
 		form.setItems(items);
+		form.setExamType(cat.getId());
 		
 		request.setAttribute("title", "Exámen de "+cat.getNombre());
 		
@@ -190,7 +197,6 @@ public class ExamenMaintenanceController {
 	@RequestMapping(method = RequestMethod.POST, value = URLops, params = "op=iou", produces = "text/plain")
 	public @ResponseBody String modExamTable(HttpServletRequest request, HttpServletResponse response, ExamDetailForm form) throws ParseException{
 		Long id = form.getExamId();
-		Examen ex = new Examen();
 		Laboratorista lab = labService.getByExactName(form.getLaboratorista());
 		Paciente pt = pacientService.getByExactName(form.getPaciente());
 		String msj = "";
@@ -202,8 +208,10 @@ public class ExamenMaintenanceController {
 			return msj;
 		}
 		
+		msj = "Registro guardado";
+		
 		if(id != null){ // this is an update because we have an exam id, so we'll read exam from db
-			ex = examService.findById(id);
+			Examen ex = examService.findById(id);
 			
 			Set<ItemsExamen> exItems = ex.getItemsExamens();;
 			
@@ -217,17 +225,48 @@ public class ExamenMaintenanceController {
 			});
 			
 			ex.setItemsExamens(exItems);
-		} else{ // this is an insert 'cuz we don't have an exam id yet
 			
+			ex.setLaboratorista(lab);
+			ex.setPaciente(pt);
+			ex.setDateForModel(form.getFecha());
+			ex.setObservaciones(form.getObservaciones());
+			
+			examService.saveOrUpdate(ex);
+		} else{ // this is an insert 'cuz we don't have an exam id yet
+			Examen ex = new Examen();
+			CatalogoExamen cat = catExamService.findById(form.getExamType());
+			
+			ex.setCatalogoExamen(cat);
+			ex.setLaboratorista(lab);
+			ex.setPaciente(pt);
+			ex.setDateForModel(form.getFecha());
+			ex.setObservaciones(form.getObservaciones());
+			
+			examService.save(ex);
+			
+			try{
+				form.getItems().forEach(formItem->{
+					ItemsExamen itemOnEx = new ItemsExamen();
+					itemOnEx.setExamen(ex);
+					for(CatalogoItemsExamen item : cat.getCatalogoItemsExamens()){
+						if(item.getNombre().equals(formItem.getNombre())){
+							itemOnEx.setCatalogoItemsExamen(item);
+							itemOnEx.setValor(formItem.getValor());
+							itemOnEx.setId(new ItemsExamenId(Math.toIntExact(ex.getId()),item.getId()));
+							break;
+						}
+					}
+					
+					itemService.save(itemOnEx);
+				});
+			} catch(Exception e){
+				examService.delete(ex);
+				msj = e.getMessage();
+				response.setStatus(500);
+				return msj;
+			}
 		}
 		
-		ex.setLaboratorista(lab);
-		ex.setPaciente(pt);
-		ex.setDateForModel(form.getFecha());
-		ex.setObservaciones(form.getObservaciones());
-		
-		msj = "Registro guardado";
-		examService.saveOrUpdate(ex);
 		response.setStatus(200);
 		return msj;
 	}
@@ -239,7 +278,7 @@ public class ExamenMaintenanceController {
 			msj = "Paciente ingresado no existe<br>";
 		} 
 		if(l == null){
-			msj = msj+"Laboratorista ingresado no existe";
+			msj = msj+"Laboratorista ingresado no existe<br>";
 		}
 		
 		return msj;

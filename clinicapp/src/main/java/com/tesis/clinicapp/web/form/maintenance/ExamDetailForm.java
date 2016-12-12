@@ -9,6 +9,7 @@ public class ExamDetailForm {
 	private String laboratorista;
 	private String fecha;
 	private String observaciones;
+	private Long examType;
 	private List<ExamDetailFormItem> items;
 	
 	
@@ -41,6 +42,12 @@ public class ExamDetailForm {
 	}
 	public void setObservaciones(String observaciones) {
 		this.observaciones = observaciones;
+	}
+	public Long getExamType() {
+		return examType;
+	}
+	public void setExamType(Long examType) {
+		this.examType = examType;
 	}
 	public List<ExamDetailFormItem> getItems() {
 		return items;

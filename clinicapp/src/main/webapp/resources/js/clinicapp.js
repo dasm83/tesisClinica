@@ -147,6 +147,10 @@ $( function() { /// jquery start point
 		$("#myModalOnView").find(".modal-footer").hide();
 	});
 	
+	$("#cancelBtn").click(function(){
+		window.location.replace(mainURL);
+	});
+	
 	/// insert or update
 	$("#saveBtn").click(function(){
 		if(!validate()){
@@ -173,9 +177,15 @@ $( function() { /// jquery start point
 			dataType: 'text',
 			success: function(data){
 				$("#myModalOnViewDet").find('.modal-body').html("<div style='text-align:center'>"+data+"</div>");
+				setTimeout(function(){
+					window.location.replace(mainURL);
+				}, 4000);
 			},
 			error: function(jqXHR, error, errorThrown){
-				$("#myModalOnViewDet").find('.modal-body').html("<div style='text-align:center'>"+jqXHR.responseText+"</div>");
+				$("#myModalOnViewDet").find('.modal-body').html("<div style='text-align:center'><h3>Error</h3>"+jqXHR.responseText+"</div>");
+				setTimeout(function(){
+					$("#myModalOnViewDet").modal('hide');
+				}, 4000);
 			}
 		});
 	});

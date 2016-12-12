@@ -10,6 +10,10 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class ItemsExamenId implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4003566272232223386L;
 	private int examenId;
 	private int catItemExamenId;
 

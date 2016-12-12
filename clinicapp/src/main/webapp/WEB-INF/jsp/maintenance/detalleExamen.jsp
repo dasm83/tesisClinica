@@ -27,7 +27,7 @@
 				<form:input id="pacient" path="paciente" cssClass="form-control"/>
 				<br>
 				<form:label for="date" path="fecha">Fecha de procesamiento:</form:label>
-				<form:input id="date" path="fecha" cssClass="form-control datepicker" data-provide="datepicker" data-date-format="mm/dd/yyyy"/>
+				<form:input id="date" path="fecha" cssClass="form-control datepicker" data-provide="datepicker" data-date-format="dd/mm/yyyy"/>
 				<br>
 				<form:label for="lab" path="laboratorista">Laboratorista:</form:label>
 				<form:input id="lab" path="laboratorista" cssClass="form-control"/>
@@ -45,10 +45,11 @@
 			</div>
 		</div>
 		<div class="row">
-			<button type="button" class="btn btn-primary pull-right" style="margin-top:40px; margin-right:15px">Cancelar</button>
+			<button id="cancelBtn" type="button" class="btn btn-primary pull-right" style="margin-top:40px; margin-right:15px">Cancelar</button>
 			<button id="saveBtn" type="button" class="btn btn-primary pull-right" style="margin-top:40px; margin-right:15px">Guardar</button>
 		</div>
 		<form:input path="examId" cssStyle="display:none"/>
+		<form:input path="examType" cssStyle="display:none"/>
 	</form:form>
 
 </div>
@@ -70,6 +71,7 @@
 	</div><!-- /.modal -->
 <script type="text/javascript">
 var url = "examOp.txt";
+var mainURL = "examenes.htm"
 
 $( function() {
 	$('#pacient').autocomplete({
