@@ -1,6 +1,9 @@
 package com.tesis.clinicapp.web.controller.maintenance;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -9,10 +12,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.tesis.clinicapp.model.Paciente;
 import com.tesis.clinicapp.service.PacienteService;
+import com.tesis.clinicapp.util.TableData;
 import com.tesis.clinicapp.web.form.maintenance.pacientesMainForm;
 
 @Controller
@@ -22,12 +27,13 @@ public class PacienteMaintenanceController {
 	 * where the request is coming from
 	 */
 	private static final String URL = "/maintenance/pacientes.htm";
-	private static final String URLx = "/maintenance/pacient-ajax.htm";
+	private static final String URLj = "/maintenance/paciente-ajax.json";
+	private static final String URLt = "/maintenance/paciente.txt";
 	/**
 	 * name of the jsp which corresponds to URL
 	 */
 	private static final String JSP = "/maintenance/pacientes";
-	private static final String JSPx = "/maintenance/pacient-ajax";
+	/**
 	/**
 	 * name of the form created in JSP
 	 */
@@ -44,22 +50,16 @@ public class PacienteMaintenanceController {
 	@RequestMapping(method = RequestMethod.GET, value = URL)
 	public ModelAndView get(HttpServletRequest request){
 		
-		/// we obtain a list with all the patients available in database
-		List<Paciente> pacientes = pacientService.findAll();
-		/// patients list is converted to a json array
-//		ObjectMapper mapper = new ObjectMapper();
-//		request.setAttribute("pacientList", mapper.writeValueAsString(pacientes));
-		
-		/// we have to set the view's title (text inserted on title html tag)
 		request.setAttribute("title", "Pacientes");
 		
 		return new ModelAndView(JSP,FORM,new pacientesMainForm());
 		
 	}
 	
-	@RequestMapping(method = RequestMethod.POST, value = URLx)
+	@RequestMapping(method = RequestMethod.POST, value = URLt, produces = "text/plain")
 	public String postX(HttpServletRequest request, HttpServletResponse response, pacientesMainForm form){
 		Paciente paciente = new Paciente();
+		String mensaje = null; 
 		
 		if(form.getAction().equals("I") || form.getAction().equals("U")){ /// doing insert or update; creating or modifying
 			paciente.setId(form.getId());
@@ -79,19 +79,61 @@ public class PacienteMaintenanceController {
 			paciente.setEmail(form.getEmail());
 			
 			pacientService.saveOrUpdate(paciente);
-			/// this indicates an OK status
-			response.setStatus(200);
-			/// message to be displayed as an ajax response. "msj" attribute exists on ajax jsp
-			request.setAttribute("msj", "Registro guardado");
+			mensaje= "Paciente Guardado";
 		}
 		else if(form.getAction().equals("D")){ // doing delete; bye to patient
 			paciente = pacientService.findByAltId(form.getDui()); // by dui so we don't rely on sequence
 			pacientService.delete(paciente);
-			response.setStatus(200);
-			request.setAttribute("msj", "Registro eliminado");
+			mensaje = "Paciente Eliminado";
 		}
 		
-		return JSPx;
+		return mensaje;
 	}
+	
+	
+	@RequestMapping(method = RequestMethod.POST, value = URLj, produces="application/json")
+	public @ResponseBody TableData dataTable(HttpServletRequest request){
+		TableData json = new TableData();
+		json.setDraw(Integer.parseInt(request.getParameter("draw")));
+		json.setRecordsFiltered(pacientService.count());
+		json.setRecordsTotal(pacientService.count());
+		json.setData(getPacientList(Integer.parseInt(request.getParameter("draw")),
+									Integer.parseInt(request.getParameter("start")),
+									Integer.parseInt(request.getParameter("length"))));
+		
+		return json;
+	}
+	
+	
+	@SuppressWarnings("unchecked")
+	public List<Map<String,String>> getPacientList(int draw,int start,int length){
+		List<Map<String,String>> brief = new ArrayList<>();
+		List<Paciente> pacient = pacientService.getFilteredList(draw,start,length);
+		
+		for(Paciente p:pacient ){
+			Map<String,String> list = new HashMap<>();
+			list.put("DT_RowId", p.getId().toString());
+			list.put("nombres",p.getNombres().toString());
+			list.put("apellidos",p.getApellidos().toString());
+			list.put("edad", String.valueOf(p.getEdad()));
+			list.put("dui",p.getDui().toString());
+			list.put("nit",p.getNit().toString());
+			list.put("sexo", String.valueOf(p.getSexo()));
+			list.put("nacionalidad",p.getNacionalidad().toString());
+			list.put("profesion",p.getProfesion().toString());
+			list.put("estCivil",p.getEstadoCivil().toString());
+			list.put("municipio", p.getMunicipio().toString());
+			list.put("departamento", p.getDepartamento().toString());
+			list.put("direccion", p.getDireccion().toString());
+			list.put("email", p.getEmail().toString());
+			list.put("telefono", p.getTelefono().toString());
+		
+			brief.add(list);
+		}
+		
+		return brief;
+	}
+	
+	
 
 }

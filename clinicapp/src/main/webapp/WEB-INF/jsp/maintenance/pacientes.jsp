@@ -20,12 +20,6 @@
 				<th>Id</th>
 				<th>Nombres</th>
 				<th>Apellidos</th>
-				<th>Sexo</th>
-				<th>Edad</th>
-				<th>DUI</th>
-				<th>NIT</th>
-				<th>Profesión</th>
-				<th>Nacionalidad</th>
 			</tr>
 		</thead>
 	</table>
@@ -270,19 +264,17 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
-	var data =eval('${pacientList}');
 	var table = $('#maintenanceTable').DataTable( {
-		"aaData": data,
-		"aoColumns": [
-			{ "mData": "id"},
-			{ "mData": "nombres"},
-			{ "mData": "apellidos"},
-			{ "mData": "sexo"},
-			{ "mData": "edad"},
-			{ "mData": "dui"},
-			{ "mData": "nit"},
-			{ "mData": "profesion"},
-			{ "mData": "nacionalidad"}
+		"serverSide" : true,
+		"ajax" : {
+			"url" : "paciente-ajax.json",
+			"type": "POST"
+		},
+		
+		"columns": [
+			{ "data": "DT_RowId"},
+			{ "data": "nombres"},
+			{ "data": "apellidos"}
 		],
 		"language":{
 			"info": "Mostrando  _START_ a _END_ de _MAX_",
@@ -294,28 +286,39 @@ $(document).ready(function(){
 				"next": "Siguiente",
 				"first": "Primera",
 				"last": "Última"
-			},
-			"search": "Buscar:"
+			}
 		},
-		"lengthChange": false
+		"lengthChange": false,
+		"searching": false,
+		"pageLength": 20
 	});
 });
 
 var title = "Paciente";
-var url = "pacient-ajax.htm";
+var url = "paciente.txt";
 
 // override
 function loadData(dialog){
 	var row = $("table.dataTable tbody tr.active");
-	dialog.find("#id_temp").val(row.children("td:eq(0)").text());
-	dialog.find("#names_temp").val(row.children("td:eq(1)").text());
-	dialog.find("#surnames_temp").val(row.children("td:eq(2)").text());
-	dialog.find("#sex_temp").val(row.children("td:eq(3)").text());
-	dialog.find("#age_temp").val(row.children("td:eq(4)").text());
-	dialog.find("#dui_temp").val(row.children("td:eq(5)").text());
-	dialog.find("#nit_temp").val(row.children("td:eq(6)").text());
-	dialog.find("#job_temp").val(row.children("td:eq(7)").text());
-	dialog.find("#nation_temp").val(row.children("td:eq(8)").text());
+	var table = $('#maintenanceTable').DataTable();
+	var datarow= table.row(row);
+	var data = datarow.data();
+	var id = data.DT_RowId;
+	dialog.find("#id_temp").val(id);
+	dialog.find("#names_temp").val(data.nombres);
+	dialog.find("#surnames_temp").val(data.apellidos);
+	dialog.find("#sex_temp").val(data.sexo);
+	dialog.find("#age_temp").val(data.edad);
+	dialog.find("#dui_temp").val(data.dui);
+	dialog.find("#nit_temp").val(data.nit);
+	dialog.find("#job_temp").val(data.profesion);
+	dialog.find("#nation_temp").val(data.nacionalidad);
+	dialog.find("#maritalStatus_temp").val(data.estCivil);
+	dialog.find("#municipio_temp").val(data.municipio);
+	dialog.find("#departament_temp").val(data.departamento);
+	dialog.find("#address_temp").val(data.direccion);
+	dialog.find("#phone_temp").val(data.telefono);
+	dialog.find("#email_temp").val(data.email);
 }
 
 //override

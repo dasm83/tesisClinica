@@ -57,4 +57,14 @@ public class PacienteDAOImpl extends GenericDAOImpl<Paciente, Long> implements P
 		return (Paciente) crit.uniqueResult();
 	}
 	
+	public List getFilteredList(int draw, int start, int length) {
+		
+		Criteria crit = getCriteria();
+		crit.setFirstResult(start);
+		crit.setMaxResults(length);
+
+		return crit.list();
+		
+	}
+	
 }

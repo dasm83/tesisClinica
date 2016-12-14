@@ -12,5 +12,7 @@ public interface PacienteDAO extends GenericDAO<Paciente, Long> {
 	List<Paciente> getByName(String name);
 
 	Paciente getByExactName(String pName);
+	
+    List getFilteredList(int draw,int start, int length);
 
 }
