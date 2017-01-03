@@ -124,6 +124,12 @@ $( function() { /// jquery start point
 		window.location.href = urlDetail + "?id="+id;
 	});
 	
+	$("body").on("click","#updMainOnViewCat",function(){
+		var tr = $(this).closest('tr');
+		id = tr.attr('id');
+		window.location.href = urlDetail + "?id="+id;
+	});
+	
 	/// delete operation
 	$("#myModalOnView #okBtn").click(function(){
 		$.ajax({
@@ -189,6 +195,37 @@ $( function() { /// jquery start point
 			}
 		});
 	});
+	
+	//insert nuevoCatalogoExamen
+	
+	$("#saveBtnCat").click(function(){
+		
+		var data = $('#detailFormCat').serialize();
+		
+		$("#myModalOnViewDet").modal({ /// configuring modal before launching
+			  backdrop: 'static'
+		});
+		
+		$.ajax({
+			url: url,
+			method: "POST",
+			data: data,
+			dataType: 'text',
+			success: function(data){
+				$("#myModalOnViewDet").find('.modal-body').html("<div style='text-align:center'>"+data+"</div>");
+				setTimeout(function(){
+					window.location.replace(mainURL);
+				}, 4000);
+			},
+			error: function(jqXHR, error, errorThrown){
+				$("#myModalOnViewDet").find('.modal-body').html("<div style='text-align:center'><h3>Error</h3>"+jqXHR.responseText+"</div>");
+				setTimeout(function(){
+					$("#myModalOnViewDet").modal('hide');
+				}, 4000);
+			}
+		});
+	});
+	
 	
 	/// ----------------- style and format of form elements -----------------
 	$('body').on( 'focusin', '#myModal input,select', function () {
