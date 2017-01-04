@@ -169,16 +169,30 @@ public class CatalogoExamenesMaintenanceController {
 			Set<CatalogoItemsExamen> catItms = catEx.getCatalogoItemsExamens();
 			
 				form.getItems().forEach(formItem->{
-					
-					CatalogoItemsExamen itemOnEx = new CatalogoItemsExamen();
-					itemOnEx.setCatalogoExamen(catEx);
-					itemOnEx.setNombre(formItem.getNombre());
-				    itemCatService.save(itemOnEx);
+					for(CatalogoItemsExamen exItem:catItms){
+						if(exItem.getNombre().equals((formItem.getOldId()))){
+							System.out.println("modifica viejo");
+							exItem.setNombre(formItem.getNombre());
+							break;
+						
+						}else if(formItem.getOldId().equals("vacio")){
+							CatalogoItemsExamen itemOnEx = new CatalogoItemsExamen();
+							itemOnEx.setCatalogoExamen(catEx);
+							itemOnEx.setNombre(formItem.getNombre());
+							System.out.println("crea nuevo");
+							itemCatService.save(itemOnEx);
+							break;
+						}
+						
+				//	CatalogoItemsExamen itemOnEx = new CatalogoItemsExamen();
+				//	itemOnEx.setCatalogoExamen(catEx);
+				//	itemOnEx.setNombre(formItem.getNombre());
+				//    itemCatService.save(itemOnEx);
 				    
 			//				catItm.setNombre(formItem.getNombre());
 			//				catItms.add(e);
 							
-						
+					}
 				});
 				
 				catEx.setCatalogoItemsExamens(catItms);

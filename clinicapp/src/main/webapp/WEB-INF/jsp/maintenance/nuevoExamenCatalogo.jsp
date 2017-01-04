@@ -34,7 +34,8 @@
     				<div class="added">
     						<div class="col-lg-6">
 								<c:forEach items="${CatalogoExamDetail.items}" var="item" varStatus="loop">
-							<div><input name="items[${loop.index}].nombre" value="${item.nombre}" class="form-control"/><a href="#" class="eliminar">Eliminar</a></div>
+							<div><input name="items[${loop.index}].nombre" value="${item.nombre}" class="form-control"/><a href="#" class="eliminar">Eliminar</a>
+								<input type="hidden" name="items[${loop.index}].oldId" value="${item.nombre}" /></div>
 								<br>
 								</c:forEach>
     						</div>
@@ -84,7 +85,7 @@ $(document).ready(function() {
 	        {
 	            FieldCount++;
 	            //agregar campo
-	            $(contenedor).append('<div><input type="text" path="items" name="items['+contador+'].nombre" cssClass="form-control" id="campo_'+ FieldCount +'" placeholder="Texto '+ contador +'"/><a href="#" class="eliminar">Eliminar</a></div>');
+	            $(contenedor).append('<div><input type="text" path="items" name="items['+contador+'].nombre" cssClass="form-control" id="campo_'+ FieldCount +'" placeholder="Texto '+ contador +'"/><input type="hidden" name="items['+contador+'].oldId" value="vacio" /><a href="#" class="eliminar">Eliminar</a></div>');
 	            x++; //text box increment
 	            contador++;
 	        }
