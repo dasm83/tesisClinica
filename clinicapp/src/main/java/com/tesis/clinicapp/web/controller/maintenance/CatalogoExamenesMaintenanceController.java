@@ -116,6 +116,7 @@ public class CatalogoExamenesMaintenanceController {
 		List<CatalogoExamDetailFormItem> items = new ArrayList<>();
 		catEx.getCatalogoItemsExamens().forEach(item->{
 			CatalogoExamDetailFormItem i =new CatalogoExamDetailFormItem();
+			i.setId(item.getId());
 			i.setNombre(item.getNombre());
 			i.setDescripcion(item.getDescripcion());
 			items.add(i);
@@ -158,7 +159,7 @@ public class CatalogoExamenesMaintenanceController {
 	 */
 	@SuppressWarnings("unused")
 	@RequestMapping(method = RequestMethod.POST, value = URLexamCat, produces = "text/plain")
-	public @ResponseBody String modExamTable(HttpServletRequest request, HttpServletResponse response, CatalogoExamDetail form) throws ParseException{
+	public @ResponseBody String modCatExamTable(HttpServletRequest request, HttpServletResponse response, CatalogoExamDetail form) throws ParseException{
 		
 		Long id = form.getExamCatId();
 		String msj= "Registro Guardado"; 
@@ -171,7 +172,6 @@ public class CatalogoExamenesMaintenanceController {
 				form.getItems().forEach(formItem->{
 					for(CatalogoItemsExamen exItem:catItms){
 						if(exItem.getNombre().equals((formItem.getOldId()))){
-							System.out.println("modifica viejo");
 							exItem.setNombre(formItem.getNombre());
 							break;
 						
@@ -179,8 +179,11 @@ public class CatalogoExamenesMaintenanceController {
 							CatalogoItemsExamen itemOnEx = new CatalogoItemsExamen();
 							itemOnEx.setCatalogoExamen(catEx);
 							itemOnEx.setNombre(formItem.getNombre());
-							System.out.println("crea nuevo");
 							itemCatService.save(itemOnEx);
+							break;
+						}else if(formItem.getOldId().equals("delete")){
+							CatalogoItemsExamen itemOnEx = itemCatService.findById(formItem.getId());
+							itemCatService.delete(itemOnEx);
 							break;
 						}
 						

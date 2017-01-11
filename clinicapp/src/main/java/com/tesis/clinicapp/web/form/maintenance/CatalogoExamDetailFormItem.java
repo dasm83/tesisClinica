@@ -2,6 +2,7 @@ package com.tesis.clinicapp.web.form.maintenance;
 
 public class CatalogoExamDetailFormItem {
 
+	private Long id;
 	private String oldId;
 	private String nombre;
 	private String descripcion;
@@ -24,6 +25,13 @@ public class CatalogoExamDetailFormItem {
 	public void setOldId(String oldId) {
 		this.oldId = oldId;
 	}
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+	
 	
 	
 	

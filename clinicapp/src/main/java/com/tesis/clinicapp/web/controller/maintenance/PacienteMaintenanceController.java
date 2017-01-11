@@ -57,7 +57,7 @@ public class PacienteMaintenanceController {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, value = URLt, produces = "text/plain")
-	public String postX(HttpServletRequest request, HttpServletResponse response, pacientesMainForm form){
+	public @ResponseBody String postX(HttpServletRequest request, HttpServletResponse response, pacientesMainForm form){
 		Paciente paciente = new Paciente();
 		String mensaje = null; 
 		

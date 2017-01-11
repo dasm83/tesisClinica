@@ -30,21 +30,24 @@
 				<br>
 				<br>
 				<a id="agregarCampo" class="btn btn-info" href="#">Agregar Campo</a>
+				<br>
+				<br>
 				<div id="contenedor">
     				<div class="added">
     						<div class="col-lg-6">
 								<c:forEach items="${CatalogoExamDetail.items}" var="item" varStatus="loop">
-							<div><input name="items[${loop.index}].nombre" value="${item.nombre}" class="form-control"/><a href="#" class="eliminar">Eliminar</a>
-								<input type="hidden" name="items[${loop.index}].oldId" value="${item.nombre}" /></div>
-								<br>
+								<div><input name="items[${loop.index}].nombre" value="${item.nombre}" class="form-control"/><a href="#" class="eliminar">Eliminar</a>
+									<input type="hidden" name="items[${loop.index}].oldId" value="${item.nombre}" />
+									<input type="hidden" name="items[${loop.index}].id" value="${item.id}" />
+								</div>
 								</c:forEach>
     						</div>
 				</div>
 			</div>
 			<form:input path="examCatId" cssStyle="display:none"/>
 			<div class="row">
-			<button id="cancelBtn" type="button" class="btn btn-primary pull-right" style="margin-top:40px; margin-right:15px">Cancelar</button>
-			<button id="saveBtnCat" type="button" class="btn btn-primary pull-right" style="margin-top:40px; margin-right:15px">Guardar</button>
+			<button id="cancelBtn" type="button" class="btn btn-primary pull-left" style="margin-top:40px; margin-right:15px">Cancelar</button>                                         
+			<button id="saveBtnCat" type="button" class="btn btn-primary pull-left" style="margin-top:40px; margin-right:15px">Guardar</button>
 			</div>
 		</div>
 	</form:form>
@@ -85,7 +88,7 @@ $(document).ready(function() {
 	        {
 	            FieldCount++;
 	            //agregar campo
-	            $(contenedor).append('<div><input type="text" path="items" name="items['+contador+'].nombre" cssClass="form-control" id="campo_'+ FieldCount +'" placeholder="Texto '+ contador +'"/><input type="hidden" name="items['+contador+'].oldId" value="vacio" /><a href="#" class="eliminar">Eliminar</a></div>');
+	            $(contenedor).append('<div class="col-lg-6"><input type="text" path="items" name="items['+contador+'].nombre" class="form-control" id="campo_'+ FieldCount +'" placeholder="Texto '+ contador +'"/><input type="hidden" name="items['+contador+'].oldId" value="vacio" /><a href="#" class="eliminar">Eliminar</a></div>');
 	            x++; //text box increment
 	            contador++;
 	        }
@@ -94,7 +97,8 @@ $(document).ready(function() {
 
 	    $("body").on("click",".eliminar", function(e){ //click en eliminar campo
 	        if( x > 1 ) {
-	            $(this).parent('div').remove(); //eliminar el campo
+	            $(this).parent('div').hide(); //eliminar el campo
+	            $(this).siblings("input[name$='oldId']").val("delete");
 	            x--;
 	        }
 	        return false;
