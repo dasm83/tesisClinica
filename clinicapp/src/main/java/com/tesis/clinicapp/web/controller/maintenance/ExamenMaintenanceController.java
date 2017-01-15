@@ -252,7 +252,7 @@ public class ExamenMaintenanceController {
 						if(item.getNombre().equals(formItem.getNombre())){
 							itemOnEx.setCatalogoItemsExamen(item);
 							itemOnEx.setValor(formItem.getValor());
-							itemOnEx.setId(new ItemsExamenId(Math.toIntExact(ex.getId()),item.getId()));
+							itemOnEx.setId(new ItemsExamenId(Math.toIntExact(ex.getId()), Math.toIntExact(item.getId())));
 							break;
 						}
 					}

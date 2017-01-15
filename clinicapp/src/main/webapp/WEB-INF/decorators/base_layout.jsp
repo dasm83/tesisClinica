@@ -54,34 +54,20 @@
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
                         <li>
-                            <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                            <a href="<c:url value="/index.htm" />"><i class="fa fa-home"></i> Inicio</a>
                         </li>
-<!--                         <li> -->
-<!--                             <a href="#"><i class="fa fa-database"></i> Cat&#225;logos<span class="fa arrow"></span></a> -->
-<!--                             <ul class="nav nav-second-level"> -->
-<!--                                 <li> -->
-<%--                                     <a href="<c:url value="/maintenance/pacientes.htm" />">Pacientes</a> --%>
-<!--                                 </li> -->
-<!--                                 <li> -->
-<!--                                     <a href="#">Tipos de Examen</a> -->
-<!--                                 </li> -->
-<!--                                 <li> -->
-<%--                                     <a href="<c:url value="/maintenance/laboratorista.htm" />">Laboratoristas</a> --%>
-<!--                                 </li> -->
-<!--                             </ul> -->
-<!--                         </li> -->
                         
                         <li>
-                            <a href="<c:url value="/maintenance/examenes.htm" />"><i class="fa fa-file-o"></i> Ex&#225;menes</a>
-                      		  <ul class="nav nav-second-level">
-                               <li>
-                                    <a href="<c:url value="/maintenance/examenes.htm"/>">Examenes</a>
+                            <a href="#"><i class="fa fa-file-o"></i> Ex&#225;menes</a>
+                      		<ul class="nav nav-second-level">
+                      		  	<li>
+                                    <a href="<c:url value="/maintenance/examenes.htm"/>">Archivo</a>
+                                </li>
+                      		  	<li>
+                                    <a href="<c:url value="/maintenance/catalogoExamenes.htm"/>">Cat&#225;logo</a>
                                 </li>
                                 <li>
-                                    <a href="<c:url value="/maintenance/clasificacion.htm"/>">Clasificacion</a>
-                                </li>
-                                <li>
-                                    <a href="<c:url value="/maintenance/catalogoExamenes.htm"/>">Catalogo Examenes</a>
+                                    <a href="<c:url value="/maintenance/clasificacion.htm"/>">Clasificaciones</a>
                                 </li>
                             </ul>
                         </li>
