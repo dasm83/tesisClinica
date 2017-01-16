@@ -21,9 +21,5 @@ public class ExamenServiceImpl extends GenericServiceImpl<Examen, Long> implemen
 	public List getFilteredList(int draw, int start, int length) {
 		return dao.getFilteredList(draw,start,length);
 	}
-	
-	public List<Examen> getLatest(int n){
-		return dao.getLatest(n);
-	}
 
 }

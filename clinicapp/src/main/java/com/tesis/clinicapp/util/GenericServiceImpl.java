@@ -46,4 +46,9 @@ public class GenericServiceImpl<T extends Serializable, ID extends Serializable>
 		return dao.count();
 	}
 
+	@Override
+	public List<T> getLatest(int n) {
+		return dao.getLatest(n);
+	}
+
 }

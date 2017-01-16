@@ -36,9 +36,18 @@
 			  <div class="panel-heading">
 			    <h3 class="panel-title">&#218;ltimos Pacientes</h3>
 			  </div>
-			  <div class="panel-body">
-			    
-			  </div>
+				<table class="table">
+			  	<tr>
+			  		<th>Id</th>
+			  		<th>Nombre</th>
+			  	</tr>
+				<c:forEach items="${patients}" var="p" varStatus="loop">
+					<tr>
+						<td>${p.id}</td>
+						<td>${p}</td>
+					</tr>
+				</c:forEach>
+			  </table>
 			</div>
 		</div>
 	</div>

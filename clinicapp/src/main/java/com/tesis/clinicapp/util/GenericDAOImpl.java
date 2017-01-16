@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -63,6 +64,17 @@ public class GenericDAOImpl<T extends Serializable, ID extends Serializable> imp
 	//	int count = (int)getCriteria().setProjection(Projections.rowCount()).uniqueResult();
 		return ((Long)getCriteria().setProjection(Projections.rowCount()).uniqueResult()).intValue();
 		
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<T> getLatest(int n) {
+		Criteria crit = getCriteria();
+		crit.addOrder(Order.desc("id"));
+		crit.setFirstResult(0);
+		crit.setMaxResults(n);
+		
+		return crit.list();
 	}
 
 }

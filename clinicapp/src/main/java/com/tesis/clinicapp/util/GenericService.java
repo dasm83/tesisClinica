@@ -20,4 +20,7 @@ public interface GenericService<T extends Serializable, ID extends Serializable>
 	List<T> findAll();
 	Criteria getCriteria();
 	int count();
+	
+	@Transactional(readOnly = true)
+	List<T> getLatest(int n);
 }

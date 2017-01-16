@@ -12,7 +12,5 @@ public interface ExamenService extends GenericService<Examen, Long>{
 	@SuppressWarnings("rawtypes")
 	@Transactional(readOnly = true)
 	List getFilteredList(int draw, int start, int length);
-	@Transactional(readOnly = true)
-	List<Examen> getLatest(int n);
 
 }

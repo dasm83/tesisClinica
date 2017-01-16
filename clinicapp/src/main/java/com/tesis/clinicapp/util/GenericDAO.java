@@ -14,4 +14,5 @@ public interface GenericDAO<T, ID extends Serializable> {
 	List<T> findAll();
 	Criteria getCriteria();
 	int count();
+	List<T> getLatest(int n);
 }

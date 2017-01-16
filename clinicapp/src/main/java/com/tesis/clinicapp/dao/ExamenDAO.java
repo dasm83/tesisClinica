@@ -10,6 +10,4 @@ public interface ExamenDAO extends GenericDAO<Examen, Long> {
 	@SuppressWarnings("rawtypes")
 	public List getFilteredList(int draw, int start, int length);
 
-	public List<Examen> getLatest(int n);
-
 }
