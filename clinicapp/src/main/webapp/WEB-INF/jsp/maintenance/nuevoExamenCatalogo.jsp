@@ -46,8 +46,10 @@
 			</div>
 			<form:input path="examCatId" cssStyle="display:none"/>
 			<div class="row">
+			<div class="col-lg-6">
 			<button id="cancelBtn" type="button" class="btn btn-primary pull-left" style="margin-top:40px; margin-right:15px">Cancelar</button>                                         
 			<button id="saveBtnCat" type="button" class="btn btn-primary pull-left" style="margin-top:40px; margin-right:15px">Guardar</button>
+			</div>
 			</div>
 		</div>
 	</form:form>
@@ -88,7 +90,7 @@ $(document).ready(function() {
 	        {
 	            FieldCount++;
 	            //agregar campo
-	            $(contenedor).append('<div class="col-lg-6"><input type="text" path="items" name="items['+contador+'].nombre" class="form-control" id="campo_'+ FieldCount +'" placeholder="Texto '+ contador +'"/><input type="hidden" name="items['+contador+'].oldId" value="vacio" /><a href="#" class="eliminar">Eliminar</a></div>');
+	            $(contenedor).append('<div class="col-lg-8"><input type="text" path="items" name="items['+contador+'].nombre" class="form-control" id="campo_'+ FieldCount +'" placeholder="Texto '+ contador +'"/><input type="hidden" name="items['+contador+'].oldId" value="vacio" /><a href="#" class="eliminar">Eliminar</a></div>');
 	            x++; //text box increment
 	            contador++;
 	        }
