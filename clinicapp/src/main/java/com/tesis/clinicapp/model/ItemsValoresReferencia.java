@@ -12,13 +12,17 @@ import javax.persistence.Table;
 @Table(name = "items_valores_referencia", schema = "clinica")
 public class ItemsValoresReferencia implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3441440499076331114L;
 	private int id;
 	private CatalogoItemsExamen catalogoItemsExamen;
-	private Integer edadMinima;
-	private Integer edadMaxima;
+	private int edadMinima;
+	private int edadMaxima;
 	private Character sexo;
-	private Long valorRefMinimo;
-	private Long valorRefMaximo;
+	private int valorRefMinimo;
+	private int valorRefMaximo;
 
 	public ItemsValoresReferencia() {
 	}
@@ -27,8 +31,8 @@ public class ItemsValoresReferencia implements java.io.Serializable {
 		this.id = id;
 	}
 
-	public ItemsValoresReferencia(int id, CatalogoItemsExamen catalogoItemsExamen, Integer edadMinima,
-			Integer edadMaxima, Character sexo, Long valorRefMinimo, Long valorRefMaximo) {
+	public ItemsValoresReferencia(int id, CatalogoItemsExamen catalogoItemsExamen, int edadMinima,
+			int edadMaxima, Character sexo, int valorRefMinimo, int valorRefMaximo) {
 		this.id = id;
 		this.catalogoItemsExamen = catalogoItemsExamen;
 		this.edadMinima = edadMinima;
@@ -59,20 +63,20 @@ public class ItemsValoresReferencia implements java.io.Serializable {
 	}
 
 	@Column(name = "edad_minima")
-	public Integer getEdadMinima() {
+	public int getEdadMinima() {
 		return this.edadMinima;
 	}
 
-	public void setEdadMinima(Integer edadMinima) {
+	public void setEdadMinima(int edadMinima) {
 		this.edadMinima = edadMinima;
 	}
 
 	@Column(name = "edad_maxima")
-	public Integer getEdadMaxima() {
+	public int getEdadMaxima() {
 		return this.edadMaxima;
 	}
 
-	public void setEdadMaxima(Integer edadMaxima) {
+	public void setEdadMaxima(int edadMaxima) {
 		this.edadMaxima = edadMaxima;
 	}
 
@@ -86,20 +90,20 @@ public class ItemsValoresReferencia implements java.io.Serializable {
 	}
 
 	@Column(name = "valor_ref_minimo")
-	public Long getValorRefMinimo() {
+	public int getValorRefMinimo() {
 		return this.valorRefMinimo;
 	}
 
-	public void setValorRefMinimo(Long valorRefMinimo) {
+	public void setValorRefMinimo(int valorRefMinimo) {
 		this.valorRefMinimo = valorRefMinimo;
 	}
 
 	@Column(name = "valor_ref_maximo")
-	public Long getValorRefMaximo() {
+	public int getValorRefMaximo() {
 		return this.valorRefMaximo;
 	}
 
-	public void setValorRefMaximo(Long valorRefMaximo) {
+	public void setValorRefMaximo(int valorRefMaximo) {
 		this.valorRefMaximo = valorRefMaximo;
 	}
 
