@@ -21,20 +21,22 @@
 
 	<form:form id="detailForm" method="POST" commandName="ExamDetailForm" 
 	action="examOp.txt?op=iou">
-		<div class="row">
+		<div class="row" style="border-bottom: 1px solid #eee;">
 			<div class="col-lg-6">
 				<form:label for="pacient" path="paciente">Paciente:</form:label>
 				<form:input id="pacient" path="paciente" cssClass="form-control"/>
 				<br>
-				<form:label for="date" path="fecha">Fecha de procesamiento:</form:label>
-				<form:input id="date" path="fecha" cssClass="form-control datepicker" data-provide="datepicker" data-date-format="dd/mm/yyyy"/>
-				<br>
 				<form:label for="lab" path="laboratorista">Laboratorista:</form:label>
 				<form:input id="lab" path="laboratorista" cssClass="form-control"/>
 				<br>
-				<form:label for="obtn" path="observaciones">Observaciones:</form:label>
-				<form:textarea id="obtn" path="observaciones" cssClass="form-control" rows="3"/>
 			</div>
+			<div class="col-lg-6">
+				<form:label for="date" path="fecha">Fecha de procesamiento:</form:label>
+				<form:input id="date" path="fecha" cssClass="form-control datepicker" data-provide="datepicker" data-date-format="dd/mm/yyyy"/>
+			</div>
+		</div>
+		<br>
+		<div class="row">
 			<div class="col-lg-6">
 				<c:forEach items="${ExamDetailForm.items}" var="item" varStatus="loop">
 					<input type="hidden" name="items[${loop.index}].nombre" value="${item.nombre}"/>
@@ -42,6 +44,12 @@
 					<input name="items[${loop.index}].valor" value="${item.valor}" class="form-control"/>
 					<br>
 				</c:forEach>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-12">
+				<form:label for="obtn" path="observaciones">Observaciones:</form:label>
+				<form:textarea id="obtn" path="observaciones" cssClass="form-control" rows="3"/>
 			</div>
 		</div>
 		<div class="row">

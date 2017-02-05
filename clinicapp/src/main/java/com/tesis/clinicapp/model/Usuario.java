@@ -16,6 +16,10 @@ import javax.persistence.Table;
 @Table(name = "usuario", schema = "clinica")
 public class Usuario implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6742797395939035583L;
 	private String nombre;
 	private Rol rol;
 	private String contrasenia;

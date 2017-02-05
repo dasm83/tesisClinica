@@ -3,6 +3,8 @@ package com.tesis.clinicapp.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -23,16 +25,22 @@ public class ItemsValoresReferencia implements java.io.Serializable {
 	private Character sexo;
 	private int valorRefMinimo;
 	private int valorRefMaximo;
+	private String tipoRango;
 
 	public ItemsValoresReferencia() {
 	}
 
-	public ItemsValoresReferencia(int id) {
+	public ItemsValoresReferencia(int id, CatalogoItemsExamen catalogoItemsExamen, char sexo, int valorRefMaximo,
+			String tipoRango) {
 		this.id = id;
+		this.catalogoItemsExamen = catalogoItemsExamen;
+		this.sexo = sexo;
+		this.valorRefMaximo = valorRefMaximo;
+		this.tipoRango = tipoRango;
 	}
 
-	public ItemsValoresReferencia(int id, CatalogoItemsExamen catalogoItemsExamen, int edadMinima,
-			int edadMaxima, Character sexo, int valorRefMinimo, int valorRefMaximo) {
+	public ItemsValoresReferencia(int id, CatalogoItemsExamen catalogoItemsExamen, Integer edadMinima,
+			Integer edadMaxima, char sexo, Integer valorRefMinimo, int valorRefMaximo, String tipoRango) {
 		this.id = id;
 		this.catalogoItemsExamen = catalogoItemsExamen;
 		this.edadMinima = edadMinima;
@@ -40,9 +48,11 @@ public class ItemsValoresReferencia implements java.io.Serializable {
 		this.sexo = sexo;
 		this.valorRefMinimo = valorRefMinimo;
 		this.valorRefMaximo = valorRefMaximo;
+		this.tipoRango = tipoRango;
 	}
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
 	public int getId() {
 		return this.id;
@@ -107,5 +117,13 @@ public class ItemsValoresReferencia implements java.io.Serializable {
 		this.valorRefMaximo = valorRefMaximo;
 	}
 
+	@Column(name = "tipo_rango", nullable = false, length = 20)
+	public String getTipoRango() {
+		return this.tipoRango;
+	}
 
+	public void setTipoRango(String tipoRango) {
+		this.tipoRango = tipoRango;
+	}
+	
 }
