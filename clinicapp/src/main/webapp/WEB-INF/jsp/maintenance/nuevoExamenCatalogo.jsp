@@ -10,11 +10,11 @@
 </head>
 <body>
 
-	<div class="row">
+	<div class="container-fluid">
 
-	<form:form id="detailFormCat" method="POST" commandName="CatalogoExamDetail">
+		<form:form id="detailFormCat" method="POST" commandName="CatalogoExamDetail">
 		<div class="row">
-			<div class="col-lg-6">
+			<div class="col-lg-10">
 				<form:label for="name" path="nombre">Nombre de Examen:</form:label>
 				<form:input id="name" path="nombre" cssClass="form-control"/>
 				<br>
@@ -29,21 +29,49 @@
 				</form:select>
 				<br>
 				<br>
-				<a id="agregarCampo" class="btn btn-info" href="#">Agregar Campo</a>
+			</div>
+			</div>
+			<div class="row">
+				<br>
+				<br>
+				<div class="col-lg-6">
+				<label>Determinacion</label>
+				</div>
+				<div class="col-lg-3">
+				<label>Unidades</label>
+				</div>
+				<div class="col-lg-3">
+				<label></label>
+				</div>
 				<br>
 				<br>
 				<div id="contenedor">
     				<div class="added">
-    						<div class="col-lg-6">
 								<c:forEach items="${CatalogoExamDetail.items}" var="item" varStatus="loop">
-								<div><input name="items[${loop.index}].nombre" value="${item.nombre}" class="form-control"/><a href="#" class="eliminar">Eliminar</a>
+								<div class="row">
+								<div class="col-lg-6"><input name="items[${loop.index}].nombre" value="${item.nombre}" class="form-control"/>
 									<input type="hidden" name="items[${loop.index}].oldId" value="${item.nombre}" />
 									<input type="hidden" name="items[${loop.index}].id" value="${item.id}" />
 								</div>
+								<div class="col-lg-3">
+								<select name="items[${loop.index}].unidad" class="form-control">
+								<option selected>${item.unidad}</option>
+								<c:forEach items="${unidadSelec}" var="type" varStatus="loop">
+								<option>${type.name}</option>
 								</c:forEach>
-    						</div>
+								</select>
+								</div>
+								<a id="delete" href="#" class="fa fa-trash fa-2x" aria-hidden="true"></a>	
+								</div>	
+								<br>
+								</c:forEach>
+								
+    				</div>
 				</div>
 			</div>
+			<br>
+			<a id="agregarCampo" class="fa fa-flask fa-2x" href="#"></a>
+			<br>
 			<form:input path="examCatId" cssStyle="display:none"/>
 			<div class="row">
 			<div class="col-lg-6">
@@ -81,26 +109,28 @@ $(document).ready(function() {
 	    var AddButton       = $("#agregarCampo"); //ID del Botón Agregar
 
 	    //var x = número de campos existentes en el contenedor
-	    var x = $("#contenedor div").length + 1;
-	    var contador=x-3;
-	    var FieldCount = x-1; //para el seguimiento de los campos
+	    var x = $("#contenedor div").length-1;
+	    //document.write(x);
+	    var contador=x;
+	    var FieldCount = x; //para el seguimiento de los campos
 
 	    $(AddButton).click(function (e) {
 	        if(x <= MaxInputs) //max input box allowed
 	        {
 	            FieldCount++;
 	            //agregar campo
-	            $(contenedor).append('<div class="col-lg-8"><input type="text" path="items" name="items['+contador+'].nombre" class="form-control" id="campo_'+ FieldCount +'" placeholder="Texto '+ contador +'"/><input type="hidden" name="items['+contador+'].oldId" value="vacio" /><a href="#" class="eliminar">Eliminar</a></div>');
+	       //     $(contenedor).append('<div class="row"><div class="col-lg-3"><input type="text" path="items" name="items['+contador+'].nombre" class="form-control" id="campo_'+ FieldCount +'" placeholder="Texto '+ contador +'"/></div><div class="col-lg-3"><input type="hidden" name="items['+contador+'].oldId" value="vacio" /><a href="#" class="eliminar">Eliminar</a></div></div>');
+$(contenedor).append('<div class="row"><div class="col-lg-6"><input type="text" path="items" name="items['+contador+'].nombre" class="form-control" id="campo_'+ FieldCount +'" placeholder="Texto '+ contador +'"/></div><div class="col-lg-3"><select path="items" name="items['+contador+'].unidad" class="form-control" size=1><option>${unidadSelec[0].name}</option><option>${unidadSelec[1].name}</option><option>${unidadSelec[2].name}</option><option>${unidadSelec[3].name}</option><option>${unidadSelec[4].name}</option><option>${unidadSelec[5].name}</option><option>${unidadSelec[6].name}</option><option>${unidadSelec[7].name}</option><option>${unidadSelec[8].name}</option><option>${unidadSelec[9].name}</option><option>${unidadSelec[10].name}</option><option>${unidadSelec[11].name}</option><option>${unidadSelec[1].name}</option></select></div><a id="delete" href="#" class="fa fa-trash fa-2x" aria-hidden="true"></a></div>');	          
 	            x++; //text box increment
 	            contador++;
 	        }
 	        return false;
 	    });
 
-	    $("body").on("click",".eliminar", function(e){ //click en eliminar campo
+	    $("body").on("click","#delete", function(e){ //click en eliminar campo
 	        if( x > 1 ) {
 	            $(this).parent('div').hide(); //eliminar el campo
-	            $(this).siblings("input[name$='oldId']").val("delete");
+	            $(this).prevAll().contents("input[name$='oldId']").val("delete");
 	            x--;
 	        }
 	        return false;

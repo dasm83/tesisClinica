@@ -15,9 +15,9 @@
 			<table id="mainTableOnView" class="table table-striped table-bordered" width="100%">
 				<thead>
 					<tr>
-						<th>ID</th>
+						<th style="width: 100px;">ID</th>
 						<th>Nombre Examen</th>
-						<th>Acci&#243;n</th>
+						<th style="width: 150px;">Acci&#243;n</th>
 					</tr>
 				</thead>
 			</table>
@@ -60,7 +60,8 @@ $(document).ready(function(){
                 "orderable": false,
                 "data": null,
                 "defaultContent": "<a href='#' id='updMainOnViewCat' class='btnAct' title='Actualizar'><i class='fa fa-pencil-square-o' aria-hidden='true'></i></a>"+
-                				"<a href='#' id='delMainOnView' class='btnAct' title='Eliminar'><i class='fa fa-minus-square-o' aria-hidden='true'></i></a>"
+                				"<a href='#' id='delMainOnView' class='btnAct' title='Eliminar'><i class='fa fa-minus-square-o' aria-hidden='true'></i></a>"+
+                				"<a href='#' id='delMainOnView' class='btnAct' title='Items'><i class='fa fa-flask' aria-hidden='true'></i></a>"
             }
 		],
 		"language":{

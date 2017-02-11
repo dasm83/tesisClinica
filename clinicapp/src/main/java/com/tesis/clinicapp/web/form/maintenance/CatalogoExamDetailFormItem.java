@@ -6,6 +6,7 @@ public class CatalogoExamDetailFormItem {
 	private String oldId;
 	private String nombre;
 	private String descripcion;
+	private String unidad;
 	
 	public String getNombre() {
 		return nombre;
@@ -30,6 +31,12 @@ public class CatalogoExamDetailFormItem {
 	}
 	public void setId(Long id) {
 		this.id = id;
+	}
+	public String getUnidad() {
+		return unidad;
+	}
+	public void setUnidad(String unidad) {
+		this.unidad = unidad;
 	}
 	
 	

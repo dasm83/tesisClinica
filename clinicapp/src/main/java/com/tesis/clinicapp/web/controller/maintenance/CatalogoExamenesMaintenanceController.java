@@ -89,6 +89,7 @@ public class CatalogoExamenesMaintenanceController {
 		return json;
 	}
 	
+	
 	@SuppressWarnings("unchecked")
 	private List<Map<String,String>>  getCatExamList(int draw, int start, int length) {
 		List<Map<String,String>> brief = new ArrayList<>();
@@ -119,6 +120,7 @@ public class CatalogoExamenesMaintenanceController {
 			i.setId(item.getId());
 			i.setNombre(item.getNombre());
 			i.setDescripcion(item.getDescripcion());
+			i.setUnidad(item.getUnidad());
 			items.add(i);
 		});
 		form.setItems(items);
@@ -148,6 +150,22 @@ public class CatalogoExamenesMaintenanceController {
 		return brief;
 	}
 	
+	@ModelAttribute(value="unidadSelec")
+	private List<Map<String,String>> getUnidades(){
+		List<Map<String,String>> brief = new ArrayList<>();
+	    String[] unidades= {"UI/L","UI/ml","g/L","g/dL","mEq","mEq/L","mg","mg/L","mg/dL","mL","U/L","U/mL"}; 
+	   
+	    for (String elemento: unidades){
+			Map<String,String> map = new HashMap<>();
+			map.put("name",elemento);
+			brief.add(map);
+	    }
+		
+		return brief;
+	}
+	
+	
+	
 	
 	/**
 	 * Insert or Update op
@@ -163,37 +181,33 @@ public class CatalogoExamenesMaintenanceController {
 		
 		Long id = form.getExamCatId();
 		String msj= "Registro Guardado"; 
-		
+		System.out.println("antes del if");
 		if(id != null){
 			Clasificacion Cla= clasService.findById(form.getClasificacion());
 			CatalogoExamen catEx= catExamService.findById(id);
 			Set<CatalogoItemsExamen> catItms = catEx.getCatalogoItemsExamens();
+			System.out.println("llego aqui");
 			
 				form.getItems().forEach(formItem->{
+					
 					for(CatalogoItemsExamen exItem:catItms){
 						if(exItem.getNombre().equals((formItem.getOldId()))){
 							exItem.setNombre(formItem.getNombre());
+							exItem.setUnidad(formItem.getUnidad());
 							break;
 						
 						}else if(formItem.getOldId().equals("vacio")){
 							CatalogoItemsExamen itemOnEx = new CatalogoItemsExamen();
 							itemOnEx.setCatalogoExamen(catEx);
 							itemOnEx.setNombre(formItem.getNombre());
-							itemCatService.save(itemOnEx);
+					//		itemCatService.save(itemOnEx);
 							break;
+							
 						}else if(formItem.getOldId().equals("delete")){
 							CatalogoItemsExamen itemOnEx = itemCatService.findById(formItem.getId());
 							itemCatService.delete(itemOnEx);
 							break;
 						}
-						
-				//	CatalogoItemsExamen itemOnEx = new CatalogoItemsExamen();
-				//	itemOnEx.setCatalogoExamen(catEx);
-				//	itemOnEx.setNombre(formItem.getNombre());
-				//    itemCatService.save(itemOnEx);
-				    
-			//				catItm.setNombre(formItem.getNombre());
-			//				catItms.add(e);
 							
 					}
 				});
@@ -202,7 +216,7 @@ public class CatalogoExamenesMaintenanceController {
 				catEx.setDescripcion(form.getDescripcion());
 				catEx.setNombre(form.getNombre());
 				catEx.setClasificacion(Cla);
-				catExamService.saveOrUpdate(catEx);
+				//catExamService.saveOrUpdate(catEx);
 		}	
 		
 		else{			
@@ -219,6 +233,8 @@ public class CatalogoExamenesMaintenanceController {
 							
 							itemOnEx.setCatalogoExamen(catEx);
 							itemOnEx.setNombre(formItem.getNombre());
+							itemOnEx.setUnidad(formItem.getUnidad());
+							System.out.println(formItem.getNombre()+formItem.getUnidad());
 						    itemCatService.save(itemOnEx);
 			  });
 				

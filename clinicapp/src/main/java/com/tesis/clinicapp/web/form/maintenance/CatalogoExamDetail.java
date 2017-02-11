@@ -42,5 +42,5 @@ public class CatalogoExamDetail {
 	public void setItems(List<CatalogoExamDetailFormItem> items) {
 		this.items = items;
 	}
-
+	
 }
