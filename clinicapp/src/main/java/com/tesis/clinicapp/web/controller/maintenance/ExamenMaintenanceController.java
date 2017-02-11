@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,11 +25,13 @@ import com.tesis.clinicapp.model.CatalogoItemsExamen;
 import com.tesis.clinicapp.model.Examen;
 import com.tesis.clinicapp.model.ItemsExamen;
 import com.tesis.clinicapp.model.ItemsExamenId;
+import com.tesis.clinicapp.model.ItemsValoresReferencia;
 import com.tesis.clinicapp.model.Laboratorista;
 import com.tesis.clinicapp.model.Paciente;
 import com.tesis.clinicapp.service.CatExamenService;
 import com.tesis.clinicapp.service.ExamenService;
 import com.tesis.clinicapp.service.ItemsExamenService;
+import com.tesis.clinicapp.service.ItemsValoresRefService;
 import com.tesis.clinicapp.service.LaboratoristaService;
 import com.tesis.clinicapp.service.PacienteService;
 import com.tesis.clinicapp.util.TableData;
@@ -76,6 +79,9 @@ public class ExamenMaintenanceController {
 	
 	@Autowired
 	private ItemsExamenService itemService;
+
+	@Autowired
+	private ItemsValoresRefService valoresService;
 
 	
 	/**
@@ -139,6 +145,7 @@ public class ExamenMaintenanceController {
 		ExamDetailForm form = new ExamDetailForm();
 		form.setExamId(ex.getId());
 		form.setPaciente(ex.getPaciente().toString());
+		form.setEdad(ex.getPaciente().getEdad());
 		form.setLaboratorista(ex.getLaboratorista().toString());
 		form.setFecha(ex.transformDateForView());
 		form.setObservaciones(ex.getObservaciones());
@@ -146,8 +153,14 @@ public class ExamenMaintenanceController {
 		List<ExamDetailFormItem> items = new ArrayList<>();
 		ex.getItemsExamens().forEach(item->{
 			ExamDetailFormItem formItem = new ExamDetailFormItem();
+			ItemsValoresReferencia vn = valoresService.getSingle(item.getCatalogoItemsExamen().getId(), ex.getPaciente().getSexo(), ex.getPaciente().getEdad());
+			String fullVn = (vn != null)?
+					(StringUtils.isEmpty(vn.getTipoRango())?
+							vn.getValorRefMinimo()+" - "+vn.getValorRefMaximo():formatRange(vn.getTipoRango())+" "+vn.getValorRefMaximo())
+					:"";
 			formItem.setNombre(item.getCatalogoItemsExamen().getNombre());
 			formItem.setValor(item.getValor());
+			formItem.setValorRef("V.N. "+fullVn);
 			items.add(formItem);
 		});
 		
@@ -173,8 +186,10 @@ public class ExamenMaintenanceController {
 		List<ExamDetailFormItem> items = new ArrayList<>();
 		cat.getCatalogoItemsExamens().forEach(item->{
 			ExamDetailFormItem formItem = new ExamDetailFormItem();
+			formItem.setId(item.getId());
 			formItem.setNombre(item.getNombre());
 			formItem.setValor("");
+			formItem.setValorRef("V.N. ");
 			items.add(formItem);
 		});
 		
@@ -321,6 +336,28 @@ public class ExamenMaintenanceController {
 		return brief;
 	}
 	
-	
-	
+	/**
+	 * @param symbol
+	 * @return
+	 * 
+	 * With this method we determine what type of message to display to the user for the "tipo_rango"
+	 * a reference value has
+	 */
+	private String formatRange(String symbol){
+		String word = "";
+		
+		switch(symbol){
+		case ">":
+			word = "Mayor a";
+			break;
+		case "<":
+			word = "Menor de";
+			break;
+		case "<=":
+			word = "Hasta";
+			break;
+		}
+		
+		return word;
+	}
 }

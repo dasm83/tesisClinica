@@ -6,6 +6,7 @@ public class ExamDetailForm {
 	
 	private Long examId;
 	private String paciente;
+	private int edad;
 	private String laboratorista;
 	private String fecha;
 	private String observaciones;
@@ -54,6 +55,12 @@ public class ExamDetailForm {
 	}
 	public void setItems(List<ExamDetailFormItem> items) {
 		this.items = items;
+	}
+	public int getEdad() {
+		return edad;
+	}
+	public void setEdad(int edad) {
+		this.edad = edad;
 	}
 	
 }

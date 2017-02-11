@@ -17,6 +17,10 @@ import javax.persistence.Table;
 @Table(name = "rol", schema = "clinica")
 public class Rol implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6118805825474531445L;
 	private String id;
 	private String nombre;
 	private Set<Usuario> usuarios = new HashSet<Usuario>(0);

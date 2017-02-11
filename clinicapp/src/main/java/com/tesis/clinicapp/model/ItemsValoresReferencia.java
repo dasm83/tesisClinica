@@ -3,6 +3,8 @@ package com.tesis.clinicapp.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -12,23 +14,33 @@ import javax.persistence.Table;
 @Table(name = "items_valores_referencia", schema = "clinica")
 public class ItemsValoresReferencia implements java.io.Serializable {
 
-	private int id;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3441440499076331114L;
+	private Integer id;
 	private CatalogoItemsExamen catalogoItemsExamen;
-	private Integer edadMinima;
-	private Integer edadMaxima;
+	private int edadMinima;
+	private int edadMaxima;
 	private Character sexo;
-	private Long valorRefMinimo;
-	private Long valorRefMaximo;
+	private int valorRefMinimo;
+	private int valorRefMaximo;
+	private String tipoRango;
 
 	public ItemsValoresReferencia() {
 	}
 
-	public ItemsValoresReferencia(int id) {
+	public ItemsValoresReferencia(Integer id, CatalogoItemsExamen catalogoItemsExamen, char sexo, int valorRefMaximo,
+			String tipoRango) {
 		this.id = id;
+		this.catalogoItemsExamen = catalogoItemsExamen;
+		this.sexo = sexo;
+		this.valorRefMaximo = valorRefMaximo;
+		this.tipoRango = tipoRango;
 	}
 
 	public ItemsValoresReferencia(int id, CatalogoItemsExamen catalogoItemsExamen, Integer edadMinima,
-			Integer edadMaxima, Character sexo, Long valorRefMinimo, Long valorRefMaximo) {
+			Integer edadMaxima, char sexo, Integer valorRefMinimo, int valorRefMaximo, String tipoRango) {
 		this.id = id;
 		this.catalogoItemsExamen = catalogoItemsExamen;
 		this.edadMinima = edadMinima;
@@ -36,15 +48,17 @@ public class ItemsValoresReferencia implements java.io.Serializable {
 		this.sexo = sexo;
 		this.valorRefMinimo = valorRefMinimo;
 		this.valorRefMaximo = valorRefMaximo;
+		this.tipoRango = tipoRango;
 	}
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
-	public int getId() {
+	public Integer getId() {
 		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -59,20 +73,20 @@ public class ItemsValoresReferencia implements java.io.Serializable {
 	}
 
 	@Column(name = "edad_minima")
-	public Integer getEdadMinima() {
+	public int getEdadMinima() {
 		return this.edadMinima;
 	}
 
-	public void setEdadMinima(Integer edadMinima) {
+	public void setEdadMinima(int edadMinima) {
 		this.edadMinima = edadMinima;
 	}
 
 	@Column(name = "edad_maxima")
-	public Integer getEdadMaxima() {
+	public int getEdadMaxima() {
 		return this.edadMaxima;
 	}
 
-	public void setEdadMaxima(Integer edadMaxima) {
+	public void setEdadMaxima(int edadMaxima) {
 		this.edadMaxima = edadMaxima;
 	}
 
@@ -86,22 +100,30 @@ public class ItemsValoresReferencia implements java.io.Serializable {
 	}
 
 	@Column(name = "valor_ref_minimo")
-	public Long getValorRefMinimo() {
+	public int getValorRefMinimo() {
 		return this.valorRefMinimo;
 	}
 
-	public void setValorRefMinimo(Long valorRefMinimo) {
+	public void setValorRefMinimo(int valorRefMinimo) {
 		this.valorRefMinimo = valorRefMinimo;
 	}
 
 	@Column(name = "valor_ref_maximo")
-	public Long getValorRefMaximo() {
+	public int getValorRefMaximo() {
 		return this.valorRefMaximo;
 	}
 
-	public void setValorRefMaximo(Long valorRefMaximo) {
+	public void setValorRefMaximo(int valorRefMaximo) {
 		this.valorRefMaximo = valorRefMaximo;
 	}
 
+	@Column(name = "tipo_rango", length = 20)
+	public String getTipoRango() {
+		return this.tipoRango;
+	}
 
+	public void setTipoRango(String tipoRango) {
+		this.tipoRango = tipoRango;
+	}
+	
 }

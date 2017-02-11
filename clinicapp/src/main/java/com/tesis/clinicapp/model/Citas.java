@@ -19,6 +19,10 @@ import javax.persistence.TemporalType;
 @Table(name = "citas", schema = "clinica")
 public class Citas implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4458107730271464503L;
 	private int id;
 	private Paciente paciente;
 	private Date fechaReserva;
