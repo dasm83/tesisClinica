@@ -29,6 +29,7 @@ public class CatalogoItemsExamen implements java.io.Serializable {
 	private CatalogoExamen catalogoExamen;
 	private String nombre;
 	private String descripcion;
+	private String unidad;
 	private Set<ItemsExamen> itemsExamens = new HashSet<ItemsExamen>(0);
 
 	public CatalogoItemsExamen() {
@@ -86,6 +87,15 @@ public class CatalogoItemsExamen implements java.io.Serializable {
 
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
+	}
+	
+	@Column(name = "unidad")
+	public String getUnidad() {
+		return this.unidad;
+	}
+
+	public void setUnidad(String unidad) {
+		this.unidad = unidad;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "catalogoItemsExamen")
