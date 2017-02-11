@@ -3,6 +3,7 @@ package com.tesis.clinicapp.model;
 
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -30,6 +31,7 @@ public class CatalogoItemsExamen implements java.io.Serializable {
 	private String nombre;
 	private String descripcion;
 	private Set<ItemsExamen> itemsExamens = new HashSet<ItemsExamen>(0);
+	private Set<ItemsValoresReferencia> itemsValoresReferencias = new HashSet<ItemsValoresReferencia>(0);
 
 	public CatalogoItemsExamen() {
 	}
@@ -41,12 +43,13 @@ public class CatalogoItemsExamen implements java.io.Serializable {
 	}
 
 	public CatalogoItemsExamen(Long id, CatalogoExamen catalogoExamen, String nombre, String descripcion,
-			Set<ItemsExamen> itemsExamens) {
+			Set<ItemsExamen> itemsExamens, Set<ItemsValoresReferencia> itemsValoresReferencias) {
 		this.id = id;
 		this.catalogoExamen = catalogoExamen;
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.itemsExamens = itemsExamens;
+		this.itemsValoresReferencias = itemsValoresReferencias;
 	}
 
 	@Id
@@ -95,6 +98,15 @@ public class CatalogoItemsExamen implements java.io.Serializable {
 
 	public void setItemsExamens(Set<ItemsExamen> itemsExamens) {
 		this.itemsExamens = itemsExamens;
+	}
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "catalogoItemsExamen")
+	public Set<ItemsValoresReferencia> getItemsValoresReferencias() {
+		return this.itemsValoresReferencias;
+	}
+
+	public void setItemsValoresReferencias(Set<ItemsValoresReferencia> itemsValoresReferencias) {
+		this.itemsValoresReferencias = itemsValoresReferencias;
 	}
 
 }

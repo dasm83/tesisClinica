@@ -18,7 +18,7 @@ public class ItemsValoresReferencia implements java.io.Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 3441440499076331114L;
-	private int id;
+	private Integer id;
 	private CatalogoItemsExamen catalogoItemsExamen;
 	private int edadMinima;
 	private int edadMaxima;
@@ -30,7 +30,7 @@ public class ItemsValoresReferencia implements java.io.Serializable {
 	public ItemsValoresReferencia() {
 	}
 
-	public ItemsValoresReferencia(int id, CatalogoItemsExamen catalogoItemsExamen, char sexo, int valorRefMaximo,
+	public ItemsValoresReferencia(Integer id, CatalogoItemsExamen catalogoItemsExamen, char sexo, int valorRefMaximo,
 			String tipoRango) {
 		this.id = id;
 		this.catalogoItemsExamen = catalogoItemsExamen;
@@ -54,11 +54,11 @@ public class ItemsValoresReferencia implements java.io.Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
-	public int getId() {
+	public Integer getId() {
 		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -117,7 +117,7 @@ public class ItemsValoresReferencia implements java.io.Serializable {
 		this.valorRefMaximo = valorRefMaximo;
 	}
 
-	@Column(name = "tipo_rango", nullable = false, length = 20)
+	@Column(name = "tipo_rango", length = 20)
 	public String getTipoRango() {
 		return this.tipoRango;
 	}

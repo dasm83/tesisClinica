@@ -14,6 +14,27 @@
 <!-- datepicker -->
 <script src="<c:url value="/resources/js/bootstrap-datepicker.min.js" />"></script>
 <link href="<c:url value='/resources/css/bootstrap-datepicker3.css' />" rel="stylesheet">
+
+<style type="text/css">
+	#head label{
+		width: 35%;
+	}
+	#body label{
+		width: 15%;
+	}
+	#body{
+		margin-bottom: 30px;
+	}
+	#body .vnBox{
+		display: inline-block;
+		margin-left: 3%;
+	}
+	#head .form-control, #body .form-control{
+		width:60%;
+		display: inline-block;
+		margin-bottom: 5px;
+	}
+</style>
 </head>
 <body>
 
@@ -21,7 +42,7 @@
 
 	<form:form id="detailForm" method="POST" commandName="ExamDetailForm" 
 	action="examOp.txt?op=iou">
-		<div class="row" style="border-bottom: 1px solid #eee;">
+		<div id="head" class="row" style="border-bottom: 1px solid #eee;">
 			<div class="col-lg-6">
 				<form:label for="pacient" path="paciente">Paciente:</form:label>
 				<form:input id="pacient" path="paciente" cssClass="form-control"/>
@@ -31,22 +52,29 @@
 				<br>
 			</div>
 			<div class="col-lg-6">
+				<form:label for="age" path="edad">Edad:</form:label>
+				<form:input id="age" path="edad" cssClass="form-control number"/>
+				<br>
 				<form:label for="date" path="fecha">Fecha de procesamiento:</form:label>
 				<form:input id="date" path="fecha" cssClass="form-control datepicker" data-provide="datepicker" data-date-format="dd/mm/yyyy"/>
 			</div>
 		</div>
 		<br>
-		<div class="row">
-			<div class="col-lg-6">
+		<div class="row" id="body">
+			<div class="col-lg-12">
 				<c:forEach items="${ExamDetailForm.items}" var="item" varStatus="loop">
+					<input type="hidden" name="items[${loop.index}].id" value="${item.id}" class="itemId"/>
 					<input type="hidden" name="items[${loop.index}].nombre" value="${item.nombre}"/>
 					<form:label for="items[${loop.index}].valor" path="items[${loop.index}].nombre"><c:out value="${item.nombre}" />:</form:label>
-					<input name="items[${loop.index}].valor" value="${item.valor}" class="form-control"/>
+					<input name="items[${loop.index}].valor" value="${item.valor}" class="form-control item_value"/>
+					<div class="vnBox">
+						<span><c:out value="${item.valorRef}" /></span>
+					</div>
 					<br>
 				</c:forEach>
 			</div>
 		</div>
-		<div class="row">
+		<div class="row" id="foot">
 			<div class="col-lg-12">
 				<form:label for="obtn" path="observaciones">Observaciones:</form:label>
 				<form:textarea id="obtn" path="observaciones" cssClass="form-control" rows="3"/>
@@ -84,7 +112,22 @@ var mainURL = "examenes.htm"
 $( function() {
 	$('#pacient').autocomplete({
 		serviceUrl: 'auto.json?sugP',
-		type: 'POST'
+		type: 'POST',
+		onSelect: function (item) {
+			$.ajax({
+				url:'auto.json?sugVN&pId='+item.data+'&exId='+$('#examType').val(),
+				method: "POST",
+				error: function(jqXHR, error, errorThrown){
+					console.log(error);
+				},
+				success: function(data){
+					jQuery.each(data.suggestions, function(i, obj){
+						var index = $('.itemId[value="'+obj.value+'"]').index('input.itemId');
+						$('#body .vnBox:eq('+index+') > span').text("V.N. "+obj.data);
+					});
+				},
+			});
+	    }
 	});
 	
 	$('#lab').autocomplete({
