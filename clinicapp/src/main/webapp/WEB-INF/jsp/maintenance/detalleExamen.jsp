@@ -25,14 +25,20 @@
 	#body{
 		margin-bottom: 30px;
 	}
-	#body .vnBox{
+	#body .vnBox, #body .units{
 		display: inline-block;
 		margin-left: 3%;
 	}
 	#head .form-control, #body .form-control{
-		width:60%;
 		display: inline-block;
 		margin-bottom: 5px;
+	}
+	#head .form-control{
+		width:60%;
+	}
+	#body .form-control{
+		background-color:'';
+		width:55%;
 	}
 </style>
 </head>
@@ -67,6 +73,9 @@
 					<input type="hidden" name="items[${loop.index}].nombre" value="${item.nombre}"/>
 					<form:label for="items[${loop.index}].valor" path="items[${loop.index}].nombre"><c:out value="${item.nombre}" />:</form:label>
 					<input name="items[${loop.index}].valor" value="${item.valor}" class="form-control item_value"/>
+					<div class="units">
+						<span><c:out value="${item.unidad}" /></span>
+					</div>
 					<div class="vnBox">
 						<span><c:out value="${item.valorRef}" /></span>
 					</div>
@@ -107,7 +116,7 @@
 	</div><!-- /.modal -->
 <script type="text/javascript">
 var url = "examOp.txt";
-var mainURL = "examenes.htm"
+var mainURL = "examenes.htm";
 
 $( function() {
 	$('#pacient').autocomplete({
@@ -135,6 +144,16 @@ $( function() {
 		type: 'POST'
 	});
 });
+
+function validate(){
+	$('#body .item_value').each(function(i){
+		if(!$(this).val()){
+			$(this).addClass('error');
+			return false;
+		}
+	});
+	return true;
+}
 </script>
 </body>
 </html>

@@ -5,6 +5,7 @@ public class ExamDetailFormItem {
 	private Long id;
 	private String nombre;
 	private String valor;
+	private String unidad;
 	private String valorRef;
 	
 	
@@ -31,6 +32,12 @@ public class ExamDetailFormItem {
 	}
 	public void setValorRef(String valorRef) {
 		this.valorRef = valorRef;
+	}
+	public String getUnidad() {
+		return unidad;
+	}
+	public void setUnidad(String unidad) {
+		this.unidad = unidad;
 	}
 
 }

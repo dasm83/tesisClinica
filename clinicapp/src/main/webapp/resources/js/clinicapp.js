@@ -228,7 +228,7 @@ $( function() { /// jquery start point
 	
 	
 	/// ----------------- style and format of form elements -----------------
-	$('body').on( 'focusin', '#myModal input,select', function () {
+	$('body').on( 'focusin', 'input,select', function () {
 		if($(this).hasClass("error")){
 			$(this).removeClass("error");
 		}
