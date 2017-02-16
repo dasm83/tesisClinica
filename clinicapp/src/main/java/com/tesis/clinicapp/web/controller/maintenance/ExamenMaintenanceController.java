@@ -157,10 +157,11 @@ public class ExamenMaintenanceController {
 			String fullVn = (vn != null)?
 					(StringUtils.isEmpty(vn.getTipoRango())?
 							vn.getValorRefMinimo()+" - "+vn.getValorRefMaximo():formatRange(vn.getTipoRango())+" "+vn.getValorRefMaximo())
-					:"";
+					:" ";
 			formItem.setNombre(item.getCatalogoItemsExamen().getNombre());
 			formItem.setValor(item.getValor());
-			formItem.setValorRef("V.N. "+fullVn);
+			formItem.setUnidad(item.getCatalogoItemsExamen().getUnidad());
+			formItem.setValorRef("V.N. "+fullVn+" "+item.getCatalogoItemsExamen().getUnidad());
 			items.add(formItem);
 		});
 		
@@ -189,6 +190,7 @@ public class ExamenMaintenanceController {
 			formItem.setId(item.getId());
 			formItem.setNombre(item.getNombre());
 			formItem.setValor("");
+			formItem.setUnidad("");
 			formItem.setValorRef("V.N. ");
 			items.add(formItem);
 		});
