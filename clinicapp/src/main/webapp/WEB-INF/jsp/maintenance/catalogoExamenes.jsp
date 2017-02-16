@@ -37,13 +37,35 @@
 	      </div>
 	    </div><!-- /.modal-content -->
 	  </div><!-- /.modal-dialog -->
-	</div><!-- /.modal -->			
+	</div><!-- /.modal -->		
+	
+	<div id="myModalOnView2" class="modal fade" tabindex="-1" role="dialog">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		      </div>
+		      <div class="modal-body">	
+		      
+		    <select name="items[${loop.index}].unidad" class="form-control">
+								<c:forEach items="${itemSelec}" var="type" varStatus="loop">
+								<option>${type.name}</option>
+								</c:forEach>
+								</select>	
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+		        <button type="submit" class="btn btn-primary">Aceptar</button>
+		      </div>
+		    </div><!-- /.modal-content -->
+		  </div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->				
 
 <script src="<c:url value="/resources/js/datatables.min.js" />"></script>
 <script type="text/javascript">
 
-var url = "catalogoExam.txt";
-var urlDetail = "catalogoExamenNuevo.htm";
+var url = "exam.txt";
+var urlDetail = "nuevoExamenCatalogo.htm";
 
 $(document).ready(function(){
 	var table = $('#mainTableOnView').DataTable( {
@@ -61,7 +83,7 @@ $(document).ready(function(){
                 "data": null,
                 "defaultContent": "<a href='#' id='updMainOnViewCat' class='btnAct' title='Actualizar'><i class='fa fa-pencil-square-o' aria-hidden='true'></i></a>"+
                 				"<a href='#' id='delMainOnView' class='btnAct' title='Eliminar'><i class='fa fa-minus-square-o' aria-hidden='true'></i></a>"+
-                				"<a href='#' id='delMainOnView' class='btnAct' title='Items'><i class='fa fa-flask' aria-hidden='true'></i></a>"
+                				"<a href='#' id='itemsMainOnView' class='btnAct' title='Items'><i class='fa fa-flask' aria-hidden='true'></i></a>"
             }
 		],
 		"language":{
@@ -80,9 +102,16 @@ $(document).ready(function(){
 		"lengthChange": false,
 		"pageLength": 20
 	});
+	
+	$("body").on('click','#itemsMainOnView',function(){
+		$("#myModalOnView2").modal({ /// configuring modal before launching
+		  backdrop: 'static'
+		});
+		$("#myModalOnView2").modal('show');
+	});
+	
 });
-var url = "exam.txt";
-var urlDetail = "nuevoExamenCatalogo.htm";
+		
 </script>
 
 </body>

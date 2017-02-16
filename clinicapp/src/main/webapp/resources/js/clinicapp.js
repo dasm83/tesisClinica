@@ -117,7 +117,7 @@ $( function() { /// jquery start point
 		});
 		$("#myModalOnView").modal('show');
 	});
-	
+		
 	$("body").on("click","#updMainOnView",function(){
 		var tr = $(this).closest('tr');
 		id = tr.attr('id');
@@ -162,7 +162,6 @@ $( function() { /// jquery start point
 		if(!validate()){
 			return;
 		}
-		
 		console.log($('#pacient').val());
 		console.log($('#detailForm').serialize());
 		
@@ -194,6 +193,7 @@ $( function() { /// jquery start point
 				}, 4000);
 			}
 		});
+		
 	});
 	
 	//insert nuevoCatalogoExamen
@@ -224,8 +224,21 @@ $( function() { /// jquery start point
 				}, 4000);
 			}
 		});
-	});
+	});	
 	
+$("body").on("click","#itemsMainOnView",function(){
+		var tr = $(this).closest('tr');
+		id = tr.attr('id');
+	//	document.write(id);
+	$.ajax({
+			url: url,
+			method: "POST",
+			data: 'op=del&id='+id,
+			dataType: 'text',
+		});
+});
+	
+
 	
 	/// ----------------- style and format of form elements -----------------
 	$('body').on( 'focusin', '#myModal input,select', function () {

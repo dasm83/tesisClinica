@@ -46,7 +46,6 @@
 				<br>
 				<br>
 				<div id="contenedor">
-    				<div class="added">
 								<c:forEach items="${CatalogoExamDetail.items}" var="item" varStatus="loop">
 								<div class="row">
 								<div class="col-lg-6"><input name="items[${loop.index}].nombre" value="${item.nombre}" class="form-control"/>
@@ -66,7 +65,7 @@
 								<br>
 								</c:forEach>
 								
-    				</div>
+    				
 				</div>
 			</div>
 			<br>
@@ -104,23 +103,29 @@ var url = "examCat.txt";
 var mainURL = "examenes.htm"
 $(document).ready(function() {
 
-	 var MaxInputs       = 20; //Número Maximo de Campos
+	 var MaxInputs       = 40; //Número Maximo de Campos
 	    var contenedor       = $("#contenedor"); //ID del contenedor
 	    var AddButton       = $("#agregarCampo"); //ID del Botón Agregar
 
 	    //var x = número de campos existentes en el contenedor
-	    var x = $("#contenedor div").length-1;
-	    //document.write(x);
+	    var x = $("#contenedor div").length;
+	  //  document.write(x);
+	  if(x==0){
 	    var contador=x;
 	    var FieldCount = x; //para el seguimiento de los campos
-
+	  }else if(x==1){
+		  var contador=1; 
+		  var FieldCount=1;
+	  }else{
+		  var contador=(x/3);
+	  }
 	    $(AddButton).click(function (e) {
 	        if(x <= MaxInputs) //max input box allowed
 	        {
 	            FieldCount++;
 	            //agregar campo
 	       //     $(contenedor).append('<div class="row"><div class="col-lg-3"><input type="text" path="items" name="items['+contador+'].nombre" class="form-control" id="campo_'+ FieldCount +'" placeholder="Texto '+ contador +'"/></div><div class="col-lg-3"><input type="hidden" name="items['+contador+'].oldId" value="vacio" /><a href="#" class="eliminar">Eliminar</a></div></div>');
-$(contenedor).append('<div class="row"><div class="col-lg-6"><input type="text" path="items" name="items['+contador+'].nombre" class="form-control" id="campo_'+ FieldCount +'" placeholder="Texto '+ contador +'"/></div><div class="col-lg-3"><select path="items" name="items['+contador+'].unidad" class="form-control" size=1><option>${unidadSelec[0].name}</option><option>${unidadSelec[1].name}</option><option>${unidadSelec[2].name}</option><option>${unidadSelec[3].name}</option><option>${unidadSelec[4].name}</option><option>${unidadSelec[5].name}</option><option>${unidadSelec[6].name}</option><option>${unidadSelec[7].name}</option><option>${unidadSelec[8].name}</option><option>${unidadSelec[9].name}</option><option>${unidadSelec[10].name}</option><option>${unidadSelec[11].name}</option><option>${unidadSelec[1].name}</option></select></div><a id="delete" href="#" class="fa fa-trash fa-2x" aria-hidden="true"></a></div>');	          
+$(contenedor).append('<div class="row"><div class="col-lg-6"><input type="text" path="items" name="items['+contador+'].nombre" class="form-control" id="campo_'+ FieldCount +'" placeholder="Texto '+ contador +'"/><input path="items" type="hidden" name="items['+contador+'].oldId" value="vacio"/></div><div class="col-lg-3"><select path="items" name="items['+contador+'].unidad" class="form-control" size=1><option>${unidadSelec[0].name}</option><option>${unidadSelec[1].name}</option><option>${unidadSelec[2].name}</option><option>${unidadSelec[3].name}</option><option>${unidadSelec[4].name}</option><option>${unidadSelec[5].name}</option><option>${unidadSelec[6].name}</option><option>${unidadSelec[7].name}</option><option>${unidadSelec[8].name}</option><option>${unidadSelec[9].name}</option><option>${unidadSelec[10].name}</option><option>${unidadSelec[11].name}</option><option>${unidadSelec[1].name}</option></select></div><a id="delete" href="#" class="fa fa-trash fa-2x" aria-hidden="true"></a></div>');	          
 	            x++; //text box increment
 	            contador++;
 	        }

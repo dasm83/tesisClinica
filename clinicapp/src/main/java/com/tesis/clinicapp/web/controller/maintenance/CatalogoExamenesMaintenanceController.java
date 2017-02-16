@@ -44,6 +44,7 @@ public class CatalogoExamenesMaintenanceController {
 	private static final String URL = "/maintenance/catalogoExamenes.htm";
 	private static final String URLj = "/maintenance/catalogoExam-ajax.json";
 	private static final String URLexamCat = "/maintenance/examCat.txt";
+	private static final String URLexamItems = "/maintenance/exam.txt";
 	private static final String URLcatExam = "/maintenance/nuevoExamenCatalogo.htm";
 	
 	/**
@@ -67,6 +68,7 @@ public class CatalogoExamenesMaintenanceController {
 	
 	@Autowired
 	private ItemsCatExamenService itemCatService;
+	
 	
 	@RequestMapping(method = RequestMethod.GET, value = URL)
     public ModelAndView get(HttpServletRequest request){
@@ -164,7 +166,13 @@ public class CatalogoExamenesMaintenanceController {
 		return brief;
 	}
 	
-	
+	@RequestMapping(method = RequestMethod.POST, value = URLexamItems, params = "op=del")
+	public @ResponseBody List<Map<String,String>> delExam(HttpServletRequest request){
+	   List<Map<String,String>> brief = new ArrayList<>();
+	   System.out.println(request.getParameter(("id").toString()));
+	   
+	   return brief;
+	}
 	
 	
 	/**
@@ -181,7 +189,7 @@ public class CatalogoExamenesMaintenanceController {
 		
 		Long id = form.getExamCatId();
 		String msj= "Registro Guardado"; 
-		System.out.println("antes del if");
+
 		if(id != null){
 			Clasificacion Cla= clasService.findById(form.getClasificacion());
 			CatalogoExamen catEx= catExamService.findById(id);
@@ -191,6 +199,7 @@ public class CatalogoExamenesMaintenanceController {
 				form.getItems().forEach(formItem->{
 					
 					for(CatalogoItemsExamen exItem:catItms){
+						System.out.println("entro a modificar");
 						if(exItem.getNombre().equals((formItem.getOldId()))){
 							exItem.setNombre(formItem.getNombre());
 							exItem.setUnidad(formItem.getUnidad());
@@ -200,7 +209,9 @@ public class CatalogoExamenesMaintenanceController {
 							CatalogoItemsExamen itemOnEx = new CatalogoItemsExamen();
 							itemOnEx.setCatalogoExamen(catEx);
 							itemOnEx.setNombre(formItem.getNombre());
-					//		itemCatService.save(itemOnEx);
+							itemOnEx.setUnidad(formItem.getUnidad());
+							System.out.println("entro a crear");
+							itemCatService.save(itemOnEx);
 							break;
 							
 						}else if(formItem.getOldId().equals("delete")){
@@ -216,7 +227,7 @@ public class CatalogoExamenesMaintenanceController {
 				catEx.setDescripcion(form.getDescripcion());
 				catEx.setNombre(form.getNombre());
 				catEx.setClasificacion(Cla);
-				//catExamService.saveOrUpdate(catEx);
+				catExamService.saveOrUpdate(catEx);
 		}	
 		
 		else{			
