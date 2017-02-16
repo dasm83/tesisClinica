@@ -170,6 +170,8 @@ public class CatalogoExamenesMaintenanceController {
 	public @ResponseBody List<Map<String,String>> delExam(HttpServletRequest request){
 	   List<Map<String,String>> brief = new ArrayList<>();
 	   System.out.println(request.getParameter(("id").toString()));
+	   System.out.println(request.getParameter(("id").toString()));
+	
 	   
 	   return brief;
 	}
