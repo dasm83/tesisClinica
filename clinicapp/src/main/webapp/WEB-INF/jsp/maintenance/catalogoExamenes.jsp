@@ -46,6 +46,7 @@
 		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 		      </div>
 		      <div class="modal-body">	
+		      <p><center>Modificar valores de Referencia</center></p>
 		            <select id="countryId"   name="countryId" path="items"></select>    
 		      </div>
 		      <div class="modal-footer">
@@ -59,6 +60,7 @@
 <script src="<c:url value="/resources/js/datatables.min.js" />"></script>
 <script type="text/javascript">
 
+var urlj = "exam-ajax.json";
 var url = "exam.txt";
 var urlDetail = "nuevoExamenCatalogo.htm";
 

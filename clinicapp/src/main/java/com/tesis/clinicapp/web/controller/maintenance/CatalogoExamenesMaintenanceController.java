@@ -46,6 +46,7 @@ public class CatalogoExamenesMaintenanceController {
 	private static final String URLj = "/maintenance/catalogoExam-ajax.json";
 	private static final String URLexamCat = "/maintenance/examCat.txt";
 	private static final String URLexamItems = "/maintenance/exam.txt";
+	private static final String URLexamItemsj = "/maintenance/exam-ajax.json";
 	private static final String URLcatExam = "/maintenance/nuevoExamenCatalogo.htm";
 	
 	/**
@@ -167,17 +168,21 @@ public class CatalogoExamenesMaintenanceController {
 		return brief;
 	}
 	
-	@RequestMapping(method = RequestMethod.POST, value = URLexamItems, params = "op=itms")
-	public @ResponseBody Map<String,String> referenceData(HttpServletRequest request){
-		 Map<String, String> map = new HashMap<String, String>();
+	@RequestMapping(method = RequestMethod.POST, value = URLexamItemsj, params = "op=itms")
+	public @ResponseBody List<Map<String,String>> referenceData(HttpServletRequest request){
+		 List<Map<String,String>> brief = new ArrayList<>();
 		 CatalogoExamen catEx=catExamService.findById(Long.parseLong(request.getParameter("id")));
 		 Set<CatalogoItemsExamen> catItms = catEx.getCatalogoItemsExamens();
          
 		 for(CatalogoItemsExamen exItem:catItms){
-			 	map.put(exItem.getId().toString(),exItem.getNombre());
-				System.out.println(exItem.getId().toString()+exItem.getNombre());
+			  Map<String,String> map = new HashMap<>();
+			 	map.put("id",exItem.getId().toString());
+			 	map.put("nombre",exItem.getNombre());
+			 	System.out.println(exItem.getId().toString()+exItem.getNombre());
+			 	brief.add(map);
 				}
-         return map;
+		 
+         return brief;
 	}
 	
 	/**

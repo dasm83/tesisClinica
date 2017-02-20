@@ -231,12 +231,11 @@ $("body").on("click","#itemsMainOnView",function(){
 		id = tr.attr('id');
 
 	$.ajax({
-			url: url,
+			url: urlj,
 			method: "POST",
 			data: 'op=itms&id='+id,
 			dataType: 'json',
 			success: function(data){
-				alert("entra");
 				 cargarSelect(data); 
 			},
 			 error : function(jqXHR, error, errorThrown) {
@@ -248,7 +247,7 @@ $("body").on("click","#itemsMainOnView",function(){
 		});
 	
 	function cargarSelect(data) {
-		 
+		$('#countryId').empty();
         for ( var i = 0, len = data.length; i < len; ++i) {
             var itms = data[i];
             $('#countryId').append("<option value=\"" +itms.id + "\">" + itms.nombre+ "</option>");
