@@ -46,12 +46,7 @@
 		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 		      </div>
 		      <div class="modal-body">	
-		      
-		    <select name="items[${loop.index}].unidad" class="form-control">
-								<c:forEach items="${itemSelec}" var="type" varStatus="loop">
-								<option>${type.name}</option>
-								</c:forEach>
-								</select>	
+		            <select id="countryId"   name="countryId" path="items"></select>    
 		      </div>
 		      <div class="modal-footer">
 		        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>

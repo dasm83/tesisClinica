@@ -3,6 +3,7 @@ package com.tesis.clinicapp.web.controller.maintenance;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -166,16 +167,18 @@ public class CatalogoExamenesMaintenanceController {
 		return brief;
 	}
 	
-	@RequestMapping(method = RequestMethod.POST, value = URLexamItems, params = "op=del")
-	public @ResponseBody List<Map<String,String>> delExam(HttpServletRequest request){
-	   List<Map<String,String>> brief = new ArrayList<>();
-	   System.out.println(request.getParameter(("id").toString()));
-	   System.out.println(request.getParameter(("id").toString()));
-	
-	   
-	   return brief;
+	@RequestMapping(method = RequestMethod.POST, value = URLexamItems, params = "op=itms")
+	public @ResponseBody Map<String,String> referenceData(HttpServletRequest request){
+		 Map<String, String> map = new HashMap<String, String>();
+		 CatalogoExamen catEx=catExamService.findById(Long.parseLong(request.getParameter("id")));
+		 Set<CatalogoItemsExamen> catItms = catEx.getCatalogoItemsExamens();
+         
+		 for(CatalogoItemsExamen exItem:catItms){
+			 	map.put(exItem.getId().toString(),exItem.getNombre());
+				System.out.println(exItem.getId().toString()+exItem.getNombre());
+				}
+         return map;
 	}
-	
 	
 	/**
 	 * Insert or Update op

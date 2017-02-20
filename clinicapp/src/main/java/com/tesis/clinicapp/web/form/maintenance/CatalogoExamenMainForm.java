@@ -1,11 +1,14 @@
 package com.tesis.clinicapp.web.form.maintenance;
 
+import java.util.List;
+
 public class CatalogoExamenMainForm {
 	
 	private Long id;
 	private String name;
 	private String description;
 	private String action;
+	private String items;
 	
 	public Long getId() {
 		return id;
@@ -31,5 +34,14 @@ public class CatalogoExamenMainForm {
 	public void setAction(String action) {
 		this.action = action;
 	}
+	public String getItems() {
+		return items;
+	}
+	public void setItems(String items) {
+		this.items = items;
+	}
+	
+	
+	
 
 }

@@ -229,16 +229,34 @@ $( function() { /// jquery start point
 $("body").on("click","#itemsMainOnView",function(){
 		var tr = $(this).closest('tr');
 		id = tr.attr('id');
-	//	document.write(id);
+
 	$.ajax({
 			url: url,
 			method: "POST",
-			data: 'op=del&id='+id,
-			dataType: 'text',
+			data: 'op=itms&id='+id,
+			dataType: 'json',
+			success: function(data){
+				alert("entra");
+				 cargarSelect(data); 
+			},
+			 error : function(jqXHR, error, errorThrown) {
+				 $("#myModalOnView2").find('.modal-body').html("<div style='text-align:center'><h3>Error</h3>"+jqXHR.responseText+"</div>");
+					setTimeout(function(){
+						$("#myModalOnView2").modal('hide');
+					}, 4000);
+				}
 		});
-});
 	
-
+	function cargarSelect(data) {
+		 
+        for ( var i = 0, len = data.length; i < len; ++i) {
+            var itms = data[i];
+            $('#countryId').append("<option value=\"" +itms.id + "\">" + itms.nombre+ "</option>");
+        }
+    } 
+	
+	
+});
 	
 	/// ----------------- style and format of form elements -----------------
 	$('body').on( 'focusin', 'input,select', function () {
