@@ -39,6 +39,7 @@
 	  </div><!-- /.modal-dialog -->
 	</div><!-- /.modal -->		
 	
+	<form action="<c:url value='/maintenance/valoresReferencia.htm'/>" method="POST">	
 	<div id="myModalOnView2" class="modal fade" tabindex="-1" role="dialog">
 		  <div class="modal-dialog" role="document">
 		    <div class="modal-content">
@@ -47,16 +48,16 @@
 		      </div>
 		      <div class="modal-body">	
 		      <p><center>Modificar valores de Referencia</center></p>
-		            <select id="countryId"   name="countryId" path="items"></select>    
+		            <select id="type" name="type" class="form-control"></select>    
 		      </div>
 		      <div class="modal-footer">
 		        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-		        <button type="submit" class="btn btn-primary">Aceptar</button>
+		        <button type="submit" class="btn btn-primary">Modificar</button>
 		      </div>
 		    </div><!-- /.modal-content -->
 		  </div><!-- /.modal-dialog -->
 		</div><!-- /.modal -->				
-
+		</form>
 <script src="<c:url value="/resources/js/datatables.min.js" />"></script>
 <script type="text/javascript">
 

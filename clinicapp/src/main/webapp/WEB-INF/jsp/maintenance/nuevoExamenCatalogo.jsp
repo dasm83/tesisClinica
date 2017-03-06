@@ -78,9 +78,9 @@
 			<button id="saveBtnCat" type="button" class="btn btn-primary pull-left" style="margin-top:40px; margin-right:15px">Guardar</button>
 			</div>
 			</div>
+			</form:form>
 		</div>
-	</form:form>
-</div>
+	
 
 <div id="myModalOnViewDet" class="modal fade" tabindex="-1" role="dialog">
 	  <div class="modal-dialog" role="document">

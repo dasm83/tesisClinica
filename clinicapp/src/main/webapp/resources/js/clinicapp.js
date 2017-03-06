@@ -226,6 +226,39 @@ $( function() { /// jquery start point
 		});
 	});	
 	
+	//Insert para valores de referencia
+
+$("#saveBtnCatVr").click(function(){
+		
+		var data = $('#detailFormCatVr').serialize();
+		
+		$("#myModalOnViewDet").modal({ /// configuring modal before launching
+			  backdrop: 'static'
+		});
+		
+		$.ajax({
+			url: url,
+			method: "POST",
+			data: data,
+			dataType: 'text',
+			success: function(data){
+				$("#myModalOnViewDet").find('.modal-body').html("<div style='text-align:center'>"+data+"</div>");
+				setTimeout(function(){
+					window.location.replace(mainURL);
+				}, 4000);
+			},
+			error: function(jqXHR, error, errorThrown){
+				$("#myModalOnViewDet").find('.modal-body').html("<div style='text-align:center'><h3>Error</h3>"+jqXHR.responseText+"</div>");
+				setTimeout(function(){
+					$("#myModalOnViewDet").modal('hide');
+				}, 4000);
+			}
+		});
+	});	
+	
+	
+	//cargar el select: items de examenes
+	
 $("body").on("click","#itemsMainOnView",function(){
 		var tr = $(this).closest('tr');
 		id = tr.attr('id');
@@ -247,10 +280,10 @@ $("body").on("click","#itemsMainOnView",function(){
 		});
 	
 	function cargarSelect(data) {
-		$('#countryId').empty();
+		$('#type').empty();
         for ( var i = 0, len = data.length; i < len; ++i) {
             var itms = data[i];
-            $('#countryId').append("<option value=\"" +itms.id + "\">" + itms.nombre+ "</option>");
+            $('#type').append("<option value=\"" +itms.id + "\">" + itms.nombre+ "</option>");
         }
     } 
 	

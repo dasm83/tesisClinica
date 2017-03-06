@@ -24,14 +24,19 @@ import com.tesis.clinicapp.model.Clasificacion;
 import com.tesis.clinicapp.model.Examen;
 import com.tesis.clinicapp.model.ItemsExamen;
 import com.tesis.clinicapp.model.ItemsExamenId;
+import com.tesis.clinicapp.model.ItemsValoresReferencia;
 import com.tesis.clinicapp.model.Laboratorista;
 import com.tesis.clinicapp.model.Paciente;
 import com.tesis.clinicapp.service.CatExamenService;
 import com.tesis.clinicapp.service.ClasificacionService;
 import com.tesis.clinicapp.service.ItemsCatExamenService;
+import com.tesis.clinicapp.service.ItemsExamenService;
+import com.tesis.clinicapp.service.ItemsValoresRefService;
 import com.tesis.clinicapp.util.TableData;
 import com.tesis.clinicapp.web.form.maintenance.CatalogoExamDetail;
 import com.tesis.clinicapp.web.form.maintenance.CatalogoExamDetailFormItem;
+import com.tesis.clinicapp.web.form.maintenance.CatalogoExamVrDetailsFormItem;
+import com.tesis.clinicapp.web.form.maintenance.CatalogoExamVrMainForm;
 import com.tesis.clinicapp.web.form.maintenance.CatalogoExamenMainForm;
 import com.tesis.clinicapp.web.form.maintenance.ExamDetailForm;
 
@@ -48,19 +53,21 @@ public class CatalogoExamenesMaintenanceController {
 	private static final String URLexamItems = "/maintenance/exam.txt";
 	private static final String URLexamItemsj = "/maintenance/exam-ajax.json";
 	private static final String URLcatExam = "/maintenance/nuevoExamenCatalogo.htm";
-	
+	private static final String URLcatExamVR = "/maintenance/valoresReferencia.htm";
+	private static final String URLcatExamItemsVR = "/maintenance/examCatVr.txt";	
 	/**
 	 * name of the jsp which corresponds to URL
 	 */
 	
 	private static final String JSP = "/maintenance/catalogoExamenes";
 	private static final String JSPdetCat = "/maintenance/nuevoExamenCatalogo";
-	
+	private static final String JSPItemsCatVR ="/maintenance/valoresReferencia";
 	/**
 	 * name of the form created in JSP
 	 */
 	private static final String FORM = "CatalogoExamenMainform";
 	private static final String FORMdet = "CatalogoExamDetail";
+	private static final String FORMdetItem = "CatalogoExamVrMainForm";      
 	
 	@Autowired
 	private CatExamenService catExamService;
@@ -70,6 +77,12 @@ public class CatalogoExamenesMaintenanceController {
 	
 	@Autowired
 	private ItemsCatExamenService itemCatService;
+	
+	@Autowired
+	private ItemsValoresRefService valoresService;
+	
+	@Autowired
+	private ItemsExamenService itemService;
 	
 	
 	@RequestMapping(method = RequestMethod.GET, value = URL)
@@ -91,6 +104,32 @@ public class CatalogoExamenesMaintenanceController {
 				Integer.parseInt(request.getParameter("start")),
 				Integer.parseInt(request.getParameter("length"))));
 		return json;
+	}
+	
+	@RequestMapping(method = RequestMethod.POST, value = URLcatExamVR, params = "type")
+	public ModelAndView getItemsDetail(HttpServletRequest request){
+		CatalogoItemsExamen itemOnEx =  itemCatService.findById(new Long(request.getParameter("type")));
+		CatalogoExamVrMainForm form = new CatalogoExamVrMainForm();
+		
+		request.setAttribute("title","Valores de Referencia "+itemOnEx.getNombre());
+			form.setItemId(itemOnEx.getId());
+			form.setNombre(itemOnEx.getNombre().toString());
+			
+			List<CatalogoExamVrDetailsFormItem> vr = new ArrayList<>();
+			itemOnEx.getItemsValoresReferencias().forEach(item->{
+				CatalogoExamVrDetailsFormItem i =new CatalogoExamVrDetailsFormItem();
+				i.setId(item.getId());
+				i.setMinAge((item.getEdadMinima()));
+				i.setMaxAge((item.getEdadMaxima()));
+				i.setSex((item.getSexo()));
+				i.setTypeRango(item.getTipoRango());
+				i.setvRMax(item.getValorRefMaximo());
+				i.setvRMin(item.getValorRefMinimo());
+				vr.add(i);
+			});
+			form.setItems(vr);
+			
+		return new ModelAndView(JSPItemsCatVR,FORMdetItem,form);
 	}
 	
 	
@@ -115,7 +154,7 @@ public class CatalogoExamenesMaintenanceController {
 		CatalogoExamDetail form = new CatalogoExamDetail();
 		
 		form.setExamCatId(catEx.getId());
-		form.setNombre(catEx.getNombre().toString().toString());
+		form.setNombre(catEx.getNombre().toString());
 		form.setDescripcion(catEx.getDescripcion().toString());
 		
 		List<CatalogoExamDetailFormItem> items = new ArrayList<>();
@@ -157,7 +196,7 @@ public class CatalogoExamenesMaintenanceController {
 	@ModelAttribute(value="unidadSelec")
 	private List<Map<String,String>> getUnidades(){
 		List<Map<String,String>> brief = new ArrayList<>();
-	    String[] unidades= {"UI/L","UI/ml","g/L","g/dL","mEq","mEq/L","mg","mg/L","mg/dL","mL","U/L","U/mL"}; 
+	    String[] unidades= {"UI/L","UI/ml","g/L","g/dL","mEq","mEq/L","mg","mg/L","mg/dL","mL","U/L","  ","U/mL"}; 
 	   
 	    for (String elemento: unidades){
 			Map<String,String> map = new HashMap<>();
@@ -166,6 +205,38 @@ public class CatalogoExamenesMaintenanceController {
 	    }
 		
 		return brief;
+	}
+	
+	/**
+	 * Delete Catalogo exam op
+	 * 
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(method = RequestMethod.POST, value = URLexamItems, params = "op=del", produces = "text/plain")
+	public @ResponseBody String delExam(HttpServletRequest request){
+		Long id = new Long(request.getParameter("id"));
+		//System.out.println(id.toString());
+		CatalogoExamen ex = catExamService.findById(id);
+		 Set<CatalogoItemsExamen> catItms = ex.getCatalogoItemsExamens();
+		 
+		 for(CatalogoItemsExamen exItem:catItms){
+			 Set<ItemsValoresReferencia> itemsVR=exItem.getItemsValoresReferencias();	 
+			 Set<ItemsExamen> itemsVal=exItem.getItemsExamens();
+			 
+			 for(ItemsValoresReferencia itemVR:itemsVR){
+				 itemCatService.delete(itemVR);
+		     }
+			 
+			 for(ItemsExamen itemVal:itemsVal){
+				 itemService.delete(itemVal);
+		     }
+		  itemCatService.delete(exItem);	 
+	    }
+	
+		 catExamService.delete(ex); 
+		 
+		return "Registro eliminado";
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, value = URLexamItemsj, params = "op=itms")
@@ -178,7 +249,6 @@ public class CatalogoExamenesMaintenanceController {
 			  Map<String,String> map = new HashMap<>();
 			 	map.put("id",exItem.getId().toString());
 			 	map.put("nombre",exItem.getNombre());
-			 	System.out.println(exItem.getId().toString()+exItem.getNombre());
 			 	brief.add(map);
 				}
 		 
@@ -204,7 +274,6 @@ public class CatalogoExamenesMaintenanceController {
 			Clasificacion Cla= clasService.findById(form.getClasificacion());
 			CatalogoExamen catEx= catExamService.findById(id);
 			Set<CatalogoItemsExamen> catItms = catEx.getCatalogoItemsExamens();
-			System.out.println("llego aqui");
 			
 				form.getItems().forEach(formItem->{
 					
@@ -248,10 +317,11 @@ public class CatalogoExamenesMaintenanceController {
 			catEx.setDescripcion(form.getDescripcion());
 			catEx.setClasificacion(Cla);
 			catExamService.save(catEx);
-			
+		
 			try{
-				form.getItems().forEach(formItem->{ CatalogoItemsExamen itemOnEx = new CatalogoItemsExamen();
-							
+				form.getItems().forEach(formItem->{ 
+					
+					        CatalogoItemsExamen itemOnEx = new CatalogoItemsExamen();
 							itemOnEx.setCatalogoExamen(catEx);
 							itemOnEx.setNombre(formItem.getNombre());
 							itemOnEx.setUnidad(formItem.getUnidad());
@@ -272,6 +342,66 @@ public class CatalogoExamenesMaintenanceController {
 	
 	}
 	
+	/**
+	 * Insert or Update ItemsVr
+	 * 
+	 * @param request
+	 * @param form
+	 * @return
+	 * @throws ParseException 
+	 */
+
+	@SuppressWarnings("unused")
+	@RequestMapping(method = RequestMethod.POST, value = URLcatExamItemsVR, produces = "text/plain")
+	public @ResponseBody String CatExamItemsVr(HttpServletRequest request, HttpServletResponse response, CatalogoExamVrMainForm form) throws ParseException{
+		
+		Long id = form.getItemId();
+		String msj= "Registro Guardado";
+			
+		 CatalogoItemsExamen item= itemCatService.findById(id);
+		 Set<ItemsValoresReferencia> ItmsVr=item.getItemsValoresReferencias();
+		 	form.getItems().forEach(formItem->{
+		 		
+		 		if(formItem.getId()== null){
+		 			ItemsValoresReferencia itemVr= new ItemsValoresReferencia();
+		 			itemVr.setEdadMinima(formItem.getMinAge());
+		 			itemVr.setEdadMaxima(formItem.getMaxAge());
+		 			itemVr.setSexo(formItem.getSex());
+		 			itemVr.setTipoRango(formItem.getTypeRango());
+		 			itemVr.setValorRefMaximo(formItem.getvRMax());
+		 			itemVr.setValorRefMinimo(formItem.getvRMin());
+		 			itemVr.setCatalogoItemsExamen(item);
+		 			System.out.println("uno nuevo");
+		 			valoresService.save(itemVr);
+		 		}
+		 		
+		 	//	if(formItem.getEstado().equals("delete")){
+            //  	    System.out.println("se borra uno");
+             //    	ItemsValoresReferencia itemVrDel = valoresService.findById(formItem.getId());
+	 		//		valoresService.delete(itemVrDel);
+		 	//	}
+		 		
+		 		for(ItemsValoresReferencia exItem:ItmsVr){
+		 		
+                       if(formItem.getId()==exItem.getId()){
+		 				System.out.println("entro a modificar uno viejo");
+		 				exItem.setEdadMaxima(formItem.getMaxAge());
+		 				exItem.setEdadMinima(formItem.getMinAge());
+		 				exItem.setSexo(formItem.getSex());
+		 				exItem.setTipoRango(formItem.getTypeRango());
+		 				exItem.setValorRefMaximo(formItem.getvRMax());
+		 				exItem.setValorRefMinimo(formItem.getvRMin());
+		 				exItem.setCatalogoItemsExamen(item);
+		 				System.out.println("modifico");
+		 				valoresService.saveOrUpdate(exItem);
+		 				break;	
+		 			}		 			
+		 		}
+		 		
+		 	});		
+		
+		return msj;
+	}
 }
 	
 

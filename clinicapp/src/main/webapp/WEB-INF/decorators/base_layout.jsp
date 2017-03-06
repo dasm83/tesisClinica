@@ -40,12 +40,13 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">ClinicApp</a>
+          <a class="navbar-brand" href="#">Laboratorio Clinico LBC <i class="fa fa-flask fa-lg" aria-hidden="true"></i> </a>
+          
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">${pageContext.request.userPrincipal.name}</a></li>
-            <li><a href="<c:url value="/logout" />">Salir</a></li>
+            <li><a class="fa fa-user fa-lg" aria-hidden="true" href="#">  ${pageContext.request.userPrincipal.name}</a></li>
+            <li><a class="fa fa-sign-out fa-lg" aria-hidden="true" href="<c:url value="/logout" />"></a></li>
           </ul>
         </div>
       </div>
