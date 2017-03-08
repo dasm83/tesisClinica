@@ -132,7 +132,7 @@ $( function() {
 				success: function(data){
 					jQuery.each(data.suggestions, function(i, obj){
 						var index = $('.itemId[value="'+obj.value+'"]').index('input.itemId');
-						$('#body .vnBox:eq('+index+') > span').text("V.N. "+obj.data);
+						$('#body .vnBox:eq('+index+') > span').text(obj.data);
 					});
 				},
 			});

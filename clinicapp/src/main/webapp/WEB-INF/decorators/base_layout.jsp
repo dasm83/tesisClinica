@@ -40,7 +40,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Laboratorio Clinico LBC <i class="fa fa-flask fa-lg" aria-hidden="true"></i> </a>
+          <a class="navbar-brand" href="#">Laboratorio Clinico LCB <i class="fa fa-flask fa-lg" aria-hidden="true"></i> </a>
           
         </div>
         <div id="navbar" class="navbar-collapse collapse">

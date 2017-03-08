@@ -83,8 +83,8 @@ public class AutocompleteController {
 			String fullVn = (vn != null)?
 					(StringUtils.isEmpty(vn.getTipoRango())?
 							vn.getValorRefMinimo()+" - "+vn.getValorRefMaximo():formatRange(vn.getTipoRango())+" "+vn.getValorRefMaximo())
-					:" ";
-			vns.addPair(item.getId().toString(), fullVn+" "+item.getUnidad());
+					:"";
+			vns.addPair(item.getId().toString(), (!fullVn.isEmpty())?"V.N. "+fullVn+" "+item.getUnidad():"");
 		});
 		
 		return vns;
