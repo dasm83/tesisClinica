@@ -23,7 +23,11 @@ public class IndexController {
 
 	@RequestMapping(method = RequestMethod.GET, value = URL)
 	public String get(HttpServletRequest request){
-		request.setAttribute("title", "Actividad Reciente");
+		
+		//request.setAttribute("title", "Actividad Reciente");
+		
+		
+		//request.setAttribute("exams", exService.getLatest(10));
 		
 		request.setAttribute("exams", exService.getLatest(10));
 		

@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -123,8 +124,21 @@ public class CatalogoExamenesMaintenanceController {
 				i.setMaxAge((item.getEdadMaxima()));
 				i.setSex((item.getSexo()));
 				i.setTypeRango(item.getTipoRango());
-				i.setvRMax(item.getValorRefMaximo());
-				i.setvRMin(item.getValorRefMinimo());
+			//	i.setvRMax(item.getValorRefMaximo());
+			//	i.setvRMin(item.getValorRefMinimo());
+				
+				if(item.getValorRefMaximo()==-1){
+					System.out.println("comparo y entro");
+					i.setvRMax("V.N.");
+				}else{
+					i.setvRMax(String.valueOf(item.getValorRefMaximo()));
+				}
+				
+				if(item.getValorRefMinimo()==-1){
+					i.setvRMin("V.N.");
+				}else{
+					i.setvRMin(String.valueOf(item.getValorRefMinimo()));
+				}
 				vr.add(i);
 			});
 			form.setItems(vr);
@@ -196,7 +210,7 @@ public class CatalogoExamenesMaintenanceController {
 	@ModelAttribute(value="unidadSelec")
 	private List<Map<String,String>> getUnidades(){
 		List<Map<String,String>> brief = new ArrayList<>();
-	    String[] unidades= {"UI/L","UI/ml","g/L","g/dL","mEq","mEq/L","mg","mg/L","mg/dL","mL","U/L","  ","U/mL"}; 
+	    String[] unidades= {"UI/L","UI/ml","g/L","g/dL","mEq","mEq/L","mg","mg/L","mg/dL","mL","U/L","--","U/mL"}; 
 	   
 	    for (String elemento: unidades){
 			Map<String,String> map = new HashMap<>();
@@ -216,7 +230,6 @@ public class CatalogoExamenesMaintenanceController {
 	@RequestMapping(method = RequestMethod.POST, value = URLexamItems, params = "op=del", produces = "text/plain")
 	public @ResponseBody String delExam(HttpServletRequest request){
 		Long id = new Long(request.getParameter("id"));
-		//System.out.println(id.toString());
 		CatalogoExamen ex = catExamService.findById(id);
 		 Set<CatalogoItemsExamen> catItms = ex.getCatalogoItemsExamens();
 		 
@@ -278,7 +291,6 @@ public class CatalogoExamenesMaintenanceController {
 				form.getItems().forEach(formItem->{
 					
 					for(CatalogoItemsExamen exItem:catItms){
-						System.out.println("entro a modificar");
 						if(exItem.getNombre().equals((formItem.getOldId()))){
 							exItem.setNombre(formItem.getNombre());
 							exItem.setUnidad(formItem.getUnidad());
@@ -324,8 +336,12 @@ public class CatalogoExamenesMaintenanceController {
 					        CatalogoItemsExamen itemOnEx = new CatalogoItemsExamen();
 							itemOnEx.setCatalogoExamen(catEx);
 							itemOnEx.setNombre(formItem.getNombre());
+							
+							if(formItem.getUnidad().equals("--")){
+							itemOnEx.setUnidad("");
+							}else{
 							itemOnEx.setUnidad(formItem.getUnidad());
-							System.out.println(formItem.getNombre()+formItem.getUnidad());
+							}
 						    itemCatService.save(itemOnEx);
 			  });
 				
@@ -357,45 +373,68 @@ public class CatalogoExamenesMaintenanceController {
 		
 		Long id = form.getItemId();
 		String msj= "Registro Guardado";
-			
+		System.out.println("entra al controlador");
 		 CatalogoItemsExamen item= itemCatService.findById(id);
 		 Set<ItemsValoresReferencia> ItmsVr=item.getItemsValoresReferencias();
-		 	form.getItems().forEach(formItem->{
-		 		
+		 System.out.println("entra al controlador");
+		
+		 form.getItems().forEach(formItem->{
+			 System.out.println("entra al foreach");		
 		 		if(formItem.getId()== null){
+		 			System.out.println("entra al if");
 		 			ItemsValoresReferencia itemVr= new ItemsValoresReferencia();
 		 			itemVr.setEdadMinima(formItem.getMinAge());
 		 			itemVr.setEdadMaxima(formItem.getMaxAge());
 		 			itemVr.setSexo(formItem.getSex());
 		 			itemVr.setTipoRango(formItem.getTypeRango());
-		 			itemVr.setValorRefMaximo(formItem.getvRMax());
-		 			itemVr.setValorRefMinimo(formItem.getvRMin());
+		 			System.out.println(formItem.getvRMax().toString());
+		 			System.out.println(formItem.getvRMax());
+		 			System.out.println(formItem.getvRMin());
+		 			
+		 			itemVr.setValorRefMaximo(Integer.parseInt(formItem.getvRMax()));
+		 			
+		 			
+		 			if(formItem.getvRMin().equals("V.N.")){
+		 				System.out.println("entreo Maximo");
+		 				 itemVr.setValorRefMinimo(-1);
+		 			}else{
+		 				itemVr.setValorRefMinimo(Integer.parseInt(formItem.getvRMin()));
+		 			}
+		 			
 		 			itemVr.setCatalogoItemsExamen(item);
-		 			System.out.println("uno nuevo");
 		 			valoresService.save(itemVr);
 		 		}
 		 		
-		 	//	if(formItem.getEstado().equals("delete")){
-            //  	    System.out.println("se borra uno");
-             //    	ItemsValoresReferencia itemVrDel = valoresService.findById(formItem.getId());
-	 		//		valoresService.delete(itemVrDel);
-		 	//	}
+		 		if(formItem.getEstado().equals("delete")){
+                 	ItemsValoresReferencia itemVrDel = valoresService.findById(formItem.getId());
+	 				valoresService.delete(itemVrDel);
+		 			
+		 		}
 		 		
 		 		for(ItemsValoresReferencia exItem:ItmsVr){
 		 		
                        if(formItem.getId()==exItem.getId()){
-		 				System.out.println("entro a modificar uno viejo");
 		 				exItem.setEdadMaxima(formItem.getMaxAge());
 		 				exItem.setEdadMinima(formItem.getMinAge());
 		 				exItem.setSexo(formItem.getSex());
 		 				exItem.setTipoRango(formItem.getTypeRango());
-		 				exItem.setValorRefMaximo(formItem.getvRMax());
-		 				exItem.setValorRefMinimo(formItem.getvRMin());
+		 				
+		 				if(formItem.getvRMax().equals("V.N.")){
+		 					exItem.setValorRefMaximo(-1);
+		 				}else{
+		 				exItem.setValorRefMaximo(Integer.parseInt(formItem.getvRMax()));
+		 				}
+		 				
+		 				if(formItem.getvRMin().equals("V.N.")){
+		 					exItem.setValorRefMinimo(-1);
+		 				}else{
+		 				exItem.setValorRefMinimo(Integer.parseInt(formItem.getvRMin()));
+		 				}
 		 				exItem.setCatalogoItemsExamen(item);
-		 				System.out.println("modifico");
 		 				valoresService.saveOrUpdate(exItem);
 		 				break;	
-		 			}		 			
+		 			}      
+                       
 		 		}
 		 		
 		 	});		

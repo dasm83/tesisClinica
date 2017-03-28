@@ -8,10 +8,11 @@ public class CatalogoExamVrDetailsFormItem {
 	private int minAge;
 	private int maxAge;
 	private Character sex;
-	private int vRMin;
-	private int vRMax;
+	private String vRMin;
+	private String vRMax;
 	private String typeRango;
 	private String estado;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -36,16 +37,16 @@ public class CatalogoExamVrDetailsFormItem {
 	public void setSex(Character sex) {
 		this.sex = sex;
 	}
-	public int getvRMin() {
+	public String getvRMin() {
 		return vRMin;
 	}
-	public void setvRMin(int vRMin) {
+	public void setvRMin(String vRMin) {
 		this.vRMin = vRMin;
 	}
-	public int getvRMax() {
+	public String getvRMax() {
 		return vRMax;
 	}
-	public void setvRMax(int vRMax) {
+	public void setvRMax(String vRMax) {
 		this.vRMax = vRMax;
 	}
 	public String getTypeRango() {

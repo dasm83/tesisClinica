@@ -155,7 +155,7 @@ public class ExamenMaintenanceController {
 			ExamDetailFormItem formItem = new ExamDetailFormItem();
 			ItemsValoresReferencia vn = valoresService.getSingle(item.getCatalogoItemsExamen().getId(), ex.getPaciente().getSexo(), ex.getPaciente().getEdad());
 			String fullVn = (vn != null)?
-					(StringUtils.isEmpty(vn.getTipoRango())?
+					(vn.getTipoRango().equals("-")?
 							vn.getValorRefMinimo()+" - "+vn.getValorRefMaximo():formatRange(vn.getTipoRango())+" "+vn.getValorRefMaximo())
 					:"";
 			formItem.setNombre(item.getCatalogoItemsExamen().getNombre());

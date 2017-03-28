@@ -53,15 +53,14 @@
   				</div>
   				<br>
   				<div class="form-group">
-  					<label for="ejemplo_password_3" class="col-lg-2 control-label">V.R MINIMO :</label>
+  					<label for="ejemplo_password_3" class="col-lg-2 control-label">Valor de Referencia:</label>
     					<div class="col-lg-2">
       						<input type="text" class="form-control input-sm" id="ejemplo_password_3" name="items[${loop.index}].vRMin" value="${item.vRMin}" placeholder="V.R Minimo">
     					</div>
    						 <div class="col-lg-2">
-   						   <select class="form-control input-sm" name="items[${loop.index}].typeRango"><option selected>${item.typeRango}</option><option>-</option><option>></option><option>Hasta</option></select>							
+   						   <select id="sel" class="form-control input-sm" name="items[${loop.index}].typeRango"><option selected>${item.typeRango}</option><option>-</option><option>></option><option><</option><option><=</option></select>							
     					</div>
-    				<label for="ejemplo_password_3" class="col-lg-2 control-label">V.R MAXIMO :</label>
-    					<div class="col-lg-2">
+       					<div class="col-lg-2">
       						<input type="text" class="form-control input-sm" id="ejemplo_password_3" name="items[${loop.index}].vRMax" value="${item.vRMax}" placeholder="V.R Maximo">
     					</div>
   				</div>
@@ -126,7 +125,7 @@ $(document).ready(function() {
 	        {
 	            FieldCount++;
 	            //agregar campo
-$(contenedor).append('<div class="row"><div class="panel panel-default"><div class="panel-heading">Valores de Referencia<div class="panel-title pull-right"><a id="delete" href="#" class="fa fa-trash fa-1x" aria-hidden="true"></a><input type="hidden" name="items['+contador+'].estado"/></div></div><div class="panel-body"><div class="form-group"><label for="ejemplo_email_3" class="col-lg-1 control-label">Sexo :</label><div class="col-lg-1"><select path="vr" name="items['+contador+'].sex" class="form-control input-sm"><option selected>M</option><option>F</option><option></option></select><input type="hidden" class="form-control input-sm" id="idItem" path="items" name="items['+contador+'].id"/></div></div><br><div class="form-group"><label for="ejemplo_password_3" class="col-lg-2 control-label">Edad Minima :</label><div class="col-lg-2"><input type="text" class="form-control input-sm" id="edadMin" path="items" name="items['+contador+'].minAge" placeholder="Texto '+ contador +'"></div><label for="ejemplo_password_3" class="col-lg-2 control-label">Edad Maxima :</label><div class="col-lg-2"><input type="text" class="form-control input-sm" id="edadMax" path="items" name="items['+contador+'].maxAge" placeholder="Edad Maxima"></div><div class="col-lg-2"><button type="button" value="mes" id="mesAnio" class="btn btn-default input-sm">Mes</button></div></div><br><div class="form-group"><label for="ejemplo_password_3" class="col-lg-2 control-label">V.R MINIMO :</label><div class="col-lg-2"><input type="text" class="form-control input-sm" id="ejemplo_password_3" path="items" name="items['+contador+'].vRMin" placeholder="V.R Minimo"></div><div class="col-lg-2"><select path="items" name="items['+contador+'].typeRango" class="form-control input-sm" ><option selected><</option><option>-</option><option>></option><option>Hasta</option></select></div><label for="ejemplo_password_3" class="col-lg-2 control-label">V.R MAXIMO :</label><div class="col-lg-2"><input path="items" name="items['+contador+'].vRMax" type="text" class="form-control input-sm" id="ejemplo_password_3" placeholder="V.R Maximo"></div></div></div></div></div>');
+$(contenedor).append('<div class="row"><div class="panel panel-default"><div class="panel-heading">Valores de Referencia<div class="panel-title pull-right"><a id="delete" href="#" class="fa fa-trash fa-1x" aria-hidden="true"></a><input type="hidden" name="items['+contador+'].estado"/></div></div><div class="panel-body"><div class="form-group"><label for="ejemplo_email_3" class="col-lg-1 control-label">Sexo :</label><div class="col-lg-1"><select path="vr" name="items['+contador+'].sex" class="form-control input-sm"><option selected>M</option><option>F</option><option></option></select><input type="hidden" class="form-control input-sm" id="idItem" path="items" name="items['+contador+'].id"/></div></div><br><div class="form-group"><label for="ejemplo_password_3" class="col-lg-2 control-label">Edad Minima :</label><div class="col-lg-2"><input type="text" class="form-control input-sm" id="edadMin" path="items" name="items['+contador+'].minAge" placeholder="Texto '+ contador +'"></div><label for="ejemplo_password_3" class="col-lg-2 control-label">Edad Maxima :</label><div class="col-lg-2"><input type="text" class="form-control input-sm" id="edadMax" path="items" name="items['+contador+'].maxAge" placeholder="Texto '+ contador +'"></div><div class="col-lg-2"><button type="button" value="mes" id="mesAnio" class="btn btn-default input-sm">Mes</button></div></div><br><div class="form-group"><label for="ejemplo_password_3" class="col-lg-2 control-label">Valor de Referencia:</label><div class="col-lg-2"><input type="text" class="form-control input-sm" id="ejemplo_password_2" path="items" name="items['+contador+'].vRMin" placeholder="Texto '+contador +'"></div><div class="col-lg-2"><select id="sel" path="items" name="items['+contador+'].typeRango" class="form-control input-sm" ><option selected>-</option><option><</option><option>></option><option><=</option></select></div><div class="col-lg-2"><input path="items" name="items['+contador+'].vRMax" type="text" class="form-control input-sm" id="ejemplo_password_3" placeholder="Texto '+ contador +'"></div></div></div></div></div>');
 				x++; //text box increment
 	            contador++;
 	        }
@@ -142,36 +141,20 @@ $(contenedor).append('<div class="row"><div class="panel panel-default"><div cla
 	        return false;
 	 });
 	  
-    $("body").on("click","#mesAnio", function(e){ 
-		x=$(this).attr("value");
-		alert(x);
-		if(x=="mes"){
-
-		 $(this).html('años');
-	     $(this).attr("value","anios");
-	     $(this).parent().prevAll().contents("input[name$='minAge']").attr("placeholder", "Edad Minima(años)");
-	     $(this).parent().prevAll().contents("input[name$='maxAge']").attr("placeholder", "Edad Maxima(años)");
-		}
-		if(x=="anios"){
-		$(this).html('mes');
-		$(this).attr("value","mes");	
-		$(this).parent().prevAll().contents("input[name$='minAge']").attr("placeholder", "Edad Minima(meses)");
-		$(this).parent().prevAll().contents("input[name$='maxAge']").attr("placeholder", "Edad Maxima(meses)");
-		}
-	 });
-	  
+    $("body").on("change","#sel", function(e){ 
+    	var v = $(this).val();
+    	if((v==">") || (v=="<") || (v=="<=")){
+    	$(this).parent().prevAll().contents("input[name$='vRMin']").val("V.N.");
+    	$(this).parent().prevAll().contents("input[name$='vRMin']").attr('readonly','readonly');
+    //	$(this).parent().prevAll().contents("input[name$='vRMin']").text("V.N.");
+    //	$(this).parent().prevAll().contents("input[name$='vRMin']").attr("disabled", "true");
+    	}else if(v=="-"){
+    		$(this).parent().prevAll().contents("input[name$='vRMin']").attr("value","");
+    	//	$(this).parent().prevAll().contents("input[name$='vRMin']").removeAttr('disabled');
+    	}
+    	
+    }); 
 });	   
-	    
-	  function habilitar(value)
-	  {
-	  	if(value=="Hasta"){
-	  		document.getElementById("segundo").value=("V.N");
-	  		document.getElementById("segundo").disabled=true; // habilitamos
-	  	}else{
-	  		document.getElementById("segundo").disabled=false;// deshabilitamos
-	  	}
-
-	  }
 </script>
 </body>
 </html>
