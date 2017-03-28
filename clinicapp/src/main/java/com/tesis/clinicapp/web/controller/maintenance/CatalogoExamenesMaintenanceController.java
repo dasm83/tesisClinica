@@ -379,8 +379,10 @@ public class CatalogoExamenesMaintenanceController {
 		 System.out.println("entra al controlador");
 		
 		 form.getItems().forEach(formItem->{
+			 
 			 System.out.println("entra al foreach");		
-		 		if(formItem.getId()== null){
+		 	
+			 if(formItem.getId()== null){
 		 			System.out.println("entra al if");
 		 			ItemsValoresReferencia itemVr= new ItemsValoresReferencia();
 		 			itemVr.setEdadMinima(formItem.getMinAge());
@@ -411,9 +413,11 @@ public class CatalogoExamenesMaintenanceController {
 		 			
 		 		}
 		 		
+		 		if(formItem.getEstado().equals("")){
 		 		for(ItemsValoresReferencia exItem:ItmsVr){
 		 		
                        if(formItem.getId()==exItem.getId()){
+                    	   
 		 				exItem.setEdadMaxima(formItem.getMaxAge());
 		 				exItem.setEdadMinima(formItem.getMinAge());
 		 				exItem.setSexo(formItem.getSex());
@@ -436,7 +440,7 @@ public class CatalogoExamenesMaintenanceController {
 		 			}      
                        
 		 		}
-		 		
+		 	  }
 		 	});		
 		
 		return msj;

@@ -144,47 +144,17 @@
         <span id="mes" class="timeline-balloon-date-month"></span>
     </div>
 
-    <div  class="col-sm-offset-6 col-sm-6  timeline-item">
-        <div class="row">
-            <div class="col-sm-offset-1 col-sm-11">
-                <div class="timeline-panel debits">
-                    <ul class="timeline-panel-ul">
-                        <li><span class="importo">Mussum ipsum cacilds</span></li>
-                        <li><span class="causale">Lorem ipsum dolor sit amet, consectetur adipiscing elit. </span> </li>
-                        <li><p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> 11/09/2014</small></p> </li>
-                    </ul>
-                </div>
-
-            </div>
-        </div>
-    </div>
-
-    <div class="col-sm-6  timeline-item">
-        <div class="row">
-            <div class="col-sm-11">
-                <div class="timeline-panel credits">
-                    <ul class="timeline-panel-ul">
-                        <li><span class="importo">Mussum ipsum cacilds</span></li>
-                        <li><span class="causale">Lorem ipsum dolor sit amet, consectetur adipiscing elit. </span> </li>
-                        <li><p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> 11/09/2014</small></p> </li>
-                    </ul>
-                </div>
-
-            </div>
-        </div>
-    </div>
-    
     <c:set var="x" scope="session" value="0"/>
-    <c:forEach items="${patients}" var="p" varStatus="loop"> 
-    <c:if test="${x==0}">
+    <c:forEach items="${citas}" var="p" varStatus="loop"> 
+      <c:if test="${p.id%2==0}">	
       <div  class="col-sm-offset-6 col-sm-6  timeline-item">
         <div class="row">
             <div class="col-sm-offset-1 col-sm-11">
                 <div class="timeline-panel debits">
                     <ul class="timeline-panel-ul">
-                        <li><span class="importo">${p.id}</span></li>
-                        <li><span class="causale">${p}</span> </li>
-                        <li><p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> 11/09/2014</small></p> </li>
+                        <li><span class="importo">${p.paciente.nombres}</span></li>
+                        <li><span class="causale">${p.descripcion}</span> </li>
+                        <li><p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> <fmt:formatDate value="${p.fechaReserva}" pattern="HH:mm:ss"/></small></p> </li>
                     </ul>
                 </div>
 
@@ -192,23 +162,23 @@
         </div>
      </div>
    </c:if>
-   
-   <c:if test="${x==1}"> 
+    
+    <c:if test="${p.id%2!=0}">
     <div class="col-sm-6  timeline-item">
         <div class="row">
             <div class="col-sm-11">
                 <div class="timeline-panel credits">
                     <ul class="timeline-panel-ul">
-                        <li><span class="importo">${p.id}</span></li>
-                        <li><span class="causale">${p.sexo}</span> </li>
-                        <li><p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> 11/09/2014</small></p> </li>
+                        <li><span class="importo">${p.paciente.nombres}</span></li>
+                        <li><span class="causale">${p.descripcion}</span> </li>
+                        <li><p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> <fmt:formatDate value="${p.fechaReserva}" pattern="HH:mm:ss"/></small></p> </li>
                     </ul>
                 </div>
 
             </div>
         </div>
     </div>
- </c:if>   
+ </c:if>
 <c:set var="x" scope="session" value="1"/>
 </c:forEach>
 
