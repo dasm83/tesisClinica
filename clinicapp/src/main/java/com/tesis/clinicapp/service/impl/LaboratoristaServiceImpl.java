@@ -23,8 +23,8 @@ public class LaboratoristaServiceImpl extends GenericServiceImpl<Laboratorista,L
 
 	@SuppressWarnings("rawtypes")
 	@Override
-	public List getFilteredList(int draw, int start, int length) {
-          return dao.getFilteredList(draw, start, length);
+	public List getFilteredList(int start, int length, int col, String order) {
+          return dao.getFilteredList(start, length, col, order);
 	}
 	
 	public Laboratorista getByExactName(String lName){

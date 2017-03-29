@@ -13,10 +13,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -107,14 +107,18 @@ public class ExamenMaintenanceController {
 	 * @return {@link TableData} holds datatable params including all exams in db
 	 */
 	@RequestMapping(method = RequestMethod.POST, value = URLj, params = "draw", produces = "application/json")
-	public @ResponseBody TableData dataTable(HttpServletRequest request){
+	public @ResponseBody TableData dataTable(HttpServletRequest request, @RequestParam(value="order[0][column]") int col,
+			@RequestParam(value="order[0][dir]") String dir){
 		TableData json = new TableData();
 		json.setDraw(Integer.parseInt(request.getParameter("draw")));
 		json.setRecordsTotal(1);
 		json.setRecordsFiltered(1);
-		json.setData(getExamsList(Integer.parseInt(request.getParameter("draw")),
+		json.setData(getExamsList(
 				Integer.parseInt(request.getParameter("start")),
-				Integer.parseInt(request.getParameter("length"))));
+				Integer.parseInt(request.getParameter("length")),
+				col,
+				dir
+				));
 		return json;
 	}
 	
@@ -155,7 +159,7 @@ public class ExamenMaintenanceController {
 			ExamDetailFormItem formItem = new ExamDetailFormItem();
 			ItemsValoresReferencia vn = valoresService.getSingle(item.getCatalogoItemsExamen().getId(), ex.getPaciente().getSexo(), ex.getPaciente().getEdad());
 			String fullVn = (vn != null)?
-					(StringUtils.isEmpty(vn.getTipoRango())?
+					(vn.getTipoRango().equals("-")?
 							vn.getValorRefMinimo()+" - "+vn.getValorRefMaximo():formatRange(vn.getTipoRango())+" "+vn.getValorRefMaximo())
 					:"";
 			formItem.setNombre(item.getCatalogoItemsExamen().getNombre());
@@ -307,9 +311,9 @@ public class ExamenMaintenanceController {
 	 * @return a list filled with maps; each map holds specific values of a single exam
 	 */
 	@SuppressWarnings("unchecked")
-	private List<Map<String,String>> getExamsList(int draw,int start,int length){
+	private List<Map<String,String>> getExamsList(int start,int length, int col, String order){
 		List<Map<String,String>> brief = new ArrayList<>();
-		List<Examen> exams = examService.getFilteredList(draw,start,length);
+		List<Examen> exams = examService.getFilteredList(start,length,col,order);
 		
 		for(Examen exam : exams){
 			Map<String,String> list = new HashMap<>();

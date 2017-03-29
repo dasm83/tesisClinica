@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -92,23 +93,27 @@ public class PacienteMaintenanceController {
 	
 	
 	@RequestMapping(method = RequestMethod.POST, value = URLj, produces="application/json")
-	public @ResponseBody TableData dataTable(HttpServletRequest request){
+	public @ResponseBody TableData dataTable(HttpServletRequest request, @RequestParam(value="order[0][column]") int col,
+			@RequestParam(value="order[0][dir]") String dir){
 		TableData json = new TableData();
 		json.setDraw(Integer.parseInt(request.getParameter("draw")));
 		json.setRecordsFiltered(pacientService.count());
 		json.setRecordsTotal(pacientService.count());
-		json.setData(getPacientList(Integer.parseInt(request.getParameter("draw")),
+		json.setData(getPacientList(
 									Integer.parseInt(request.getParameter("start")),
-									Integer.parseInt(request.getParameter("length"))));
+									Integer.parseInt(request.getParameter("length")),
+									col,
+									dir
+								));
 		
 		return json;
 	}
 	
 	
 	@SuppressWarnings("unchecked")
-	public List<Map<String,String>> getPacientList(int draw,int start,int length){
+	public List<Map<String,String>> getPacientList(int start,int length,int col,String order){
 		List<Map<String,String>> brief = new ArrayList<>();
-		List<Paciente> pacient = pacientService.getFilteredList(draw,start,length);
+		List<Paciente> pacient = pacientService.getFilteredList(start,length,col,order);
 		
 		for(Paciente p:pacient ){
 			Map<String,String> list = new HashMap<>();

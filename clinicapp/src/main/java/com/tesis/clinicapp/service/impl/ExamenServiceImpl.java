@@ -18,8 +18,8 @@ public class ExamenServiceImpl extends GenericServiceImpl<Examen, Long> implemen
 
 	@SuppressWarnings("rawtypes")
 	@Override
-	public List getFilteredList(int draw, int start, int length) {
-		return dao.getFilteredList(draw,start,length);
+	public List getFilteredList(int start, int length, int col, String order) {
+		return dao.getFilteredList(start,length,col,order);
 	}
 
 }

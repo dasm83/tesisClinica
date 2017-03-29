@@ -1,25 +1,24 @@
 package com.tesis.clinicapp.web.controller.maintenance;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.tesis.clinicapp.model.Examen;
 import com.tesis.clinicapp.model.Laboratorista;
 import com.tesis.clinicapp.service.LaboratoristaService;
-import com.tesis.clinicapp.service.PacienteService;
 import com.tesis.clinicapp.util.TableData;
 import com.tesis.clinicapp.web.form.maintenance.laboratoristaMainForm;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 
 @Controller
@@ -35,14 +34,13 @@ public class LaboratoristaMaintenanceController {
 	 * name of the jsp which corresponds to URL
 	 */
 	private static final String JSP = "/maintenance/laboratorista";
-	private static final String JSPx = "/maintenance/laboratorista-ajax";
 	/**
 	 * name of the form created in JSP
 	 */
 	private static final String FORM = "laboratoristaMainForm";
 	
 	/**
-	 * A service instance to access PacienteDatos table.
+	 * A service instance to access TABLE table.
 	 * We always access database through services.
 	 */
 	@Autowired
@@ -53,7 +51,6 @@ public class LaboratoristaMaintenanceController {
     public ModelAndView get(HttpServletRequest request){
 		request.setAttribute("title", "Laboratorista");
 		return new ModelAndView(JSP,FORM,new laboratoristaMainForm());
-		
 	}
 	
 	
@@ -89,22 +86,26 @@ public class LaboratoristaMaintenanceController {
 	
 	
 	@RequestMapping(method = RequestMethod.POST, value = URLj, produces = "application/json")
-	public @ResponseBody TableData dataTable(HttpServletRequest request){
+	public @ResponseBody TableData dataTable(HttpServletRequest request, @RequestParam(value="order[0][column]") int col,
+			@RequestParam(value="order[0][dir]") String dir){
 		TableData json = new TableData();
 		json.setDraw(Integer.parseInt(request.getParameter("draw")));
 		json.setRecordsTotal(LabService.count());
 		json.setRecordsFiltered(LabService.count());
-		json.setData(getlabsList(Integer.parseInt(request.getParameter("draw")),
+		json.setData(getlabsList(
 				Integer.parseInt(request.getParameter("start")),
-				Integer.parseInt(request.getParameter("length"))));
+				Integer.parseInt(request.getParameter("length")),
+				col,
+				dir
+				));
 		
 	return json;	
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<Map<String,String>> getlabsList(int draw,int start,int length){
+	public List<Map<String,String>> getlabsList(int start,int length,int col,String order){
 		List<Map<String,String>> brief = new ArrayList<>();
-		List<Laboratorista> lab = LabService.getFilteredList(draw,start,length);
+		List<Laboratorista> lab = LabService.getFilteredList(start,length,col,order);
 		
 		for(Laboratorista labo : lab  ){
 			Map<String,String> list = new HashMap<>();

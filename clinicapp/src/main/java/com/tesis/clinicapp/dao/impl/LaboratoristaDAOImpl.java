@@ -6,6 +6,7 @@ import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
@@ -34,11 +35,30 @@ public class LaboratoristaDAOImpl extends GenericDAOImpl<Laboratorista,Long> imp
 
 	@SuppressWarnings("rawtypes")
 	@Override
-	public List getFilteredList(int draw, int start, int length) {
+	public List getFilteredList(int start, int length, int col, String order) {
 		Criteria crit = getCriteria();
+		String prop = "";
+		
+		switch(col){
+			case 0:
+				prop = "nombres";
+				break;
+			case 1:
+				prop = "apellidos";
+				break;
+			case 2:
+				prop = "profesion";
+				break;
+		}
 		
 		crit.setFirstResult(start);
 		crit.setMaxResults(length);
+		
+		if(order.equals("asc")){
+			crit.addOrder(Order.asc(prop));
+		} else{
+			crit.addOrder(Order.desc(prop));
+		}
 
 		return crit.list();
 	}

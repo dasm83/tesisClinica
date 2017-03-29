@@ -8,6 +8,6 @@ import com.tesis.clinicapp.util.GenericDAO;
 public interface ExamenDAO extends GenericDAO<Examen, Long> {
 
 	@SuppressWarnings("rawtypes")
-	public List getFilteredList(int draw, int start, int length);
+	public List getFilteredList(int start, int length, int col, String order);
 
 }
