@@ -65,7 +65,22 @@
 				<form:input id="date" path="fecha" cssClass="form-control datepicker" data-provide="datepicker" data-date-format="dd/mm/yyyy"/>
 			</div>
 		</div>
+		
+		<div class="row">
+				<br>
+				<br>
+				<div class="col-lg-2">
+				<label>Determinacion</label>
+				</div>
+				<div class="col-lg-7">
+				<label>Resultado</label>
+				</div>
+				<div class="col-lg-3">
+				<label>Valores de Referencia</label>
+				</div>
+		</div>
 		<br>
+		
 		<div class="row" id="body">
 			<div class="col-lg-12">
 				<c:forEach items="${ExamDetailForm.items}" var="item" varStatus="loop">

@@ -23,7 +23,7 @@ public class Citas implements java.io.Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -4458107730271464503L;
-	private int id;
+	private Long id;
 	private Paciente paciente;
 	private Date fechaReserva;
 	private String descripcion;
@@ -31,7 +31,7 @@ public class Citas implements java.io.Serializable {
 	public Citas() {
 	}
 
-	public Citas(int id, Paciente paciente, Date fechaReserva, String descripcion) {
+	public Citas(Long id, Paciente paciente, Date fechaReserva, String descripcion) {
 		this.id = id;
 		this.paciente = paciente;
 		this.fechaReserva = fechaReserva;
@@ -41,11 +41,11 @@ public class Citas implements java.io.Serializable {
 	@Id
 
 	@Column(name = "id", unique = true, nullable = false)
-	public int getId() {
+	public Long getId() {
 		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

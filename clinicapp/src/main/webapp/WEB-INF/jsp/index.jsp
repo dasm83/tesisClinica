@@ -129,11 +129,6 @@
 <body>
 	<div class="container">
 	<div id="timeline"><div class="row timeline-movement timeline-movement-top">
-    <div class="timeline-badge timeline-future-movement">
-        <a href="#">
-            <span class="glyphicon glyphicon-plus"></span>
-        </a>
-    </div>
     <div class="timeline-badge timeline-filter-movement">
         <a href="#">
             <span class="glyphicon glyphicon-time"></span>
@@ -141,125 +136,51 @@
     </div>
 
 </div>
+
 <div class="row timeline-movement">
 
     <div class="timeline-badge">
-        <span class="timeline-balloon-date-day">18</span>
-        <span class="timeline-balloon-date-month">APR</span>
+        <span id="dia" class="timeline-balloon-date-day"></span>
+        <span id="mes" class="timeline-balloon-date-month"></span>
     </div>
 
+    <c:set var="x" scope="session" value="0"/>
+    <c:forEach items="${citas}" var="p" varStatus="loop"> 
+      <c:if test="${p.id%2==0}">	
+      <div  class="col-sm-offset-6 col-sm-6  timeline-item">
+        <div class="row">
+            <div class="col-sm-offset-1 col-sm-11">
+                <div class="timeline-panel debits">
+                    <ul class="timeline-panel-ul">
+                        <li><span class="importo">${p.paciente.nombres}</span></li>
+                        <li><span class="causale">${p.descripcion}</span> </li>
+                        <li><p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> <fmt:formatDate value="${p.fechaReserva}" pattern="HH:mm:ss"/></small></p> </li>
+                    </ul>
+                </div>
 
+            </div>
+        </div>
+     </div>
+   </c:if>
+    
+    <c:if test="${p.id%2!=0}">
     <div class="col-sm-6  timeline-item">
         <div class="row">
             <div class="col-sm-11">
                 <div class="timeline-panel credits">
                     <ul class="timeline-panel-ul">
-                        <li><span class="importo">Cita</span></li>
-                        <li><span class="causale">Examen </span> </li>
-                        <li><p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> 11/09/2014</small></p> </li>
+                        <li><span class="importo">${p.paciente.nombres}</span></li>
+                        <li><span class="causale">${p.descripcion}</span> </li>
+                        <li><p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> <fmt:formatDate value="${p.fechaReserva}" pattern="HH:mm:ss"/></small></p> </li>
                     </ul>
                 </div>
 
             </div>
         </div>
     </div>
-
-    <div class="col-sm-6  timeline-item">
-        <div class="row">
-            <div class="col-sm-offset-1 col-sm-11">
-                <div class="timeline-panel debits">
-                    <ul class="timeline-panel-ul">
-                        <li><span class="importo">Mussum ipsum cacilds</span></li>
-                        <li><span class="causale">Lorem ipsum dolor sit amet, consectetur adipiscing elit. </span> </li>
-                        <li><p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> 11/09/2014</small></p> </li>
-                    </ul>
-                </div>
-
-            </div>
-        </div>
-    </div>
-</div>
-
-<!--due -->
-
-<div class="row timeline-movement">
-
-
-    <div class="timeline-badge">
-        <span class="timeline-balloon-date-day">13</span>
-        <span class="timeline-balloon-date-month">APR</span>
-    </div>
-
-    <div class="col-sm-offset-6 col-sm-6  timeline-item">
-        <div class="row">
-            <div class="col-sm-offset-1 col-sm-11">
-                <div class="timeline-panel debits">
-                    <ul class="timeline-panel-ul">
-                        <li><span class="importo">Mussum ipsum cacilds</span></li>
-                        <li><span class="causale">Lorem ipsum dolor sit amet, consectetur adipiscing elit. </span> </li>
-                        <li><p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> 11/09/2014</small></p> </li>
-                    </ul>
-                </div>
-
-            </div>
-        </div>
-    </div>
-
-    <div class="col-sm-6  timeline-item">
-        <div class="row">
-            <div class="col-sm-11">
-                <div class="timeline-panel credits">
-                    <ul class="timeline-panel-ul">
-                        <li><span class="importo">Mussum ipsum cacilds</span></li>
-                        <li><span class="causale">Lorem ipsum dolor sit amet, consectetur adipiscing elit. </span> </li>
-                        <li><p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> 11/09/2014</small></p> </li>
-                    </ul>
-                </div>
-
-            </div>
-        </div>
-    </div>
-
-
-</div>
-<div class="row timeline-movement">
-
-
-    <div class="timeline-badge">
-        <span class="timeline-balloon-date-day">10</span>
-        <span class="timeline-balloon-date-month">APR</span>
-    </div>
-
-    <div class="col-sm-offset-6 col-sm-6  timeline-item">
-        <div class="row">
-            <div class="col-sm-offset-1 col-sm-11">
-                <div class="timeline-panel debits">
-                    <ul class="timeline-panel-ul">
-                        <li><span class="importo">Mussum ipsum cacilds</span></li>
-                        <li><span class="causale">Lorem ipsum dolor sit amet, consectetur adipiscing elit. </span> </li>
-                        <li><p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> 11/09/2014</small></p> </li>
-                    </ul>
-                </div>
-
-            </div>
-        </div>
-    </div>
-
-    <div class="col-sm-6  timeline-item">
-        <div class="row">
-            <div class="col-sm-11">
-                <div class="timeline-panel credits">
-                    <ul class="timeline-panel-ul">
-                        <li><span class="importo">Mussum ipsum cacilds</span></li>
-                        <li><span class="causale">Lorem ipsum dolor sit amet, consectetur adipiscing elit. </span> </li>
-                        <li><p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> 11/09/2014</small></p> </li>
-                    </ul>
-                </div>
-
-            </div>
-        </div>
-    </div>
-
+ </c:if>
+<c:set var="x" scope="session" value="1"/>
+</c:forEach>
 
 </div>
 </div>
@@ -309,5 +230,21 @@
 		</div>
 	</div>
 	-->
+<script type="text/javascript">
+
+var url = "index-ajax.json";
+
+$(document).ready(function(){
+	
+	var f = new Date();
+	var m= f.getMonth() +1;
+	var d= f.getDate();	
+	
+    $('#dia').text(d);
+    $('#mes').text('MAR');   
+	
+});
+
+</script>
 </body>
 </html>
