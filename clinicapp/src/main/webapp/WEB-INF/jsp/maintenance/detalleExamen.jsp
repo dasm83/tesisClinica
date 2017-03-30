@@ -51,7 +51,14 @@
 		<div id="head" class="row" style="border-bottom: 1px solid #eee;">
 			<div class="col-lg-6">
 				<form:label for="pacient" path="paciente">Paciente:</form:label>
-				<form:input id="pacient" path="paciente" cssClass="form-control"/>
+				<c:choose>
+					<c:when test="${ not empty param.id }">
+						<form:input id="pacient" path="paciente" cssClass="form-control" disabled="true"/>
+					</c:when>
+					<c:otherwise>
+						<form:input id="pacient" path="paciente" cssClass="form-control"/>
+					</c:otherwise>
+				</c:choose>
 				<br>
 				<form:label for="lab" path="laboratorista">Laboratorista:</form:label>
 				<form:input id="lab" path="laboratorista" cssClass="form-control"/>
@@ -59,7 +66,14 @@
 			</div>
 			<div class="col-lg-6">
 				<form:label for="age" path="edad">Edad:</form:label>
-				<form:input id="age" path="edad" cssClass="form-control number"/>
+				<c:choose>
+					<c:when test="${ not empty param.id }">
+						<form:input id="age" path="edad" cssClass="form-control number" disabled="true"/>
+					</c:when>
+					<c:otherwise>
+						<form:input id="age" path="edad" cssClass="form-control number"/>
+					</c:otherwise>
+				</c:choose>
 				<br>
 				<form:label for="date" path="fecha">Fecha de procesamiento:</form:label>
 				<form:input id="date" path="fecha" cssClass="form-control datepicker" data-provide="datepicker" data-date-format="dd/mm/yyyy"/>
@@ -134,6 +148,8 @@ var url = "examOp.txt";
 var mainURL = "examenes.htm";
 
 $( function() {
+	
+	<c:if test="${param.id eq null}">
 	$('#pacient').autocomplete({
 		serviceUrl: 'auto.json?sugP',
 		type: 'POST',
@@ -145,6 +161,7 @@ $( function() {
 					console.log(error);
 				},
 				success: function(data){
+					$('#age').val(data.intField1);
 					jQuery.each(data.suggestions, function(i, obj){
 						var index = $('.itemId[value="'+obj.value+'"]').index('input.itemId');
 						$('#body .vnBox:eq('+index+') > span').text(obj.data);
@@ -153,6 +170,7 @@ $( function() {
 			});
 	    }
 	});
+	</c:if>
 	
 	$('#lab').autocomplete({
 		serviceUrl: 'auto.json?sugL',

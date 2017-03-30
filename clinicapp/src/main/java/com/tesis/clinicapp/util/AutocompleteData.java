@@ -6,6 +6,7 @@ import java.util.List;
 public class AutocompleteData {
 	
 	private List<data> suggestions;
+	private int intField1;
 	
 	
 	public AutocompleteData() {
@@ -20,8 +21,16 @@ public class AutocompleteData {
 	public void setSuggestions(List<data> suggestions) {
 		this.suggestions = suggestions;
 	}
-	
-	
+
+	public int getIntField1() {
+		return intField1;
+	}
+
+	public void setIntField1(int intField1) {
+		this.intField1 = intField1;
+	}
+
+
 	public void addPair(String value, String data){
 		data pair = new data();
 		pair.setValue(value);

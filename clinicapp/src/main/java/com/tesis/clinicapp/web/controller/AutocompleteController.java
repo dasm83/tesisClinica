@@ -6,7 +6,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -81,12 +80,13 @@ public class AutocompleteController {
 		ex.getCatalogoItemsExamens().forEach(item->{
 			ItemsValoresReferencia vn = valoresService.getSingle(item.getId(), p.getSexo(), p.getEdad());
 			String fullVn = (vn != null)?
-				//	(StringUtils.isEmpty(vn.getTipoRango())?
 					(vn.getTipoRango().equals("-")?
 							vn.getValorRefMinimo()+" - "+vn.getValorRefMaximo():formatRange(vn.getTipoRango())+" "+vn.getValorRefMaximo())
 					:"";
 			vns.addPair(item.getId().toString(), (!fullVn.isEmpty())?"V.N. "+fullVn+" "+item.getUnidad():"");
 		});
+		
+		vns.setIntField1(p.getEdad());
 		
 		return vns;
 	}
