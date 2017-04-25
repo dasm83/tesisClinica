@@ -239,9 +239,13 @@ $(document).ready(function(){
 	var f = new Date();
 	var m= f.getMonth() +1;
 	var d= f.getDate();	
-	
-    $('#dia').text(d);
-    $('#mes').text('MAR');   
+	if(d<2){
+	var c="0"+d;
+	 $('#dia').text(c);
+	}else{
+	$('#dia').text(d);	
+	}
+    $('#mes').text('ABR');   
 	
 });
 

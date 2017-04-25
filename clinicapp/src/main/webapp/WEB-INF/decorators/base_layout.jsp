@@ -80,7 +80,7 @@
                             <a href="<c:url value="/maintenance/laboratorista.htm" />"><i class="fa fa-user-md"></i> Laboratoristas</a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-calendar-check-o"></i> Citas</a>
+                            <a href="<c:url value="/maintenance/citas.htm" />"><i class="fa fa-calendar-check-o"></i>Citas</a>
                         </li>
                     </ul>
                 </div>
