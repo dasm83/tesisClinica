@@ -23,16 +23,20 @@ public class Usuario implements java.io.Serializable {
 	private String nombre;
 	private Rol rol;
 	private String contrasenia;
+	private String nombres;
+	private String apellidos;
 	private boolean habilitado;
 
 	public Usuario() {
 	}
 
-	public Usuario(String nombre, Rol rol, String contrasenia, boolean habilitado) {
+	public Usuario(String nombre, Rol rol, String contrasenia, boolean habilitado, String nombres, String apellidos) {
 		this.nombre = nombre;
 		this.rol = rol;
 		this.contrasenia = contrasenia;
 		this.habilitado = habilitado;
+		this.nombres = nombres;
+		this.apellidos = apellidos;
 	}
 
 	@Id
@@ -72,6 +76,24 @@ public class Usuario implements java.io.Serializable {
 
 	public void setHabilitado(boolean habilitado) {
 		this.habilitado = habilitado;
+	}
+
+	@Column(name = "nombres", nullable = false, length = 50)
+	public String getNombres() {
+		return nombres;
+	}
+
+	public void setNombres(String nombres) {
+		this.nombres = nombres;
+	}
+
+	@Column(name = "apellidos", nullable = false, length = 50)
+	public String getApellidos() {
+		return apellidos;
+	}
+
+	public void setApellidos(String apellidos) {
+		this.apellidos = apellidos;
 	}
 
 }

@@ -18,7 +18,7 @@
     
     <authentication-manager id="authManager">
     	<authentication-provider>
-    		<jdbc-user-service data-source-ref="dataSource" role-prefix="none" 
+    		<jdbc-user-service data-source-ref="dataSource" role-prefix="" 
     		users-by-username-query="select nombre,contrasenia,habilitado from clinica.usuario where nombre = ?"
     		authorities-by-username-query="select nombre,id_rol from clinica.usuario where nombre = ?"/>
     	</authentication-provider>

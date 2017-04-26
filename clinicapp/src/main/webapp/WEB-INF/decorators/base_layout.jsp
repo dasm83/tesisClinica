@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -46,53 +47,56 @@
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
             <li><a class="fa fa-user fa-lg" aria-hidden="true" href="#">  ${pageContext.request.userPrincipal.name}</a></li>
+            
+            <sec:authorize access="hasAuthority('ADM')">
+            	<li><a class="fa fa-cog fa-lg" aria-hidden="true" href="<c:url value="/configure" />"></a></li>
+            </sec:authorize>
+            
             <li><a class="fa fa-sign-out fa-lg" aria-hidden="true" href="<c:url value="/logout" />"></a></li>
           </ul>
         </div>
       </div>
-      
       <div class="navbar-default sidebar" role="navigation">
-                <div class="sidebar-nav navbar-collapse">
-                    <ul class="nav" id="side-menu">
-                        <li>
-                            <a href="<c:url value="/index.htm" />"><i class="fa fa-home"></i> Inicio</a>
-                        </li>
-                        
-                        <li>
-                            <a href="#"><i class="fa fa-file-o"></i> Ex&#225;menes</a>
-                      		<ul class="nav nav-second-level">
-                      		  	<li>
-                                    <a href="<c:url value="/maintenance/examenes.htm"/>">Archivo</a>
-                                </li>
-                      		  	<li>
-                                    <a href="<c:url value="/maintenance/catalogoExamenes.htm"/>">Cat&#225;logo</a>
-                                </li>
-                                <li>
-                                    <a href="<c:url value="/maintenance/clasificacion.htm"/>">Clasificaciones</a>
-                                </li>
-                            </ul>
-                        </li>
-                      		
-                        <li>
-                            <a href="<c:url value="/maintenance/pacientes.htm" />"><i class="fa fa-users"></i> Pacientes</a>
-                        </li>
-                        <li>
-                            <a href="<c:url value="/maintenance/laboratorista.htm" />"><i class="fa fa-user-md"></i> Laboratoristas</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-calendar-check-o"></i> Citas</a>
-                        </li>
-                    </ul>
-                </div>
-                <!-- /.sidebar-collapse -->
-            </div>
-      
+	      <div class="sidebar-nav navbar-collapse">
+	          <ul class="nav" id="side-menu">
+	              <li>
+	                  <a href="<c:url value="/index.htm" />"><i class="fa fa-home"></i> Inicio</a>
+	              </li>
+	              
+	              <li>
+	                  <a href="#"><i class="fa fa-file-o"></i> Ex&#225;menes</a>
+	            		<ul class="nav nav-second-level">
+	            		  	<li>
+	                          <a href="<c:url value="/maintenance/examenes.htm"/>">Archivo</a>
+	                      </li>
+	            		  	<li>
+	                          <a href="<c:url value="/maintenance/catalogoExamenes.htm"/>">Cat&#225;logos</a>
+	                      </li>
+	                      <li>
+	                          <a href="<c:url value="/maintenance/clasificacion.htm"/>">Clasificaciones</a>
+	                      </li>
+	                  </ul>
+	              </li>
+	            		
+	              <li>
+	                  <a href="<c:url value="/maintenance/pacientes.htm" />"><i class="fa fa-users"></i> Pacientes</a>
+	              </li>
+	              <li>
+	                  <a href="<c:url value="/maintenance/laboratorista.htm" />"><i class="fa fa-user-md"></i> Laboratoristas</a>
+	              </li>
+	              <li>
+	                  <a href="#"><i class="fa fa-calendar-check-o"></i> Citas</a>
+	              </li>
+	          </ul>
+	      </div>
+	      <!-- /.sidebar-collapse -->
+	  </div>
     </nav>
     
     <div id="page-wrapper">
     	<div class="row">
     		<div class="col-lg-12">
-    			<h1 class="page-header"><c:out value="   ${title}"></c:out></h1>
+    			<h1 class="page-header"><c:out value="${title}"></c:out></h1>
     		</div>
     	</div>
     	<div class="row">
