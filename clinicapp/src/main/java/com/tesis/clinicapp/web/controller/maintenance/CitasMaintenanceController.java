@@ -53,12 +53,11 @@ public class CitasMaintenanceController {
 		 
 		 for(Citas cit : C){
 				Map<String,String> list = new HashMap<>();
-				System.out.println(cit.getFechaReserva().toString());
 				list.put("date", cit.getFechaReserva().toString());
 				list.put("type","funciono");
 				list.put("title","Examen de heces");
 				list.put("description", "examen en ayunas");
-				list.put("url","h");
+				list.put("url","#");
 				brief.add(list);
 			}
 		 

@@ -16,7 +16,7 @@
 
 </head>
 <body>
-<a id="newExam" href="#"><i class="fa fa-plus-square-o" aria-hidden="true"></i> Crear Ex&#225;men</a>
+<a id="" href="#"><i class="fa fa-plus-square-o" aria-hidden="true"></i> Crear Cita</a>
 
 <div id="myModalOnView2" class="modal fade" tabindex="-1" role="dialog">
 	  <div class="modal-dialog" role="document">
@@ -37,45 +37,37 @@
 	</div><!-- /.modal -->
 	
 <div class="container-fluid">
-<div class="row">		
-			<div class="col-md-12">
-				<div id="eventCalendarInline">
+	<div class="row">		
+		<div class="col-md-12">
+			<div id="eventCalendarInline">
 				
-				</div>
+			</div>
+		</div>
 	</div>
-</div>
 </div>
 
 <script type="text/javascript">
-				var urlCitasj = "citas-ajax.json";
-				$(document).ready(function() {		
-						$.ajax({
-							url: urlCitasj,
-							method: "POST",
-       					    dataType : 'json',
-       					 success : function(json) {	
-       					var eventsInline = json;
-       					$("#eventCalendarInline").eventCalendar({
-       						jsonDateFormat: 'human',
-       						jsonData: eventsInline
-    						}); 	
-       				    },
-       				 	
-       				    error: function(jqXHR, error, errorThrown){
-       					$("#myModalOnViewDet").find('.modal-body').html("<div style='text-align:center'><h3>Error</h3>"+jqXHR.responseText+"</div>");
-       					setTimeout(function(){
-       						$("#myModalOnViewDet").modal('hide');
-       					}, 4000);
-       				  }
-					});
-						$("body").on('click','#newExam',function(){
-							$("#myModalOnView2").modal({ /// configuring modal before launching
-							  backdrop: 'static'
-							});
-							$("#myModalOnView2").modal('show');
-						});
-				});
-					
+	var urlCitasj = "citas-ajax.json";
+	$(document).ready(function() {		
+		$.ajax({
+			url: urlCitasj,
+			method: "POST",
+			dataType : 'json',
+			success : function(json) {	
+				var eventsInline = json;
+				$("#eventCalendarInline").eventCalendar({
+					jsonDateFormat: 'human',
+					jsonData: eventsInline
+				}); 	
+			},
+			error: function(jqXHR, error, errorThrown){
+				$("#myModalOnViewDet").find('.modal-body').html("<div style='text-align:center'><h3>Error</h3>"+jqXHR.responseText+"</div>");
+				setTimeout(function(){
+					$("#myModalOnViewDet").modal('hide');
+				}, 4000);
+			}
+		});
+	});
 </script>
 </body>
 </html>
