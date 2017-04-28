@@ -13,6 +13,10 @@
 <link href="<c:url value='/resources/css/datatables.min.css' />" rel="stylesheet">
 <link href="<c:url value='/resources/css/eventCalendar.css'/>" rel="stylesheet">
 <link href="<c:url value='/resources/css/eventCalendar_theme_responsive.css'/>" rel="stylesheet">
+<!-- datepicker -->
+<script src="<c:url value="/resources/js/bootstrap-datepicker.min.js" />"></script>
+<link href="<c:url value='/resources/css/bootstrap-datepicker3.css' />" rel="stylesheet">
+
 
 </head>
 <body>
@@ -25,35 +29,42 @@
 	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 	      </div>
 	      <div class="modal-body">
-	      	<form:form id="citaForm" method="POST" commandName="citasMainForm" action="">
-	     			<form:input path="idcita" id="cit" cssStyle="display:none"/>
-					<div class="row">
-								<div class="label col">
-									<label>Paciente:</label>
-								</div>
-								<div class="input col">
-									<form:input id="pacient" path="namePacient" cssClass="text"/>
-								</div>
-					</div>
-					<div class="row">
-								<div class="label col">
-									<label>Descripcion:</label>
-								</div>
-								<div class="input col">
-									<form:input id="descript" path="description" cssClass="text"/>
-								</div>
-					</div>
-					<div class="row">
-								<div class="label col">
-									<label>Fecha:</label>
-								</div>
-								<div class="input col">
-						<form:input id="date" path="date" cssClass="form-control datepicker" data-provide="datepicker" data-date-format="dd/mm/yyyy"/>
-								</div>
-					</div>
-					
-	     		</form:form>
-	      </div>
+	      	<form:form id="citaForm" class="form-horizontal" role="form" method="POST" commandName="citasMainForm" action="">
+	     	<form:input path="idcita" id="cit" cssStyle="display:none"/>			
+	     			
+			<div class="form-group">
+			    <label for="pacient" class="col-lg-2 control-label">Paciente :</label>
+			    	<div class="col-lg-10">
+			    		<form:input id="pacient" path="namePacient" class="form-control"/>
+			        </div>
+			</div>		
+			<div class="form-group">
+				<label for="descript" class="col-lg-2 control-label">Examen:</label>
+				<div class="col-lg-10">
+				<form:input id="descript" path="description" class="form-control"/>
+				</div>	
+			</div>
+			
+			<div class="form-group">
+				<label for="date" class="col-lg-2 control-label">Fecha:</label>
+				<div class="col-lg-10">
+				<form:input id="date" path="date" cssClass="form-control datepicker" data-provide="datepicker" data-date-format="dd/mm/yyyy"/>
+				</div>
+			</div>	
+	    </form:form>
+						     <div class="row">
+					    <div class='col-sm-6'>
+					      <div class="form-group">
+					        <div class='input-group date' id='datetimepicker1'>
+					          <input type='text' class="form-control" />
+					          <span class="input-group-addon">
+					            <span class="glyphicon glyphicon-calendar"></span>
+					          </span>
+					        </div>
+					      </div>
+					    </div>
+					  </div>	    
+	   </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
 	        <button id="okBtn" type="button" class="btn btn-primary">Aceptar</button>
@@ -73,6 +84,7 @@
 </div>
 
 <script type="text/javascript">
+	
 	var urlCitasj = "citas-ajax.json";
 	var urlCita= "date-ajax.json";
 	$(document).ready(function() {		
@@ -94,6 +106,7 @@
 				}, 4000);
 			}
 		});
+		
 		$("body").on('click','.bt',function(){
 			var id = $(this).attr("id");
 			$.ajax({
@@ -117,7 +130,7 @@
 				 }
 		});
 	});
-});
+});	  
 </script>
 </body>
 </html>

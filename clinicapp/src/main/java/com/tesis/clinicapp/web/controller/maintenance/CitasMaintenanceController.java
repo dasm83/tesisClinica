@@ -76,7 +76,6 @@ public class CitasMaintenanceController {
 		 list.put("descripcion",cita.getDescripcion());
 		 list.put("paciente", cita.getPaciente().getNombres());
 		 brief.add(list);
-		 System.out.println(request.getParameter("id"));
 		 return brief;
 	}
 }
