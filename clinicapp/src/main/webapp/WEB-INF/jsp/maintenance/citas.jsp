@@ -25,8 +25,34 @@
 	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 	      </div>
 	      <div class="modal-body">
-	      sdfjñlaskdfjañslkdfjaslñkdfjañsdlkfjñaslkdfjañslkdjfñasdlkfañslkdfñalskdjfñalskdfñaslkdfjañ
-	      	¿Está seguro que desea eliminar este registro?
+	      	<form:form id="citaForm" method="POST" commandName="citasMainForm" action="">
+	     			<form:input path="idcita" id="cit" cssStyle="display:none"/>
+					<div class="row">
+								<div class="label col">
+									<label>Paciente:</label>
+								</div>
+								<div class="input col">
+									<form:input id="pacient" path="namePacient" cssClass="text"/>
+								</div>
+					</div>
+					<div class="row">
+								<div class="label col">
+									<label>Descripcion:</label>
+								</div>
+								<div class="input col">
+									<form:input id="descript" path="description" cssClass="text"/>
+								</div>
+					</div>
+					<div class="row">
+								<div class="label col">
+									<label>Fecha:</label>
+								</div>
+								<div class="input col">
+						<form:input id="date" path="date" cssClass="form-control datepicker" data-provide="datepicker" data-date-format="dd/mm/yyyy"/>
+								</div>
+					</div>
+					
+	     		</form:form>
 	      </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
@@ -48,6 +74,7 @@
 
 <script type="text/javascript">
 	var urlCitasj = "citas-ajax.json";
+	var urlCita= "date-ajax.json";
 	$(document).ready(function() {		
 		$.ajax({
 			url: urlCitasj,
@@ -67,7 +94,30 @@
 				}, 4000);
 			}
 		});
+		$("body").on('click','.bt',function(){
+			var id = $(this).attr("id");
+			$.ajax({
+				url: urlCita,
+				method: "POST",
+				data: 'op=itms&id='+id,
+				    dataType : 'json',
+				
+				    success : function(json) {	 	
+		
+					 var Jcita=json;
+		
+					$('#cit').val(Jcita[0].id);
+					$('#pacient').val(Jcita[0].paciente);
+					$('#descript').val(Jcita[0].descripcion);
+					$('#date').val(Jcita[0].date);
+					$("#myModalOnView2").modal({
+						backdrop: 'static'
+					});
+					$("#myModalOnView2").modal('show');
+				 }
+		});
 	});
+});
 </script>
 </body>
 </html>
