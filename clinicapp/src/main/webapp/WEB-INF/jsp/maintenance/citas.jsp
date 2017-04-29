@@ -15,8 +15,11 @@
 <link href="<c:url value='/resources/css/eventCalendar_theme_responsive.css'/>" rel="stylesheet">
 <!-- datepicker -->
 <script src="<c:url value="/resources/js/bootstrap-datepicker.min.js" />"></script>
+<script src="<c:url value="/resources/js/bootstrap-datetimepicker.js" />"></script>
 <link href="<c:url value='/resources/css/bootstrap-datepicker3.css' />" rel="stylesheet">
-
+<link href="<c:url value='/resources/css/bootstrap-datetimepicker.min.css.css'/>" rel="stylesheet">
+<link href="<c:url value='/resources/css/bootstrap-datetimepicker-standalone.css'/>" rel="stylesheet">
+<link href="<c:url value='/resources/css/bootstrap-datetimepicker.css'/>" rel="stylesheet">
 
 </head>
 <body>
@@ -39,31 +42,34 @@
 			        </div>
 			</div>		
 			<div class="form-group">
-				<label for="descript" class="col-lg-2 control-label">Examen:</label>
+				<label for="descript" class="col-lg-2 control-label">Examen :</label>
 				<div class="col-lg-10">
 				<form:input id="descript" path="description" class="form-control"/>
 				</div>	
 			</div>
-			
+			<!--
 			<div class="form-group">
 				<label for="date" class="col-lg-2 control-label">Fecha:</label>
 				<div class="col-lg-10">
 				<form:input id="date" path="date" cssClass="form-control datepicker" data-provide="datepicker" data-date-format="dd/mm/yyyy"/>
 				</div>
-			</div>	
-	    </form:form>
-						     <div class="row">
-					    <div class='col-sm-6'>
+			</div> -->
+			<div class="row">
+					    <div class='col-lg-10'>
 					      <div class="form-group">
-					        <div class='input-group date' id='datetimepicker1'>
-					          <input type='text' class="form-control" />
+					      <label class="col-lg-2 control-label">Fecha :</label>
+					        <div class='input-group date' id='datetimepicker1'> 
+					          <form:input id="date" path="date" type='text' class="form-control" />
 					          <span class="input-group-addon">
 					            <span class="glyphicon glyphicon-calendar"></span>
 					          </span>
 					        </div>
 					      </div>
 					    </div>
-					  </div>	    
+					  </div>	
+	    
+	    </form:form>
+	    
 	   </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
@@ -130,6 +136,9 @@
 				 }
 		});
 	});
+		  $('#datetimepicker1').datetimepicker({
+			  format: 'DD/MM/YYYY HH:mm'
+		  });
 });	  
 </script>
 </body>
