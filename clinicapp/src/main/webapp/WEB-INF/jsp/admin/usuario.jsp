@@ -103,6 +103,7 @@
 <script type="text/javascript">
 
 $(document).ready(function(){
+	/*
 	var table = $('#maintenanceTable').DataTable( {
 		"serverSide": true,
 	    "ajax":{
@@ -134,6 +135,7 @@ $(document).ready(function(){
 		"lengthChange": false,
 		"pageLength": 20
 	});
+	*/
 });
 
 var title = "Usuario";
