@@ -13,6 +13,13 @@
 <link href="<c:url value='/resources/css/datatables.min.css' />" rel="stylesheet">
 <link href="<c:url value='/resources/css/eventCalendar.css'/>" rel="stylesheet">
 <link href="<c:url value='/resources/css/eventCalendar_theme_responsive.css'/>" rel="stylesheet">
+<!-- datepicker -->
+<script src="<c:url value="/resources/js/bootstrap-datepicker.min.js" />"></script>
+<script src="<c:url value="/resources/js/bootstrap-datetimepicker.js" />"></script>
+<link href="<c:url value='/resources/css/bootstrap-datepicker3.css' />" rel="stylesheet">
+<link href="<c:url value='/resources/css/bootstrap-datetimepicker.min.css.css'/>" rel="stylesheet">
+<link href="<c:url value='/resources/css/bootstrap-datetimepicker-standalone.css'/>" rel="stylesheet">
+<link href="<c:url value='/resources/css/bootstrap-datetimepicker.css'/>" rel="stylesheet">
 
 </head>
 <body>
@@ -25,9 +32,45 @@
 	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 	      </div>
 	      <div class="modal-body">
-	      sdfjñlaskdfjañslkdfjaslñkdfjañsdlkfjñaslkdfjañslkdjfñasdlkfañslkdfñalskdjfñalskdfñaslkdfjañ
-	      	¿Está seguro que desea eliminar este registro?
-	      </div>
+	      	<form:form id="citaForm" class="form-horizontal" role="form" method="POST" commandName="citasMainForm" action="">
+	     	<form:input path="idcita" id="cit" cssStyle="display:none"/>			
+	     			
+			<div class="form-group">
+			    <label for="pacient" class="col-lg-2 control-label">Paciente :</label>
+			    	<div class="col-lg-10">
+			    		<form:input id="pacient" path="namePacient" class="form-control"/>
+			        </div>
+			</div>		
+			<div class="form-group">
+				<label for="descript" class="col-lg-2 control-label">Examen :</label>
+				<div class="col-lg-10">
+				<form:input id="descript" path="description" class="form-control"/>
+				</div>	
+			</div>
+			<!--
+			<div class="form-group">
+				<label for="date" class="col-lg-2 control-label">Fecha:</label>
+				<div class="col-lg-10">
+				<form:input id="date" path="date" cssClass="form-control datepicker" data-provide="datepicker" data-date-format="dd/mm/yyyy"/>
+				</div>
+			</div> -->
+			<div class="row">
+					    <div class='col-lg-10'>
+					      <div class="form-group">
+					      <label class="col-lg-2 control-label">Fecha :</label>
+					        <div class='input-group date' id='datetimepicker1'> 
+					          <form:input id="date" path="date" type='text' class="form-control" />
+					          <span class="input-group-addon">
+					            <span class="glyphicon glyphicon-calendar"></span>
+					          </span>
+					        </div>
+					      </div>
+					    </div>
+					  </div>	
+	    
+	    </form:form>
+	    
+	   </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
 	        <button id="okBtn" type="button" class="btn btn-primary">Aceptar</button>
@@ -47,7 +90,9 @@
 </div>
 
 <script type="text/javascript">
+	
 	var urlCitasj = "citas-ajax.json";
+	var urlCita= "date-ajax.json";
 	$(document).ready(function() {		
 		$.ajax({
 			url: urlCitasj,
@@ -67,7 +112,34 @@
 				}, 4000);
 			}
 		});
+		
+		$("body").on('click','.bt',function(){
+			var id = $(this).attr("id");
+			$.ajax({
+				url: urlCita,
+				method: "POST",
+				data: 'op=itms&id='+id,
+				    dataType : 'json',
+				
+				    success : function(json) {	 	
+		
+					 var Jcita=json;
+		
+					$('#cit').val(Jcita[0].id);
+					$('#pacient').val(Jcita[0].paciente);
+					$('#descript').val(Jcita[0].descripcion);
+					$('#date').val(Jcita[0].date);
+					$("#myModalOnView2").modal({
+						backdrop: 'static'
+					});
+					$("#myModalOnView2").modal('show');
+				 }
+		});
 	});
+		  $('#datetimepicker1').datetimepicker({
+			  format: 'DD/MM/YYYY HH:mm'
+		  });
+});	  
 </script>
 </body>
 </html>
