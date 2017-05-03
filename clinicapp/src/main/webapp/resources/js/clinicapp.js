@@ -130,6 +130,15 @@ $( function() { /// jquery start point
 		window.location.href = urlDetail + "?id="+id;
 	});
 	
+	$("body").on("click","#delDate", function(){//lanzando modal par las cias 
+		  id = $(this).next().attr('id');
+		   $("#myModalOnView3").modal({
+			 backdrop: 'static'
+			});
+		$("#myModalOnView3").modal('show');
+		 });
+	
+	
 	/// delete operation
 	$("#myModalOnView #okBtn").click(function(){
 		$.ajax({
@@ -151,6 +160,55 @@ $( function() { /// jquery start point
 		$("#myModalOnView").find(".modal-body").html("<div style='text-align:center'><i class='fa fa-spinner fa-pulse fa-3x fa-fw'></i><span class='sr-only'>Loading...</span></div>");
 		$("#myModalOnView").find(".modal-header").hide();
 		$("#myModalOnView").find(".modal-footer").hide();
+	});
+		
+	//delete operation for dates
+	$("#myModalOnView3 #okDelBtndate").click(function(){
+		$.ajax({
+			url: url,
+			method: "POST",
+			data: 'op=del&id='+id,
+			dataType: 'text',
+			success: function(data){
+				$("#myModalOnView3").find('.modal-body').html("<div style='text-align:center'>"+data+"</div>");
+				setTimeout(function(){
+					location.reload(true);
+				}, 4000);
+			},
+			error: function(jqXHR, error, errorThrown){
+				$("#myModalOnView3").find('.modal-body').html("<div style='text-align:center'>"+jqXHR.responseText+"</div>");
+				
+			}
+		});
+		$("#myModalOnView3").find(".modal-body").html("<div style='text-align:center'><i class='fa fa-spinner fa-pulse fa-3x fa-fw'></i><span class='sr-only'>Loading...</span></div>");
+		$("#myModalOnView3").find(".modal-header").hide();
+		$("#myModalOnView3").find(".modal-footer").hide();
+	});
+	
+		//New date
+	$("#myModalOnView2 #okBtndate").click(function(){
+		
+		var data = $('#citaForm').serialize();
+		
+		$.ajax({
+			url: url,
+			method: "POST",
+			data: 'op=iou&'+data,
+			dataType: 'text',
+			success: function(data){
+				$("#myModalOnView2").find('.modal-body').html("<div style='text-align:center'>"+data+"</div>");
+				setTimeout(function(){
+					location.reload(true);
+				}, 4000);
+			},
+			error: function(jqXHR, error, errorThrown){
+				$("#myModalOnView2").find('.modal-body').html("<div style='text-align:center'>"+jqXHR.responseText+"</div>");
+				
+			}
+		});
+		$("#myModalOnView2").find(".modal-body").html("<div style='text-align:center'><i class='fa fa-spinner fa-pulse fa-3x fa-fw'></i><span class='sr-only'>Loading...</span></div>");
+		$("#myModalOnView2").find(".modal-header").hide();
+		$("#myModalOnView2").find(".modal-footer").hide();
 	});
 	
 	$("#cancelBtn").click(function(){
