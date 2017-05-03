@@ -19,9 +19,6 @@
 		<thead>
 			<tr>
 				<th>Usuario</th>
-				<th>Contrase&#241;a</th>
-				<th>Nombres</th>
-				<th>Apellidos</th>
 				<th>Rol</th>
 				<th>Habilitado</th>
 			</tr>
@@ -103,21 +100,29 @@
 <script type="text/javascript">
 
 $(document).ready(function(){
-	/*
+	
 	var table = $('#maintenanceTable').DataTable( {
 		"serverSide": true,
 	    "ajax":{
 	    	"url": "user-ajax.json",
 	    	"type": "POST"
 	    },
-		
 		"columns": [
 			{ "data": "usuario"},
-			{ "data": "contrasenia"},
-			{ "data": "nombres"},
-			{ "data": "apellidos"},
 			{ "data": "rol"},
 			{ "data": "habilitado"},
+		],
+		"columnDefs": [
+		    {
+		    	"render": function ( data, type, row ) {
+		    		if(data == "true"){
+		    			return "<i class='fa fa-check' aria-hidden='true'></i>";
+		    		} else{
+		    			return "<i class='fa fa-times' aria-hidden='true'></i>";
+		    		}
+                },
+                "targets": 2
+		    }
 		],
 		"language":{
 			"info": "Mostrando  _START_ a _END_ de _MAX_",
@@ -135,7 +140,7 @@ $(document).ready(function(){
 		"lengthChange": false,
 		"pageLength": 20
 	});
-	*/
+	
 });
 
 var title = "Usuario";

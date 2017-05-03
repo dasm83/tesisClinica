@@ -1,5 +1,7 @@
 package com.tesis.clinicapp.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,8 @@ public class UsuarioServiceImpl extends GenericServiceImpl<Usuario, String> impl
 	@Autowired
 	UsuarioDAO dao;
 	
-	
+	public List<Usuario> getFilteredList(int start, int length, int col, String order){
+		return dao.getFilteredList(start,length,col,order);
+	}
 	
 }
