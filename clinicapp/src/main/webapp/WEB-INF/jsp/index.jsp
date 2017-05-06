@@ -186,50 +186,6 @@
 </div>
 </div>
 
-<!--
-	<div class="row">
-		<div class="col-lg-6">
-			<div class="panel panel-default">
-			  <div class="panel-heading">
-			    <h3 class="panel-title">&#218;ltimos Ex&#225;menes</h3>
-			  </div>
-			  <table class="table">
-			  	<tr>
-			  		<th>Id</th>
-			  		<th>Tipo</th>
-			  		<th>Fecha</th>
-			  	</tr>
-				<c:forEach items="${exams}" var="ex" varStatus="loop">
-					<tr>
-						<td>${ex.id}</td>
-						<td>${ex.catalogoExamen.nombre}</td>
-						<td><fmt:formatDate value="${ex.fecha}" pattern="dd/MM/yyyy"/></td>
-					</tr>
-				</c:forEach>
-			  </table>
-			</div>
-		</div>
-		<div class="col-lg-6">
-			<div class="panel panel-default">
-			  <div class="panel-heading">
-			    <h3 class="panel-title">&#218;ltimos Pacientes</h3>
-			  </div>
-				<table class="table">
-			  	<tr>
-			  		<th>Id</th>
-			  		<th>Nombre</th>
-			  	</tr>
-				<c:forEach items="${patients}" var="p" varStatus="loop">
-					<tr>
-						<td>${p.id}</td>
-						<td>${p}</td>
-					</tr>
-				</c:forEach>
-			  </table>
-			</div>
-		</div>
-	</div>
-	-->
 <script type="text/javascript">
 
 var url = "index-ajax.json";
