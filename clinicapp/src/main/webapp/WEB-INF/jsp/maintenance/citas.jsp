@@ -23,7 +23,7 @@
 
 </head>
 <body>
-<a id="" href="#"><i class="fa fa-plus-square-o" aria-hidden="true"></i> Crear Cita</a>
+<a id="newDate" href="#"><i class="fa fa-plus-square-o" aria-hidden="true"></i> Crear Cita</a>
 
 <div id="myModalOnView2" class="modal fade" tabindex="-1" role="dialog">
 	  <div class="modal-dialog" role="document">
@@ -47,13 +47,6 @@
 				<form:input id="descript" path="description" class="form-control"/>
 				</div>	
 			</div>
-			<!--
-			<div class="form-group">
-				<label for="date" class="col-lg-2 control-label">Fecha:</label>
-				<div class="col-lg-10">
-				<form:input id="date" path="date" cssClass="form-control datepicker" data-provide="datepicker" data-date-format="dd/mm/yyyy"/>
-				</div>
-			</div> -->
 			<div class="row">
 					    <div class='col-lg-10'>
 					      <div class="form-group">
@@ -69,11 +62,27 @@
 					  </div>	
 	    
 	    </form:form>
-	    
 	   </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-	        <button id="okBtn" type="button" class="btn btn-primary">Aceptar</button>
+	        <button id="okBtndate" type="button" class="btn btn-primary">Guardar</button>
+	      </div>
+	    </div><!-- /.modal-content -->
+	  </div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+	
+	<div id="myModalOnView3" class="modal fade" tabindex="-1" role="dialog">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	      </div>
+	      <div class="modal-body">
+			¿Desea eliminar Cita programada?
+	   </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+	        <button id="okDelBtndate" type="button" class="btn btn-primary">Guardar</button>
 	      </div>
 	    </div><!-- /.modal-content -->
 	  </div><!-- /.modal-dialog -->
@@ -90,7 +99,7 @@
 </div>
 
 <script type="text/javascript">
-	
+	var url = "citasMainteanace.txt"
 	var urlCitasj = "citas-ajax.json";
 	var urlCita= "date-ajax.json";
 	$(document).ready(function() {		
@@ -177,6 +186,23 @@
 		  $('#datetimepicker1').datetimepicker({
 			  format: 'DD/MM/YYYY HH:mm'
 		  });
+		  
+		  $("body").on("click","#newDate", function(e){ 
+				  $("#myModalOnView2").modal({
+					backdrop: 'static'
+					});
+				$("#myModalOnView2").modal('show');
+		        return false;
+		 });
+		
+		//  $("body").on("click","#delDate", function(e){ 
+		//	  var x = $(this).next().attr('id');
+		//	  $("#myModalOnView3").modal({
+		//		backdrop: 'static'
+		//		});
+		//	$("#myModalOnView3").modal('show');
+	    //    return false;
+	// });
 });	  
 </script>
 </body>
