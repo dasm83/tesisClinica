@@ -17,6 +17,8 @@ function disableIdFields(dialog){}
 
 function openDialog(title){
 	var modal = $("#myModal");
+	modal.find(".modal-header").show();
+	modal.find(".modal-footer").show();
 	modal.find('.modal-title').text(title);
 	modal.find('.modal-body').html($("#modalContent").html());
 	enaTempFields(modal); /// updating temp fields id
@@ -31,6 +33,17 @@ function openDialog(title){
 	  backdrop: 'static'
 	});
 	modal.modal('show'); /// opening dialog
+}
+
+function openMessageDialog(message){
+	var modal = $("#myModal");
+	modal.find(".modal-header").hide();
+	modal.find(".modal-footer").hide();
+	modal.find('.modal-body').html(message);
+	modal.modal('show');
+	setTimeout(function(){
+		modal.modal('hide');
+	}, 4000);
 }
 
 function enaTempFields(dialog){
@@ -70,13 +83,17 @@ $( function() { /// jquery start point
 	});
 	
 	$("body").on("click","#delMaintenance",function(){
-		$("#maintenanceForm #action").val("D"); /// flag action = D; meaning delete on database
-		openDialog(title);
+		if($('tr.active').length){
+			$("#maintenanceForm #action").val("D"); /// flag action = D; meaning delete on database
+			openDialog(title);
+		}
 	});
 	
 	$("body").on("click","#updMaintenance",function(){
-		$("#maintenanceForm #action").val("U"); /// flag action = U; meaning update on database
-		openDialog(title);
+		if($('tr.active').length){
+			$("#maintenanceForm #action").val("U"); /// flag action = U; meaning update on database
+			openDialog(title);
+		}
 	});
 	
 	$("body").on("click","#myModal #okBtn",function(){
@@ -88,6 +105,15 @@ $( function() { /// jquery start point
 		$("#myModal").find("input,select,textarea").each(function(){
 			var idInputForm = $(this).attr("id").replace("_temp","");
 			$("#maintenanceForm #"+idInputForm).val($(this).val());
+		});
+		/// continuing with copy.. this loop is for checkboxes only
+		$("#myModal").find("input[type='checkbox']").each(function(){
+			var idInputForm = $(this).attr("id").replace("_temp","");
+			if(this.checked){
+				$("#maintenanceForm #"+idInputForm).prop('checked', true);
+			} else{
+				$("#maintenanceForm #"+idInputForm).prop('checked', false);
+			}
 		});
 		
 		sendData();
@@ -286,7 +312,7 @@ $( function() { /// jquery start point
 	
 	//Insert para valores de referencia
 
-$("#saveBtnCatVr").click(function(){
+	$("#saveBtnCatVr").click(function(){
 		
 		var data = $('#detailFormCatVr').serialize();
 		
@@ -317,11 +343,11 @@ $("#saveBtnCatVr").click(function(){
 	
 	//cargar el select: items de examenes
 	
-$("body").on("click","#itemsMainOnView",function(){
+	$("body").on("click","#itemsMainOnView",function(){
 		var tr = $(this).closest('tr');
 		id = tr.attr('id');
 
-	$.ajax({
+		$.ajax({
 			url: urlj,
 			method: "POST",
 			data: 'op=itms&id='+id,
@@ -337,16 +363,16 @@ $("body").on("click","#itemsMainOnView",function(){
 				}
 		});
 	
-	function cargarSelect(data) {
-		$('#type').empty();
-        for ( var i = 0, len = data.length; i < len; ++i) {
-            var itms = data[i];
-            $('#type').append("<option value=\"" +itms.id + "\">" + itms.nombre+ "</option>");
-        }
-    } 
+		function cargarSelect(data) {
+			$('#type').empty();
+	        for ( var i = 0, len = data.length; i < len; ++i) {
+	            var itms = data[i];
+	            $('#type').append("<option value=\"" +itms.id + "\">" + itms.nombre+ "</option>");
+	        }
+	    } 
 	
 	
-});
+	});
 	
 	/// ----------------- style and format of form elements -----------------
 	$('body').on( 'focusin', 'input,select', function () {

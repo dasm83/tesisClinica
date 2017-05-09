@@ -54,12 +54,16 @@
 				<div class="input col">
 					<form:input path="username" cssClass="text"/>
 				</div>
+			</div>
+			<div class="row">
 				<div class="label col">
 					<label>Contrase&#241;a:</label>
 				</div>
 				<div class="input col">
 					<form:input path="password" cssClass="text"/>
 				</div>
+			</div>
+			<div class="row">
 				<div class="label col">
 					<label>Nombres:</label>
 				</div>
@@ -80,14 +84,18 @@
 					<label>Rol:</label>
 				</div>
 				<div class="input col">
-					<form:select path="role" cssClass="text"/>
+					<select id="role" name="role">
+						<c:forEach items="${roles}" var="r" varStatus="loop">
+							<option value="${r.id}">${r.nombre}</option>
+						</c:forEach>
+					</select>
 				</div>
 			</div>
 			<div class="row">
 				<div class="label col">
 					<label>Habilitado:</label>
 				</div>
-				<div class="input col">
+				<div>
 					<form:checkbox path="enabled"/>
 				</div>
 			</div>
@@ -141,6 +149,13 @@ $(document).ready(function(){
 		"pageLength": 20
 	});
 	
+	$("#delMaintenance").click(function(event){
+		if($("tr.active td:eq(1)").text() == "ADM" && $("td:contains(ADM)").length == 1){
+			event.stopPropagation();
+			openMessageDialog("Debe existir por lo menos 1 usuario administrador");
+		}
+	});
+	
 });
 
 var title = "Usuario";
@@ -152,15 +167,22 @@ function loadData(dialog){
 	var table = $('#maintenanceTable').DataTable();
 	var datarow= table.row(row);
 	var data = datarow.data();
-	var id = data.DT_RowId;
-	dialog.find("#id_temp").val(id);
+	
+	dialog.find("#username_temp").val(data.usuario);
+	dialog.find("#password_temp").val(data.contrasena);
 	dialog.find("#names_temp").val(data.nombres);
 	dialog.find("#surnames_temp").val(data.apellidos);
-	dialog.find("#job_temp").val(data.profesion);
-	dialog.find("#age_temp").val(data.edad);
-	dialog.find("#dui_temp").val(data.dui);
-	dialog.find("#nit_temp").val(data.nit);
-	dialog.find("#jvplc_temp").val(data.jvplc);
+	dialog.find("#role_temp").val(data.rol);
+	if(data.habilitado == "true"){
+		dialog.find("#enabled1_temp").prop('checked', true);
+	} else{
+		dialog.find("#enabled1_temp").prop('checked', false);
+	}
+}
+
+//override
+function disableIdFields(dialog){
+	dialog.find("#username_temp").prop('disabled', true);
 }
 
 //override
@@ -173,18 +195,6 @@ function validate(){
 	}
 	if(!$("#myModal #surnames_temp").val()){
 		$("#myModal #surnames_temp").addClass("error");
-		valid = false;
-	}
-	if(!$("#myModal #dui_temp").val()){
-		$("#myModal #dui_temp").addClass("error");
-		valid = false;
-	}
-	if(!$("#myModal #nit_temp").val()){
-		$("#myModal #nit_temp").addClass("error");
-		valid = false;
-	}
-	if(!$("#myModal #jvplc_temp").val()){
-		$("#myModal #jvplc_temp").addClass("error");
 		valid = false;
 	}
 	
