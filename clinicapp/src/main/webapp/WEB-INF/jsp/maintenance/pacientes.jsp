@@ -11,38 +11,24 @@
 </head>
 <body>
 	
-	<a id="newMaintenance" href="#"><i class="fa fa-plus-square-o" aria-hidden="true"></i> Nuevo</a>
-	<a id="delMaintenance" href="#" style="margin-left:10px"><i class="fa fa-minus-square-o" aria-hidden="true"></i> Eliminar</a>
-	<a id="updMaintenance" href="#" style="margin-left:10px"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Modificar</a>
-	<table id="maintenanceTable" class="table table-striped table-bordered" width="100%">
-		<thead>
-			<tr>
-				<th>Id</th>
-				<th>Nombres</th>
-				<th>Apellidos</th>
-			</tr>
-		</thead>
-	</table>
-	
-	<div id="myModal" class="modal fade" tabindex="-1" role="dialog">
-	  <div class="modal-dialog" role="document">
-	    <div class="modal-content">
-	      <div class="modal-header">
-	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	        <h4 class="modal-title"></h4>
-	      </div>
-	      <div class="modal-body">
-	      	<!-- we'll be placing our content here -->
-	      </div>
-	      <div class="modal-footer">
-	        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-	        <button id="okBtn" type="button" class="btn btn-primary">Aceptar</button>
-	      </div>
-	    </div><!-- /.modal-content -->
-	  </div><!-- /.modal-dialog -->
-	</div><!-- /.modal -->
-	
 	<form:form id="maintenanceForm" method="POST" commandName="pacientesMainForm" action="">
+		<a id="newMaintenance" href="#"><i class="fa fa-plus-square-o" aria-hidden="true"></i> Nuevo</a>
+		<a id="delMaintenance" href="#" style="margin-left:10px"><i class="fa fa-minus-square-o" aria-hidden="true"></i> Eliminar</a>
+		<a id="updMaintenance" href="#" style="margin-left:10px"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Modificar</a>
+		<div style="float:right">
+			<form:input path="search" cssClass="text"/>
+			<button id="go" type="button" class="btn btn-default">Buscar</button>
+		</div>
+		<table id="maintenanceTable" class="table table-striped table-bordered" width="100%">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Nombres</th>
+					<th>Apellidos</th>
+				</tr>
+			</thead>
+		</table>
+	
 		<div class="col-md-6" id="modalContent" style="display:none" >
             <div class="panel with-nav-tabs panel-default">
                 <div class="panel-heading">
@@ -110,7 +96,7 @@
 							</div>
 							<div class="row">
 								<div class="label col">
-									<label>Profesión:</label>
+									<label>Profesi&#243;n:</label>
 								</div>
 								<div class="input col">
 									<form:input path="job" cssClass="text"/>
@@ -152,7 +138,7 @@
 							</div>
 							<div class="row">
 								<div class="label col">
-									<label>Direccion:</label>
+									<label>Direcci&#243;n:</label>
 								</div>
 								<div class="input col">
 									<form:input path="address" cssClass="text"/>
@@ -160,7 +146,7 @@
 							</div>
 							<div class="row">
 								<div class="label col">
-									<label>Telefono:</label>
+									<label>Tel&#233;fono:</label>
 								</div>
 								<div class="input col">
 									<form:input path="phone" cssClass="text"/>
@@ -180,6 +166,24 @@
             </div>
         </div>
 		<form:input path="action" cssStyle="display:none"/>
+		
+		<div id="myModal" class="modal fade" tabindex="-1" role="dialog">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		        <h4 class="modal-title"></h4>
+		      </div>
+		      <div class="modal-body">
+		      	<!-- we'll be placing our content here -->
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+		        <button id="okBtn" type="button" class="btn btn-primary">Aceptar</button>
+		      </div>
+		    </div><!-- /.modal-content -->
+		  </div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
 	</form:form>
 <script src="<c:url value="/resources/js/datatables.min.js" />"></script>
 
@@ -198,20 +202,11 @@ $(document).ready(function(){
 			{ "data": "apellidos"}
 		],
 		"language":{
-			"info": "Mostrando  _START_ a _END_ de _MAX_",
-			"infoEmpty": "Mostrando  0 a 0 de _TOTAL_",
-			"zeroRecords": "No se encontraron registros",
-			"infoFiltered": " - filtrando de _MAX_ registros",
-			"paginate": {
-				"previous": "Anterior",
-				"next": "Siguiente",
-				"first": "Primera",
-				"last": "Última"
-			}
+			"url" : "<c:url value='/resources/locales/datatable-es.json' />"
 		},
 		"lengthChange": false,
-		"searching": false,
-		"pageLength": 20
+		"pageLength": 20,
+		"searching" : false
 	});
 });
 

@@ -57,6 +57,13 @@ public class PacienteMaintenanceController {
 		
 	}
 	
+	@RequestMapping(method = RequestMethod.POST, value = URLj, params = "search" , produces="application/json")
+	public @ResponseBody TableData dataTable(HttpServletRequest request){
+		TableData json = new TableData();
+		
+		return json;
+	}
+	
 	@RequestMapping(method = RequestMethod.POST, value = URLt, produces = "text/plain")
 	public @ResponseBody String postX(HttpServletRequest request, HttpServletResponse response, pacientesMainForm form){
 		Paciente paciente = new Paciente();
@@ -91,7 +98,6 @@ public class PacienteMaintenanceController {
 		return mensaje;
 	}
 	
-	
 	@RequestMapping(method = RequestMethod.POST, value = URLj, produces="application/json")
 	public @ResponseBody TableData dataTable(HttpServletRequest request, @RequestParam(value="order[0][column]") int col,
 			@RequestParam(value="order[0][dir]") String dir){
@@ -108,7 +114,6 @@ public class PacienteMaintenanceController {
 		
 		return json;
 	}
-	
 	
 	@SuppressWarnings("unchecked")
 	public List<Map<String,String>> getPacientList(int start,int length,int col,String order){

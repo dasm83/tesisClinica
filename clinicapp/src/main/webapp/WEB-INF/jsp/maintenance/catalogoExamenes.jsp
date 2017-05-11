@@ -85,16 +85,7 @@ $(document).ready(function(){
             }
 		],
 		"language":{
-			"info": "Mostrando  _START_ a _END_ de _MAX_",
-			"infoEmpty": "Mostrando  0 a 0 de _TOTAL_",
-			"zeroRecords": "No se encontraron registros",
-			"infoFiltered": " - filtrando de _MAX_ registros",
-			"paginate": {
-				"previous": "Anterior",
-				"next": "Siguiente",
-				"first": "Primera",
-				"last": "&#218;ltima"
-			}
+			"url" : "<c:url value='/resources/locales/datatable-es.json' />"
 		},
 		"searching": false,
 		"lengthChange": false,
