@@ -134,6 +134,33 @@ $( function() { /// jquery start point
         }
     } );
 	
+	$('#goSearch').click(function(){
+		var searching = $('#search').val();
+		var table = $('#maintenanceTable').DataTable();
+		table.clear(); // deleting current rows
+		table.destroy();
+		
+		table = $('#maintenanceTable').DataTable( {
+			"serverSide" : true,
+			"ajax" : {
+				"url" : "paciente-ajax.json?search="+searching,
+				"type": "POST"
+			},
+			
+			"columns": [
+				{ "data": "DT_RowId"},
+				{ "data": "nombres"},
+				{ "data": "apellidos"}
+			],
+			"language":{
+				"url" : langUrl
+			},
+			"lengthChange": false,
+			"pageLength": 20,
+			"searching" : false
+		});
+	});
+	
 	/// ----------------- these apply for big maintenances -----------------
 	$("body").on('click','#delMainOnView',function(){
 		var tr = $(this).closest('tr');

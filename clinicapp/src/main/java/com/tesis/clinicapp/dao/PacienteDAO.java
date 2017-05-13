@@ -13,6 +13,6 @@ public interface PacienteDAO extends GenericDAO<Paciente, Long> {
 
 	Paciente getByExactName(String pName);
 	
-    List getFilteredList(int start, int length, int col, String order);
+    List<Paciente> getFilteredList(int start, int length, int col, String order, String search);
 
 }

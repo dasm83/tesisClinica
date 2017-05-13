@@ -11,24 +11,24 @@
 </head>
 <body>
 	
+	<a id="newMaintenance" href="#"><i class="fa fa-plus-square-o" aria-hidden="true"></i> Nuevo</a>
+	<a id="delMaintenance" href="#" style="margin-left:10px"><i class="fa fa-minus-square-o" aria-hidden="true"></i> Eliminar</a>
+	<a id="updMaintenance" href="#" style="margin-left:10px"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Modificar</a>
+	<div style="float:right">
+		<input id="search" class="text"/>
+		<button id="goSearch" type="button" class="btn btn-default">Buscar</button>
+	</div>
+	<table id="maintenanceTable" class="table table-striped table-bordered" width="100%">
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Nombres</th>
+				<th>Apellidos</th>
+			</tr>
+		</thead>
+	</table>
+		
 	<form:form id="maintenanceForm" method="POST" commandName="pacientesMainForm" action="">
-		<a id="newMaintenance" href="#"><i class="fa fa-plus-square-o" aria-hidden="true"></i> Nuevo</a>
-		<a id="delMaintenance" href="#" style="margin-left:10px"><i class="fa fa-minus-square-o" aria-hidden="true"></i> Eliminar</a>
-		<a id="updMaintenance" href="#" style="margin-left:10px"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Modificar</a>
-		<div style="float:right">
-			<form:input path="search" cssClass="text"/>
-			<button id="go" type="button" class="btn btn-default">Buscar</button>
-		</div>
-		<table id="maintenanceTable" class="table table-striped table-bordered" width="100%">
-			<thead>
-				<tr>
-					<th>Id</th>
-					<th>Nombres</th>
-					<th>Apellidos</th>
-				</tr>
-			</thead>
-		</table>
-	
 		<div class="col-md-6" id="modalContent" style="display:none" >
             <div class="panel with-nav-tabs panel-default">
                 <div class="panel-heading">
@@ -188,6 +188,10 @@
 <script src="<c:url value="/resources/js/datatables.min.js" />"></script>
 
 <script type="text/javascript">
+var title = "Paciente";
+var url = "paciente.txt";
+var langUrl = "<c:url value='/resources/locales/datatable-es.json' />"
+
 $(document).ready(function(){
 	var table = $('#maintenanceTable').DataTable( {
 		"serverSide" : true,
@@ -202,16 +206,13 @@ $(document).ready(function(){
 			{ "data": "apellidos"}
 		],
 		"language":{
-			"url" : "<c:url value='/resources/locales/datatable-es.json' />"
+			"url" : langUrl
 		},
 		"lengthChange": false,
 		"pageLength": 20,
 		"searching" : false
 	});
 });
-
-var title = "Paciente";
-var url = "paciente.txt";
 
 // override
 function loadData(dialog){

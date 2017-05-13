@@ -57,13 +57,6 @@ public class PacienteMaintenanceController {
 		
 	}
 	
-	@RequestMapping(method = RequestMethod.POST, value = URLj, params = "search" , produces="application/json")
-	public @ResponseBody TableData dataTable(HttpServletRequest request){
-		TableData json = new TableData();
-		
-		return json;
-	}
-	
 	@RequestMapping(method = RequestMethod.POST, value = URLt, produces = "text/plain")
 	public @ResponseBody String postX(HttpServletRequest request, HttpServletResponse response, pacientesMainForm form){
 		Paciente paciente = new Paciente();
@@ -100,25 +93,27 @@ public class PacienteMaintenanceController {
 	
 	@RequestMapping(method = RequestMethod.POST, value = URLj, produces="application/json")
 	public @ResponseBody TableData dataTable(HttpServletRequest request, @RequestParam(value="order[0][column]") int col,
-			@RequestParam(value="order[0][dir]") String dir){
+			@RequestParam(value="order[0][dir]") String dir, @RequestParam(required=false,name="search") String search){
 		TableData json = new TableData();
+		List<Map<String,String>> data = getPacientList(
+				Integer.parseInt(request.getParameter("start")),
+				Integer.parseInt(request.getParameter("length")),
+				col,
+				dir,
+				search
+			);
+		
 		json.setDraw(Integer.parseInt(request.getParameter("draw")));
-		json.setRecordsFiltered(pacientService.count());
+		json.setRecordsFiltered(data.size());
 		json.setRecordsTotal(pacientService.count());
-		json.setData(getPacientList(
-									Integer.parseInt(request.getParameter("start")),
-									Integer.parseInt(request.getParameter("length")),
-									col,
-									dir
-								));
+		json.setData(data);
 		
 		return json;
 	}
 	
-	@SuppressWarnings("unchecked")
-	public List<Map<String,String>> getPacientList(int start,int length,int col,String order){
+	public List<Map<String,String>> getPacientList(int start,int length,int col,String order, String search){
 		List<Map<String,String>> brief = new ArrayList<>();
-		List<Paciente> pacient = pacientService.getFilteredList(start,length,col,order);
+		List<Paciente> pacient = pacientService.getFilteredList(start,length,col,order,search);
 		
 		for(Paciente p:pacient ){
 			Map<String,String> list = new HashMap<>();

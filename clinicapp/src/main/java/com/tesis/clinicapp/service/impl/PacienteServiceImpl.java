@@ -31,8 +31,8 @@ public class PacienteServiceImpl extends GenericServiceImpl<Paciente, Long> impl
 		return dao.getByExactName(pName);
 	}
 	
-	public List getFilteredList(int start, int length, int col, String order) {
-		return dao.getFilteredList(start, length, col, order);
+	public List<Paciente> getFilteredList(int start, int length, int col, String order, String search) {
+		return dao.getFilteredList(start, length, col, order, search);
 	}
 	
 }

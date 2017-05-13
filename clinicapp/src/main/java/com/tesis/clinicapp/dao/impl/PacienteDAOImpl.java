@@ -58,8 +58,8 @@ public class PacienteDAOImpl extends GenericDAOImpl<Paciente, Long> implements P
 		return (Paciente) crit.uniqueResult();
 	}
 	
-	@SuppressWarnings("rawtypes")
-	public List getFilteredList(int start, int length, int col, String order) {
+	@SuppressWarnings("unchecked")
+	public List<Paciente> getFilteredList(int start, int length, int col, String order, String search) {
 		
 		Criteria crit = getCriteria();
 		String prop = "";
@@ -83,6 +83,13 @@ public class PacienteDAOImpl extends GenericDAOImpl<Paciente, Long> implements P
 			crit.addOrder(Order.asc(prop));
 		} else{
 			crit.addOrder(Order.desc(prop));
+		}
+		
+		if(search != null){
+			Criterion byName = Restrictions.ilike("nombres", "%"+search+"%");
+			Criterion bySurname = Restrictions.ilike("apellidos", "%"+search+"%");
+			
+			crit.add(Restrictions.or(byName,bySurname));
 		}
 
 		return crit.list();

@@ -61,9 +61,7 @@ public class GenericDAOImpl<T extends Serializable, ID extends Serializable> imp
 
 	@Override
 	public int count() {
-	//	int count = (int)getCriteria().setProjection(Projections.rowCount()).uniqueResult();
 		return ((Long)getCriteria().setProjection(Projections.rowCount()).uniqueResult()).intValue();
-		
 	}
 
 	@SuppressWarnings("unchecked")

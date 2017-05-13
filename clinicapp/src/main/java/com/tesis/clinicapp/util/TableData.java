@@ -7,6 +7,7 @@ public class TableData {
 	private int draw;
 	private int recordsTotal;
 	private int recordsFiltered;
+	@SuppressWarnings("rawtypes")
 	private List data;
 	
 	public int getDraw() {
@@ -27,9 +28,11 @@ public class TableData {
 	public void setRecordsFiltered(int recordsFiltered) {
 		this.recordsFiltered = recordsFiltered;
 	}
+	@SuppressWarnings("rawtypes")
 	public List getData() {
 		return data;
 	}
+	@SuppressWarnings("rawtypes")
 	public void setData(List data) {
 		this.data = data;
 	}

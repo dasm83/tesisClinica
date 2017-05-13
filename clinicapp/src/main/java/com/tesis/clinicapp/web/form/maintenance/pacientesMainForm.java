@@ -26,7 +26,6 @@ public class pacientesMainForm {
 	private String address;
 	private String phone;
 	private String email;
-	private String search;
 	
 	public Long getId() {
 		return id;
@@ -124,12 +123,5 @@ public class pacientesMainForm {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getSearch() {
-		return search;
-	}
-	public void setSearch(String search) {
-		this.search = search;
-	}
-
 	
 }
