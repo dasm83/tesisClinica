@@ -10,7 +10,7 @@
 </head>
 <body>
 
-	<a id="newExam" href="#"><i class="fa fa-plus-square-o" aria-hidden="true"></i> Crear Ex&#225;men</a>
+	<a id="newExam" href="#"><i class="fa fa-plus-square-o" aria-hidden="true"></i> Nuevo</a>
 	<table id="mainTableOnView" class="table table-striped table-bordered" width="100%">
 		<thead>
 			<tr>

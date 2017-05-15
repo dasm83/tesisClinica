@@ -12,15 +12,20 @@
 </head>
 <body>
 
-	<a id="newMaintenance" href="#"><i class="fa fa-plus-square-o" aria-hidden="true"></i> Nuevo Laboratorista </a>
-	<a id="delMaintenance" href="#" style="margin-left:10px"><i class="fa fa-minus-square-o" aria-hidden="true"></i> Eliminar Laboratorista</a>
-	<a id="updMaintenance" href="#" style="margin-left:10px"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Modificar Laboratorista</a>
+	<a id="newMaintenance" href="#"><i class="fa fa-plus-square-o" aria-hidden="true"></i> Nuevo</a>
+	<a id="delMaintenance" href="#" style="margin-left:10px"><i class="fa fa-minus-square-o" aria-hidden="true"></i> Eliminar</a>
+	<a id="updMaintenance" href="#" style="margin-left:10px"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Modificar</a>
+	<div style="float:right">
+		<input id="search" class="text"/>
+		<button id="goSearch" type="button" class="btn btn-default">Buscar</button>
+		<button id="cleanSearch" type="button" class="btn btn-default">Limpiar</button>
+	</div>
 	<table id="maintenanceTable" class="table table-striped table-bordered" width="100%">
 		<thead>
 			<tr>
 				<th>Nombres</th>
 				<th>Apellidos</th>
-				<th>Profesion</th>
+				<th>Profesi&#243;n</th>
 			</tr>
 		</thead>
 	</table>
@@ -113,31 +118,33 @@
 <script src="<c:url value="/resources/js/datatables.min.js" />"></script>
 
 <script type="text/javascript">
+var title = "Laboratorista";
+var url = "lab.txt";
+var urlJ = "lab-ajax.json";
+var langUrl = "<c:url value='/resources/locales/datatable-es.json' />";
+var cols = [
+			{ "data": "nombres"},
+			{ "data": "apellidos"},
+			{ "data": "profesion"}
+		];
 
 $(document).ready(function(){
 	var table = $('#maintenanceTable').DataTable( {
 		"serverSide": true,
 	    "ajax":{
-	    	"url": "lab-ajax.json",
+	    	"url": urlJ,
 	    	"type": "POST"
 	    },
 		
-		"columns": [
-			{ "data": "nombres"},
-			{ "data": "apellidos"},
-			{ "data": "profesion"}
-		],
+		"columns": cols,
 		"language":{
-			"url" : "<c:url value='/resources/locales/datatable-es.json' />"
+			"url" : langUrl
 		},
 		"searching": false,
 		"lengthChange": false,
 		"pageLength": 20
 	});
 });
-
-var title = "Laboratorista";
-var url = "lab.txt";
 
 //override
 function loadData(dialog){

@@ -8,7 +8,7 @@ public interface LaboratoristaService extends GenericService<Laboratorista,Long>
 	
 	public Laboratorista findByAltId(String dui);
 	@SuppressWarnings("rawtypes")
-	public List getFilteredList(int start, int length, int col, String order);
+	public List getFilteredList(int start, int length, int col, String order, String search);
 	public Laboratorista getByExactName(String lName);
 	public List<Laboratorista> getByName(String name);
 

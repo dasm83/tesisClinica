@@ -11,12 +11,12 @@
 <link href="<c:url value='/resources/css/datatables.min.css' />" rel="stylesheet">
 </head>
 <body>
-		<a id="newMaintenance" href="<c:url value='/maintenance/nuevoExamenCatalogo.htm'/>"><i class="fa fa-plus-square-o" aria-hidden="true"></i> Nuevo Examen </a>
+		<a id="newMaintenance" href="<c:url value='/maintenance/nuevoExamenCatalogo.htm'/>"><i class="fa fa-plus-square-o" aria-hidden="true"></i> Nuevo</a>
 			<table id="mainTableOnView" class="table table-striped table-bordered" width="100%">
 				<thead>
 					<tr>
 						<th style="width: 100px;">ID</th>
-						<th>Nombre Examen</th>
+						<th>Nombre</th>
 						<th style="width: 150px;">Acci&#243;n</th>
 					</tr>
 				</thead>

@@ -35,7 +35,7 @@ public class LaboratoristaDAOImpl extends GenericDAOImpl<Laboratorista,Long> imp
 
 	@SuppressWarnings("rawtypes")
 	@Override
-	public List getFilteredList(int start, int length, int col, String order) {
+	public List getFilteredList(int start, int length, int col, String order, String search) {
 		Criteria crit = getCriteria();
 		String prop = "";
 		
@@ -58,6 +58,14 @@ public class LaboratoristaDAOImpl extends GenericDAOImpl<Laboratorista,Long> imp
 			crit.addOrder(Order.asc(prop));
 		} else{
 			crit.addOrder(Order.desc(prop));
+		}
+		
+		if(search != null){
+			Criterion byName = Restrictions.ilike("nombres", "%"+search+"%");
+			Criterion bySurname = Restrictions.ilike("apellidos", "%"+search+"%");
+			Criterion byJob = Restrictions.ilike("profesion", "%"+search+"%");
+			
+			crit.add(Restrictions.or(byName,bySurname,byJob));
 		}
 
 		return crit.list();

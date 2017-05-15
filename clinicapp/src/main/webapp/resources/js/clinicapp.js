@@ -136,6 +136,34 @@ $( function() { /// jquery start point
 	
 	$('#goSearch').click(function(){
 		var searching = $('#search').val();
+		
+		if(searching == ''){
+			return null;
+		}
+		
+		var table = $('#maintenanceTable').DataTable();
+		table.clear(); // deleting current rows
+		table.destroy(); // destroying table so we can initialize again with different parameters (url)
+		
+		table = $('#maintenanceTable').DataTable( {
+			"serverSide" : true,
+			"ajax" : {
+				"url" : urlJ+"?search="+searching,
+				"type": "POST"
+			},
+			
+			"columns": cols,
+			"language":{
+				"url" : langUrl
+			},
+			"lengthChange": false,
+			"pageLength": 20,
+			"searching" : false
+		});
+	});
+	
+	$('#cleanSearch').click(function(){
+		$('#search').val('');
 		var table = $('#maintenanceTable').DataTable();
 		table.clear(); // deleting current rows
 		table.destroy();
@@ -143,15 +171,11 @@ $( function() { /// jquery start point
 		table = $('#maintenanceTable').DataTable( {
 			"serverSide" : true,
 			"ajax" : {
-				"url" : "paciente-ajax.json?search="+searching,
+				"url" : urlJ,
 				"type": "POST"
 			},
 			
-			"columns": [
-				{ "data": "DT_RowId"},
-				{ "data": "nombres"},
-				{ "data": "apellidos"}
-			],
+			"columns": cols,
 			"language":{
 				"url" : langUrl
 			},

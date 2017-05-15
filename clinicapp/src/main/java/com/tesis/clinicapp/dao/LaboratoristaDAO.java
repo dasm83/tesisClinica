@@ -9,7 +9,7 @@ public interface LaboratoristaDAO extends GenericDAO<Laboratorista,Long> {
 	
 	Laboratorista findByAltId(String dui);
     @SuppressWarnings("rawtypes")
-	public List getFilteredList(int start, int length, int col, String order);
+	public List getFilteredList(int start, int length, int col, String order, String search);
 	Laboratorista getByExactName(String lName);
 	List<Laboratorista> getByName(String name);
 

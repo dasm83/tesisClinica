@@ -17,6 +17,7 @@
 	<div style="float:right">
 		<input id="search" class="text"/>
 		<button id="goSearch" type="button" class="btn btn-default">Buscar</button>
+		<button id="cleanSearch" type="button" class="btn btn-default">Limpiar</button>
 	</div>
 	<table id="maintenanceTable" class="table table-striped table-bordered" width="100%">
 		<thead>
@@ -33,7 +34,7 @@
             <div class="panel with-nav-tabs panel-default">
                 <div class="panel-heading">
                         <ul class="nav nav-tabs">
-                            <li class="active"><a href="#tab1default" data-toggle="tab">Informacion del Paciente</a></li>
+                            <li class="active"><a href="#tab1default" data-toggle="tab">Informaci&#243;n del Paciente</a></li>
                             <li><a href="#tab2default" data-toggle="tab">Contactos</a></li>                          
                         </ul>
                 </div>
@@ -190,21 +191,23 @@
 <script type="text/javascript">
 var title = "Paciente";
 var url = "paciente.txt";
+var urlJ = "paciente-ajax.json";
 var langUrl = "<c:url value='/resources/locales/datatable-es.json' />"
+var cols = [
+			{ "data": "DT_RowId"},
+			{ "data": "nombres"},
+			{ "data": "apellidos"}
+		];
 
 $(document).ready(function(){
 	var table = $('#maintenanceTable').DataTable( {
 		"serverSide" : true,
 		"ajax" : {
-			"url" : "paciente-ajax.json",
+			"url" : urlJ,
 			"type": "POST"
 		},
 		
-		"columns": [
-			{ "data": "DT_RowId"},
-			{ "data": "nombres"},
-			{ "data": "apellidos"}
-		],
+		"columns": cols,
 		"language":{
 			"url" : langUrl
 		},

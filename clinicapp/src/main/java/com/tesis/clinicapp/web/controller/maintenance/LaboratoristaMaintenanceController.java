@@ -87,25 +87,28 @@ public class LaboratoristaMaintenanceController {
 	
 	@RequestMapping(method = RequestMethod.POST, value = URLj, produces = "application/json")
 	public @ResponseBody TableData dataTable(HttpServletRequest request, @RequestParam(value="order[0][column]") int col,
-			@RequestParam(value="order[0][dir]") String dir){
+			@RequestParam(value="order[0][dir]") String dir, @RequestParam(required=false,name="search") String search){
 		TableData json = new TableData();
+		List<Map<String,String>> data = getlabsList(
+					Integer.parseInt(request.getParameter("start")),
+					Integer.parseInt(request.getParameter("length")),
+					col,
+					dir,
+					search
+				);
+		
 		json.setDraw(Integer.parseInt(request.getParameter("draw")));
 		json.setRecordsTotal(LabService.count());
-		json.setRecordsFiltered(LabService.count());
-		json.setData(getlabsList(
-				Integer.parseInt(request.getParameter("start")),
-				Integer.parseInt(request.getParameter("length")),
-				col,
-				dir
-				));
+		json.setRecordsFiltered(data.size());
+		json.setData(data);
 		
-	return json;	
+		return json;	
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<Map<String,String>> getlabsList(int start,int length,int col,String order){
+	public List<Map<String,String>> getlabsList(int start,int length,int col,String order,String search){
 		List<Map<String,String>> brief = new ArrayList<>();
-		List<Laboratorista> lab = LabService.getFilteredList(start,length,col,order);
+		List<Laboratorista> lab = LabService.getFilteredList(start,length,col,order,search);
 		
 		for(Laboratorista labo : lab  ){
 			Map<String,String> list = new HashMap<>();
@@ -122,7 +125,5 @@ public class LaboratoristaMaintenanceController {
 		
 		return brief;
 	}
-	
-	
 
 }
