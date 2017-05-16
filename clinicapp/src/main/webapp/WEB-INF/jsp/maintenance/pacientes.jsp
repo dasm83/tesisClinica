@@ -15,7 +15,7 @@
 	<a id="delMaintenance" href="#" style="margin-left:10px"><i class="fa fa-minus-square-o" aria-hidden="true"></i> Eliminar</a>
 	<a id="updMaintenance" href="#" style="margin-left:10px"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Modificar</a>
 	<div style="float:right">
-		<input id="search" class="text"/>
+		<input id="search" class="text form-control" style="margin-bottom:5px"/>
 		<button id="goSearch" type="button" class="btn btn-default">Buscar</button>
 		<button id="cleanSearch" type="button" class="btn btn-default">Limpiar</button>
 	</div>
@@ -189,6 +189,8 @@
 <script src="<c:url value="/resources/js/datatables.min.js" />"></script>
 
 <script type="text/javascript">
+
+var dataTable = "#maintenanceTable";
 var title = "Paciente";
 var url = "paciente.txt";
 var urlJ = "paciente-ajax.json";
@@ -200,7 +202,7 @@ var cols = [
 		];
 
 $(document).ready(function(){
-	var table = $('#maintenanceTable').DataTable( {
+	var table = $(dataTable).DataTable( {
 		"serverSide" : true,
 		"ajax" : {
 			"url" : urlJ,

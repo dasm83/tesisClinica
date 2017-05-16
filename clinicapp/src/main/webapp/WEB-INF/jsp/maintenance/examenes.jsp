@@ -7,10 +7,19 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>${title}</title>
 <link href="<c:url value='/resources/css/datatables.min.css' />" rel="stylesheet">
+
+<!-- datepicker -->
+<script src="<c:url value="/resources/js/bootstrap-datepicker.min.js" />"></script>
+<link href="<c:url value='/resources/css/bootstrap-datepicker3.css' />" rel="stylesheet">
 </head>
 <body>
 
 	<a id="newExam" href="#"><i class="fa fa-plus-square-o" aria-hidden="true"></i> Nuevo</a>
+	<div style="float:right">
+		<input id="search" name="search" class="form-control datepicker" data-provide="datepicker" data-date-format="dd/mm/yyyy" style="margin-bottom:5px"/>
+		<button id="goSearch" type="button" class="btn btn-default">Buscar</button>
+		<button id="cleanSearch" type="button" class="btn btn-default">Limpiar</button>
+	</div>
 	<table id="mainTableOnView" class="table table-striped table-bordered" width="100%">
 		<thead>
 			<tr>
@@ -29,7 +38,7 @@
 	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 	      </div>
 	      <div class="modal-body">
-	      	¿Está seguro que desea eliminar este registro?
+	      	¿Est&#225; seguro que desea eliminar este registro?
 	      </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
@@ -69,17 +78,12 @@
 
 <script type="text/javascript">
 
+var dataTable = "#mainTableOnView";
 var url = "examOp.txt";
 var urlDetail = "detalleExamen.htm";
-
-$(document).ready(function(){
-	var table = $('#mainTableOnView').DataTable( {
-		"serverSide": true,
-	    "ajax":{
-	    	"url": "exam-ajax.json",
-	    	"type": "POST"
-	    },
-		"columns": [
+var urlJ = "exam-ajax.json";
+var langUrl = "<c:url value='/resources/locales/datatable-es.json' />";
+var cols = [
 			{ "data": "tipo"},
 			{ "data": "lab"},
 			{ "data": "date"},
@@ -90,12 +94,20 @@ $(document).ready(function(){
                 "defaultContent": "<a href='#' id='updMainOnView' class='btnAct' title='Actualizar'><i class='fa fa-pencil-square-o' aria-hidden='true'></i></a>"+
                 				"<a href='#' id='delMainOnView' class='btnAct' title='Eliminar'><i class='fa fa-minus-square-o' aria-hidden='true'></i></a>"
             }
-		],
+		];
+
+$(document).ready(function(){
+	var table = $(dataTable).DataTable( {
+		"serverSide": true,
+	    "ajax":{
+	    	"url": urlJ,
+	    	"type": "POST"
+	    },
+		"columns": cols,
 		"language":{
-			"url" : "<c:url value='/resources/locales/datatable-es.json' />"
+			"url" : langUrl
 		},
 		"searching": false,
-		"ordering": true,
 		"lengthChange": false,
 		"pageLength": 20
 	});

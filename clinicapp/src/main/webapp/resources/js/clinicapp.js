@@ -141,11 +141,11 @@ $( function() { /// jquery start point
 			return null;
 		}
 		
-		var table = $('#maintenanceTable').DataTable();
+		var table = $(dataTable).DataTable();
 		table.clear(); // deleting current rows
 		table.destroy(); // destroying table so we can initialize again with different parameters (url)
 		
-		table = $('#maintenanceTable').DataTable( {
+		table = $(dataTable).DataTable( {
 			"serverSide" : true,
 			"ajax" : {
 				"url" : urlJ+"?search="+searching,
@@ -164,11 +164,11 @@ $( function() { /// jquery start point
 	
 	$('#cleanSearch').click(function(){
 		$('#search').val('');
-		var table = $('#maintenanceTable').DataTable();
+		var table = $(dataTable).DataTable();
 		table.clear(); // deleting current rows
 		table.destroy();
 		
-		table = $('#maintenanceTable').DataTable( {
+		table = $(dataTable).DataTable( {
 			"serverSide" : true,
 			"ajax" : {
 				"url" : urlJ,

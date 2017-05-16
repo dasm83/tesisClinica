@@ -106,19 +106,23 @@ public class ExamenMaintenanceController {
 	 * @param request
 	 * @return {@link TableData} holds datatable params including all exams in db
 	 */
-	@RequestMapping(method = RequestMethod.POST, value = URLj, params = "draw", produces = "application/json")
+	@RequestMapping(method = RequestMethod.POST, value = URLj, produces = "application/json")
 	public @ResponseBody TableData dataTable(HttpServletRequest request, @RequestParam(value="order[0][column]") int col,
-			@RequestParam(value="order[0][dir]") String dir){
+			@RequestParam(value="order[0][dir]") String dir, @RequestParam(required=false,name="search") String search){
 		TableData json = new TableData();
+		List<Map<String,String>> data = getExamsList(
+					Integer.parseInt(request.getParameter("start")),
+					Integer.parseInt(request.getParameter("length")),
+					col,
+					dir,
+					search
+				);
+		
 		json.setDraw(Integer.parseInt(request.getParameter("draw")));
-		json.setRecordsTotal(1);
-		json.setRecordsFiltered(1);
-		json.setData(getExamsList(
-				Integer.parseInt(request.getParameter("start")),
-				Integer.parseInt(request.getParameter("length")),
-				col,
-				dir
-				));
+		json.setRecordsTotal(examService.count());
+		json.setRecordsFiltered(data.size());
+		json.setData(data);
+		
 		return json;
 	}
 	
@@ -311,9 +315,9 @@ public class ExamenMaintenanceController {
 	 * @return a list filled with maps; each map holds specific values of a single exam
 	 */
 	@SuppressWarnings("unchecked")
-	private List<Map<String,String>> getExamsList(int start,int length, int col, String order){
+	private List<Map<String,String>> getExamsList(int start,int length, int col, String order, String search){
 		List<Map<String,String>> brief = new ArrayList<>();
-		List<Examen> exams = examService.getFilteredList(start,length,col,order);
+		List<Examen> exams = examService.getFilteredList(start,length,col,order,search);
 		
 		for(Examen exam : exams){
 			Map<String,String> list = new HashMap<>();

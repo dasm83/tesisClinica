@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 import com.tesis.clinicapp.dao.ExamenDAO;
@@ -18,7 +19,7 @@ public class ExamenDAOImpl extends GenericDAOImpl<Examen, Long> implements Exame
 	}
 	
 	@SuppressWarnings("rawtypes")
-	public List getFilteredList(int start, int length, int col, String order){
+	public List getFilteredList(int start, int length, int col, String order, String search){
 		
 		Criteria crit = getCriteria().createAlias("catalogoExamen", "catEx").createAlias("laboratorista", "lab");
 		String prop = "";
@@ -42,6 +43,10 @@ public class ExamenDAOImpl extends GenericDAOImpl<Examen, Long> implements Exame
 			crit.addOrder(Order.asc(prop));
 		} else{
 			crit.addOrder(Order.desc(prop));
+		}
+		
+		if(search != null){
+			crit.add(Restrictions.sqlRestriction("to_char(fecha_procesamiento,'DD/MM/YYYY') = '"+search+"'"));
 		}
 		
 		return crit.list();
