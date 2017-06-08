@@ -82,7 +82,7 @@
 	   </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-	        <button id="okDelBtndate" type="button" class="btn btn-primary">Guardar</button>
+	        <button id="okDelBtndate" type="button" class="btn btn-primary">Eliminar</button>
 	      </div>
 	    </div><!-- /.modal-content -->
 	  </div><!-- /.modal-dialog -->
@@ -194,15 +194,6 @@
 				$("#myModalOnView2").modal('show');
 		        return false;
 		 });
-		
-		//  $("body").on("click","#delDate", function(e){ 
-		//	  var x = $(this).next().attr('id');
-		//	  $("#myModalOnView3").modal({
-		//		backdrop: 'static'
-		//		});
-		//	$("#myModalOnView3").modal('show');
-	    //    return false;
-	// });
 });	  
 </script>
 </body>

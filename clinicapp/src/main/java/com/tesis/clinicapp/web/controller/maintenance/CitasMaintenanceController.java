@@ -91,9 +91,8 @@ public class CitasMaintenanceController {
 	@RequestMapping(method = RequestMethod.POST, value = URLmaintenance, params = "op=del", produces = "text/plain")
 	public @ResponseBody String delCita(HttpServletRequest request){
 		Long id = new Long((request.getParameter("id")));
-		System.out.println("entro a borrar"+ request.getParameter("id").toString());
 		Citas cita = citService.findById(id);
-		//citService.delete(cita);
+		citService.delete(cita);
 		return "Registro eliminado";
 	}
 	
