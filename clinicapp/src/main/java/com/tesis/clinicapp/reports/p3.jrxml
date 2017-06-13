@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2017-06-13T15:20:02 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="p3" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="5" bottomMargin="5" uuid="abdde0a5-1c5b-4b37-87c3-2dcd20b5bc00">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter "/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<parameter name="NOMBRE" class="java.lang.String"/>
+	<parameter name="EDAD" class="java.lang.Integer"/>
+	<parameter name="SEXO" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[select i.nombre , r.edad_minima , r.edad_maxima,r.sexo,r.valor_ref_minimo,r.tipo_rango,r.valor_ref_maximo from clinica.catalogo_items_examen as i inner join clinica.items_valores_referencia as r on r.catalogo_items=i.id where i.nombre=$P{NOMBRE} and $P{EDAD} between r.edad_minima and r.edad_maxima and r.sexo=$P{SEXO}]]>
+	</queryString>
+	<field name="nombre" class="java.lang.String"/>
+	<field name="edad_minima" class="java.lang.Integer"/>
+	<field name="edad_maxima" class="java.lang.Integer"/>
+	<field name="sexo" class="java.lang.String"/>
+	<field name="valor_ref_minimo" class="java.lang.Long"/>
+	<field name="tipo_rango" class="java.lang.String"/>
+	<field name="valor_ref_maximo" class="java.lang.Long"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="37" splitType="Stretch">
+			<textField>
+				<reportElement x="40" y="0" width="20" height="30" uuid="baaf23f9-3819-4bc1-b48c-16cb593635ce"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{tipo_rango}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="40" height="30" uuid="631d919f-068d-4b8a-a6dc-f18de97b3392"/>
+				<textFieldExpression><![CDATA[$F{valor_ref_minimo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="60" y="0" width="80" height="30" uuid="e7466d89-8050-4bc1-8edd-b3dd8ba9d791"/>
+				<textFieldExpression><![CDATA[$F{valor_ref_maximo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

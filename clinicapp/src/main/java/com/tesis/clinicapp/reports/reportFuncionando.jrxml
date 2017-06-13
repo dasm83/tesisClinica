@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2017-06-12T14:42:04 -->
+<!-- 2017-06-13T15:19:24 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="repport" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="13acf49e-4913-4d1b-bccc-113817ad15d1">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter "/>
@@ -43,7 +43,7 @@
 					<text><![CDATA[Resultado]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="380" y="40" width="130" height="21" uuid="bcb63528-70b8-4ccf-b403-6e8f26761551"/>
+					<reportElement x="370" y="40" width="130" height="21" uuid="bcb63528-70b8-4ccf-b403-6e8f26761551"/>
 					<textElement>
 						<font fontName="SansSerif" size="12" isBold="true"/>
 					</textElement>
@@ -167,7 +167,16 @@
 				<textFieldExpression><![CDATA[$F{unidad}]]></textFieldExpression>
 			</textField>
 			<subreport>
-				<reportElement mode="Transparent" x="340" y="0" width="220" height="30" uuid="bb62a6bb-7bd0-42a5-8ad7-3c9523cffdad"/>
+				<reportElement mode="Transparent" x="350" y="1" width="220" height="30" uuid="bb62a6bb-7bd0-42a5-8ad7-3c9523cffdad"/>
+				<subreportParameter name="EDAD">
+					<subreportParameterExpression><![CDATA[$F{edad}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="NOMBRE">
+					<subreportParameterExpression><![CDATA[$F{COLUMN_9}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SEXO">
+					<subreportParameterExpression><![CDATA[$F{sexo}]]></subreportParameterExpression>
+				</subreportParameter>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 				<subreportExpression><![CDATA["p3.jasper"]]></subreportExpression>
 			</subreport>
