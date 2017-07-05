@@ -350,6 +350,7 @@ $( function() { /// jquery start point
 				$("#myModalOnViewDet").find('.modal-body').html("<div style='text-align:center'>"+data+"</div>");
 				setTimeout(function(){
 					window.location.replace(mainURL);
+					location.reload(true);
 				}, 4000);
 			},
 			error: function(jqXHR, error, errorThrown){
@@ -376,6 +377,30 @@ $( function() { /// jquery start point
 			method: "POST",
 			data: data,
 			dataType: 'text',
+			success: function(data){
+				$("#myModalOnViewDet").find('.modal-body').html("<div style='text-align:center'>"+data+"</div>");
+				setTimeout(function(){
+				}, 4000);
+			},
+			error: function(jqXHR, error, errorThrown){
+				$("#myModalOnViewDet").find('.modal-body').html("<div style='text-align:center'><h3>Error</h3>"+jqXHR.responseText+"</div>");
+				setTimeout(function(){
+					$("#myModalOnViewDet").modal('hide');
+				}, 4000);
+			}
+		});
+	});	
+	
+	//Crear reporte
+	
+	$("#crearReporte").click(function(){
+		
+		var data = $('#ReportForm').serialize();
+		
+		$.ajax({
+			url: url,
+			method: "GET",
+			data: data,
 			success: function(data){
 				$("#myModalOnViewDet").find('.modal-body').html("<div style='text-align:center'>"+data+"</div>");
 				setTimeout(function(){

@@ -39,6 +39,20 @@
              <li>
                  <a href="<c:url value="/maintenance/citas.htm" />"><i class="fa fa-calendar-check-o"></i> Citas</a>
              </li>
+             <li>
+                 <a href="#"><i class="fa fa-file-o"></i>Reportes</a>
+           		<ul class="nav nav-second-level">
+           		  	<li>
+                         <a href="<c:url value="/maintenance/reportes.htm"/>">Reporte Pacientes</a>
+                     </li>
+           		  	<li>
+                         <a href="<c:url value="#"/>">Ex&#225;menes</a>
+                     </li>
+                     <li>
+                         <a href="<c:url value="#"/>">Horarios</a>
+                     </li>
+                 </ul>
+             </li>
          </ul>
      </div>
      <!-- /.sidebar-collapse -->
