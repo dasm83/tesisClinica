@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -13,40 +12,26 @@ import java.util.List;
 import java.util.Map;
 
 import javax.naming.NamingException;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.dbcp.BasicDataSource;
-import org.hibernate.Hibernate;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.engine.spi.SessionImplementor;
-import org.hibernate.internal.SessionImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.springsource.tcserver.serviceability.request.DataSource;
 import com.tesis.clinicapp.service.ItemsExamenService;
-import com.tesis.clinicapp.service.PacienteService;
-import com.tesis.clinicapp.web.form.maintenance.JasperInputForm;
-import com.tesis.clinicapp.web.form.maintenance.citasMainForm;
 import com.tesis.clinicapp.web.form.maintenance.reportForm;
 
-import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.JasperRunManager;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.export.HtmlExporter;
 import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.export.SimpleExporterInput;
@@ -69,11 +54,9 @@ public class LoadJasperReport {
 	private static final String FORM = "reportForm";
 	
 	private ItemsExamenService itemService;
-	//@Autowired
-	//SessionFactory sessionFactory;
 	
-//	SessionImplementor miSessionImplementor = (SessionImplementor) sessionFactory;
-//	Connection conn2 = miSessionImplementor.connection();
+	@Autowired
+	ServletContext servletContext;
 	
 	@RequestMapping(method = RequestMethod.GET, value = URL)
     public ModelAndView get(HttpServletRequest request){
@@ -81,14 +64,14 @@ public class LoadJasperReport {
 		return new ModelAndView(JSP,FORM,new reportForm());
 	}
 	
-	  @ModelAttribute("jasperRptFormats")
-	    public ArrayList getJasperRptFormats()
-	    {
-	        ArrayList < String> jasperRptFormats = new ArrayList<String>();
-	        jasperRptFormats.add("Html");
-	        jasperRptFormats.add("PDF");
-	        return jasperRptFormats;
-	    }   
+	@ModelAttribute("jasperRptFormats")
+    public ArrayList getJasperRptFormats()
+    {
+        ArrayList < String> jasperRptFormats = new ArrayList<String>();
+        jasperRptFormats.add("Html");
+        jasperRptFormats.add("PDF");
+        return jasperRptFormats;
+    }   
 	  
 	  //@RequestMapping(value = "/maintenance/reporteHtml.htm'", method = RequestMethod.POST)
 	  @RequestMapping(method = RequestMethod.GET, value = URL2)
@@ -103,7 +86,7 @@ public class LoadJasperReport {
 	                  e.printStackTrace();
 	              }  
 	   
-	           conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/clinica","postgres","postgres");
+	           conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/lcb","postgres","loop");
 	           if (conn != null)
 	       {
 	           System.out.println("Database Connected");
@@ -123,7 +106,7 @@ public class LoadJasperReport {
 	             HashMap<String,Object> dataSource=new HashMap<String,Object>();
 	             HashMap<String,Object> dataSource2=new HashMap<String,Object>();
 	   
-	             dataSource.put("id", new Integer(noy));
+	             dataSource.put("id", 2);
 	           //  dataSource.put("dataSource", conn);
 	             
 	   	   
@@ -144,9 +127,9 @@ public class LoadJasperReport {
 	   
 	              }
 	   
-	         } catch (Exception sqlExp) {
+	         } catch (Exception e) {
 	   
-	             System.out.println( "Exception::" + sqlExp.toString());
+	             e.printStackTrace();
 	   
 	         } finally {
 	   
@@ -194,8 +177,7 @@ public class LoadJasperReport {
 	    } 
 	  
 	  private JasperReport getCompiledFile(String fileName, HttpServletRequest request) throws JRException {
-		    System.out.println("path " + request.getSession().getServletContext().getRealPath("/src/main/resources/"+fileName+ ".jasper"));
-		    File reportFile = new File("C:/Users/Byron/git/dasm83/tesisClinica/clinicapp/src/main/resources/"+ fileName +".jasper");
+		    File reportFile = new File(servletContext.getRealPath("WEB-INF/reports/"+fileName+".jasper"));
 		    // If compiled file is not found, then compile XML template
 		//    if (!reportFile.exists()) {
 		 //              JasperCompileManager.compileReportToFile(request.getSession().getServletContext().getRealPath("/src/main/resources/"+fileName+ ".jrxml"),request.getSession().getServletContext().getRealPath("/src/main/resources/"+fileName+ ".jasper"));
