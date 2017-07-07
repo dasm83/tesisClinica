@@ -86,7 +86,7 @@ public class LoadJasperReport {
 	                  e.printStackTrace();
 	              }  
 	   
-	           conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/lcb","postgres","loop");
+	           conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/clinica","postgres","postgres");
 	           if (conn != null)
 	       {
 	           System.out.println("Database Connected");
@@ -104,9 +104,8 @@ public class LoadJasperReport {
 	   
 	             //Parameters as Map to be passed to Jasper
 	             HashMap<String,Object> dataSource=new HashMap<String,Object>();
-	             HashMap<String,Object> dataSource2=new HashMap<String,Object>();
 	   
-	             dataSource.put("id", 2);
+	             dataSource.put("id",4);
 	           //  dataSource.put("dataSource", conn);
 	             
 	   	   
@@ -115,6 +114,7 @@ public class LoadJasperReport {
 	          if (rptFormat.equalsIgnoreCase("html") ) {
 	   
 	        //	  modelAndView = new ModelAndView("htmlReport", dataSource);
+	        	  System.out.println("llega al antes de crearlo");
 	             JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, dataSource, conn);
 	              generateReportHtml(jasperPrint, request, response); // For HTML report
 	   
@@ -177,7 +177,9 @@ public class LoadJasperReport {
 	    } 
 	  
 	  private JasperReport getCompiledFile(String fileName, HttpServletRequest request) throws JRException {
-		    File reportFile = new File(servletContext.getRealPath("WEB-INF/reports/"+fileName+".jasper"));
+		  System.out.println(servletContext.getRealPath("WEB-INF/reports/"+fileName+".jasper"));
+		 // File reportFile = new File(servletContext.getRealPath("WEB-INF/reports/"+fileName+".jasper"));
+		  File reportFile = new File("C:/Users/Byron/git/dasm83/tesisClinica/clinicapp/src/main/webapp/WEB-INF/reports/"+fileName+".jasper");
 		    // If compiled file is not found, then compile XML template
 		//    if (!reportFile.exists()) {
 		 //              JasperCompileManager.compileReportToFile(request.getSession().getServletContext().getRealPath("/src/main/resources/"+fileName+ ".jrxml"),request.getSession().getServletContext().getRealPath("/src/main/resources/"+fileName+ ".jasper"));
