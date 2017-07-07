@@ -23,7 +23,6 @@
 	
 	<context:property-placeholder location="classpath:database.properties"/>
 	
-	<import resource="jasper-views.xml"/>
 	
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/jsp/" />
@@ -58,10 +57,5 @@
 	
 	<bean id="conversionService"
     class="org.springframework.context.support.ConversionServiceFactoryBean"/>
-    
-    <bean class="org.springframework.web.servlet.view.XmlViewResolver">
-        <property name="location" value="/WEB-INF/jasper-views.xml"/>
-        <property name="order" value="0"/>
-    </bean> 
 
 </beans>

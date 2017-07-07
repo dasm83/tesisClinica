@@ -1,5 +1,6 @@
 package com.tesis.clinicapp.web.controller.maintenance;
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -57,6 +58,7 @@ public class LoadJasperReport {
 	
 	JasperReport jasperReport;
     JasperPrint jasperPrint;
+    String reportFileName = "reportFuncionando";
     
 	private static final String URL = "/maintenance/reportes.htm";
 	private static final String URL2 = "/maintenance/rportes.htm";
@@ -119,25 +121,25 @@ public class LoadJasperReport {
 	   
 	             //Parameters as Map to be passed to Jasper
 	             HashMap<String,Object> dataSource=new HashMap<String,Object>();
+	             HashMap<String,Object> dataSource2=new HashMap<String,Object>();
 	   
-	           //  dataSource.put("id", new Integer(noy));
-	             dataSource.put("dataSource", conn);
+	             dataSource.put("id", new Integer(noy));
+	           //  dataSource.put("dataSource", conn);
 	             
 	   	   
-	              //JasperReport jasperReport = getCompiledFile(reportFileName, request);
-	        //      jasperReport = JasperCompileManager.compileReport("/resources/reports/reportFuncionando.jrxml");
+	              JasperReport jasperReport = getCompiledFile(reportFileName, request);
 	   
 	          if (rptFormat.equalsIgnoreCase("html") ) {
 	   
-	        	  modelAndView = new ModelAndView("htmlReport", dataSource);
-	            //  JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, hmParams, conn);
-	           //   generateReportHtml(jasperPrint, request, response); // For HTML report
+	        //	  modelAndView = new ModelAndView("htmlReport", dataSource);
+	             JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, dataSource, conn);
+	              generateReportHtml(jasperPrint, request, response); // For HTML report
 	   
 	          }
 	   
 	          else if  (rptFormat.equalsIgnoreCase("pdf") )  {
 	   
-	        	  modelAndView = new ModelAndView("pdfReport", dataSource);
+	        //	  modelAndView = new ModelAndView("pdfReport", dataSource);
 	         //     generateReportPDF(response, hmParams, jasperReport, conn); // For PDF report
 	   
 	              }
@@ -163,10 +165,10 @@ public class LoadJasperReport {
 	   
 	       } 
 	      
-	      return  modelAndView;
+	      return  null;
 	  }
 	  
-	/*  private void generateReportHtml( JasperPrint jasperPrint, HttpServletRequest req, HttpServletResponse resp) throws IOException, JRException {
+	  private void generateReportHtml( JasperPrint jasperPrint, HttpServletRequest req, HttpServletResponse resp) throws IOException, JRException {
 	         HtmlExporter exporter=new HtmlExporter();
 	         List<JasperPrint> jasperPrintList = new ArrayList<JasperPrint>();
 	         jasperPrintList.add(jasperPrint);
@@ -189,5 +191,16 @@ public class LoadJasperReport {
 	        ouputStream.write(bytes, 0, bytes.length);
 	        ouputStream.flush();
 	        ouputStream.close();
-	    } */
+	    } 
+	  
+	  private JasperReport getCompiledFile(String fileName, HttpServletRequest request) throws JRException {
+		    System.out.println("path " + request.getSession().getServletContext().getRealPath("/src/main/resources/"+fileName+ ".jasper"));
+		    File reportFile = new File("C:/Users/Byron/git/dasm83/tesisClinica/clinicapp/src/main/resources/"+ fileName +".jasper");
+		    // If compiled file is not found, then compile XML template
+		//    if (!reportFile.exists()) {
+		 //              JasperCompileManager.compileReportToFile(request.getSession().getServletContext().getRealPath("/src/main/resources/"+fileName+ ".jrxml"),request.getSession().getServletContext().getRealPath("/src/main/resources/"+fileName+ ".jasper"));
+		  //      }
+		        JasperReport jasperReport = (JasperReport) JRLoader.loadObjectFromFile(reportFile.getPath());
+		       return jasperReport;
+		    } 
 }
