@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2017-07-03T15:56:45 -->
+<!-- 2017-07-09T21:31:42 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="repport" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="13acf49e-4913-4d1b-bccc-113817ad15d1">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter "/>
@@ -17,6 +17,7 @@
 	<parameter name="id" class="java.lang.Integer">
 		<parameterDescription><![CDATA[id del paciente]]></parameterDescription>
 	</parameter>
+	<parameter name="p3" class="java.lang.String" isForPrompting="false"/>
 	<queryString language="SQL">
 		<![CDATA[select p.nombres , p.apellidos , p.edad , p.sexo, ex.fecha_procesamiento, catEx.nombre, itex.valor, c.unidad ,c.nombre, d.nombre from clinica.paciente as p inner join clinica.examen as ex on p.id=ex.paciente_id inner join clinica.catalogo_examen as catEx on catEx.id=ex.cat_examen_id inner join clinica.items_examen as itex on ex.id=itex.examen_id inner join clinica.catalogo_items_examen as c on c.id=itex.cat_item_examen_id inner join clinica.catalogo_examen as d on d.id=c.cat_examen_id where p.id=$P{id}]]>
 	</queryString>
@@ -181,7 +182,7 @@
 					<subreportParameterExpression><![CDATA[$F{sexo}]]></subreportParameterExpression>
 				</subreportParameter>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-				<subreportExpression><![CDATA["p3.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA[$P{p3}+"p3.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
 	</detail>

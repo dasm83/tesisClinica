@@ -42,6 +42,7 @@ import net.sf.jasperreports.export.SimpleHtmlReportConfiguration;
 public class LoadJasperReport {
 	
 	JasperReport jasperReport;
+	JasperReport subJasperReport;
     JasperPrint jasperPrint;
     String reportFileName = "reportFuncionando";
     
@@ -77,6 +78,7 @@ public class LoadJasperReport {
 	  @RequestMapping(method = RequestMethod.GET, value = URL2)
 	  public ModelAndView generateReport(HttpServletRequest request,HttpServletResponse response,reportForm form,ModelAndView modelAndView) throws ParseException {
 		  System.out.println("entro");
+		  String SubreportFileName = "p3";
 	      Connection conn = null;
 	      try {
 	          try {
@@ -110,8 +112,10 @@ public class LoadJasperReport {
 	             
 	   	   
 	              JasperReport jasperReport = getCompiledFile(reportFileName, request);
-	   
-	          if (rptFormat.equalsIgnoreCase("html") ) {
+	              File subReportFile = new File("C:/Users/Byron/git/dasm83/tesisClinica/clinicapp/src/main/webapp/WEB-INF/reports/"+SubreportFileName+".jasper");
+	              JasperReport subJasperReport = (JasperReport) JRLoader.loadObjectFromFile(subReportFile.getPath());
+	              dataSource.put("p3","C:/Users/Byron/git/dasm83/tesisClinica/clinicapp/src/main/webapp/WEB-INF/reports/");
+	              if (rptFormat.equalsIgnoreCase("html") ) {
 	   
 	        //	  modelAndView = new ModelAndView("htmlReport", dataSource);
 	        	  System.out.println("llega al antes de crearlo");
@@ -152,7 +156,8 @@ public class LoadJasperReport {
 	  }
 	  
 	  private void generateReportHtml( JasperPrint jasperPrint, HttpServletRequest req, HttpServletResponse resp) throws IOException, JRException {
-	         HtmlExporter exporter=new HtmlExporter();
+	         System.out.print("llego");
+		     HtmlExporter exporter=new HtmlExporter();
 	         List<JasperPrint> jasperPrintList = new ArrayList<JasperPrint>();
 	         jasperPrintList.add(jasperPrint);
 	         exporter.setExporterInput(SimpleExporterInput.getInstance(jasperPrintList));
@@ -180,11 +185,14 @@ public class LoadJasperReport {
 		  System.out.println(servletContext.getRealPath("WEB-INF/reports/"+fileName+".jasper"));
 		 // File reportFile = new File(servletContext.getRealPath("WEB-INF/reports/"+fileName+".jasper"));
 		  File reportFile = new File("C:/Users/Byron/git/dasm83/tesisClinica/clinicapp/src/main/webapp/WEB-INF/reports/"+fileName+".jasper");
-		    // If compiled file is not found, then compile XML template
+		  
+		  
+		  // If compiled file is not found, then compile XML template
 		//    if (!reportFile.exists()) {
 		 //              JasperCompileManager.compileReportToFile(request.getSession().getServletContext().getRealPath("/src/main/resources/"+fileName+ ".jrxml"),request.getSession().getServletContext().getRealPath("/src/main/resources/"+fileName+ ".jasper"));
 		  //      }
 		        JasperReport jasperReport = (JasperReport) JRLoader.loadObjectFromFile(reportFile.getPath());
+		      
 		       return jasperReport;
 		    } 
 }
