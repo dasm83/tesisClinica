@@ -35,6 +35,7 @@ function openDialog(title){
 	modal.modal('show'); /// opening dialog
 }
 
+
 function openMessageDialog(message){
 	var modal = $("#myModal");
 	modal.find(".modal-header").hide();
@@ -391,21 +392,43 @@ $( function() { /// jquery start point
 		});
 	});	
 	
-	//Crear reporte
+	//llenar Select de reportes
 	
-	$("#crearReporte").click(function(){
+		$('#buscarExamenes').click(function(){
+		var searching = $('#search').val();
+		if(searching == ''){
+			return null;
+		}
 		
-		var data = $('#ReportForm').serialize();
+		var table = $(dataTable).DataTable();
+		table.clear(); // deleting current rows
+		table.destroy(); // destroying table so we can initialize again with different parameters (url)
 		
+		table = $(dataTable).DataTable( {
+			"serverSide" : true,
+			"ajax" : {
+				"url" : urlJ+"?search="+searching,
+				"type": "POST"
+			},
+			
+			"columns": cols,
+			"language":{
+				"url" : langUrl
+			},
+			"lengthChange": false,
+			"pageLength": 20,
+			"searching" : false
+		});
+	});
+	
+		/*	$("#pacient").change(function(){
+		var id = $(this).val();	
 		$.ajax({
-			url: url,
+			url: urlCombo1,
 			method: "GET",
-			data: data,
-			success: function(data){
-				$("#myModalOnViewDet").find('.modal-body').html("<div style='text-align:center'>"+data+"</div>");
-				setTimeout(function(){
-					window.location.replace(mainURL);
-				}, 4000);
+			data: 'op=exm&id='+id,
+			success: function(){
+				
 			},
 			error: function(jqXHR, error, errorThrown){
 				$("#myModalOnViewDet").find('.modal-body').html("<div style='text-align:center'><h3>Error</h3>"+jqXHR.responseText+"</div>");
@@ -414,7 +437,7 @@ $( function() { /// jquery start point
 				}, 4000);
 			}
 		});
-	});	
+	}); */	 
 	
 	
 	//cargar el select: items de examenes
