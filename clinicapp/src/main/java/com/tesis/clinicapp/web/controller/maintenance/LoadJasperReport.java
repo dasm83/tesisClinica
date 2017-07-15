@@ -104,8 +104,6 @@ public class LoadJasperReport {
 		  int idpersona;
 		  int idExamen;
 		  HashMap<String,Object> dataSource=new HashMap<String,Object>(); //Parameters as Map to be passed to Jasper
-		  System.out.println(form.getPaciente().toString());
-          System.out.println(form.getExamen().toString());
 	    
           
           if(form.getExamen().toString().equals("completo")){
@@ -249,7 +247,6 @@ public class LoadJasperReport {
 	  @RequestMapping(method = RequestMethod.POST, value = URLj, produces = "application/json")
 public @ResponseBody TableData dataTable(HttpServletRequest request, @RequestParam(value="order[0][column]") int col,@RequestParam(value="order[0][dir]") String dir, @RequestParam(required=false,name="search") String search){
 			TableData json = new TableData();
-			System.out.println("entro al metodo aunqyue sea");
 			List<Map<String,String>> data = getExamsList(
 						Integer.parseInt(request.getParameter("start")),
 						Integer.parseInt(request.getParameter("length")),
@@ -259,7 +256,7 @@ public @ResponseBody TableData dataTable(HttpServletRequest request, @RequestPar
 					);
 			
 			json.setDraw(Integer.parseInt(request.getParameter("draw")));
-			json.setRecordsTotal(examService.count());
+			json.setRecordsTotal(pacientService.count());
 			json.setRecordsFiltered(data.size());
 			json.setData(data);
 			
@@ -269,11 +266,10 @@ public @ResponseBody TableData dataTable(HttpServletRequest request, @RequestPar
 	  @SuppressWarnings("unchecked")
 		private List<Map<String,String>> getExamsList(int start,int length, int col, String order, String search){
 			List<Map<String,String>> brief = new ArrayList<>();
-			//List<Examen> exams = examService.getFilteredList(start,length,col,order,search);
-		//	List<Paciente> pacient = pacientService.getFilteredList(start,length,col,order,search);
 			Paciente s= pacientService.getByExactName(search);
-			
-		    Set<Examen> set = s.getExamens();
+			System.out.println("");
+		  
+			Set<Examen> set = s.getExamens();
 			for(Examen e:set){
 				Map<String,String> list = new HashMap<>();
 				

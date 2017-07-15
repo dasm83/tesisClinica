@@ -86,6 +86,7 @@
 <script type="text/javascript">
 var dataTable = "#maintenanceTable";
 var urlJ = "tipoExamen-ajax.json"
+//$.fn.dataTableExt.errMode = 'ignore';
 var langUrl = "<c:url value='/resources/locales/datatable-es.json' />"
 var cols = [
 				{ "data": "tipo"},

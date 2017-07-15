@@ -392,7 +392,7 @@ $( function() { /// jquery start point
 		});
 	});	
 	
-	//llenar Select de reportes
+	//Buscar Examenes del paciente
 	
 		$('#buscarExamenes').click(function(){
 		var searching = $('#search').val();
@@ -420,25 +420,7 @@ $( function() { /// jquery start point
 			"searching" : false
 		});
 	});
-	
-		/*	$("#pacient").change(function(){
-		var id = $(this).val();	
-		$.ajax({
-			url: urlCombo1,
-			method: "GET",
-			data: 'op=exm&id='+id,
-			success: function(){
-				
-			},
-			error: function(jqXHR, error, errorThrown){
-				$("#myModalOnViewDet").find('.modal-body').html("<div style='text-align:center'><h3>Error</h3>"+jqXHR.responseText+"</div>");
-				setTimeout(function(){
-					$("#myModalOnViewDet").modal('hide');
-				}, 4000);
-			}
-		});
-	}); */	 
-	
+	 
 	
 	//cargar el select: items de examenes
 	
