@@ -15,35 +15,39 @@
                  <a href="<c:url value="/index.htm" />"><i class="fa fa-home"></i> Inicio</a>
              </li>
              
+             <sec:authorize access="hasAnyAuthority('ADM','TEC')">
+	             <li>
+	                 <a href="#"><i class="fa fa-file-o"></i> Ex&#225;menes</a>
+	           		<ul class="nav nav-second-level">
+	           		  	<li>
+	                         <a href="<c:url value="/maintenance/examenes.htm"/>">Archivo</a>
+	                     </li>
+	           		  	<li>
+	                         <a href="<c:url value="/maintenance/catalogoExamenes.htm"/>">Cat&#225;logos</a>
+	                     </li>
+	                     <li>
+	                         <a href="<c:url value="/maintenance/clasificacion.htm"/>">Clasificaciones</a>
+	                     </li>
+	                 </ul>
+	             </li>
+             </sec:authorize>
+           	
+           	<sec:authorize access="hasAnyAuthority('ADM','OPE')">
+	             <li>
+	                 <a href="<c:url value="/maintenance/pacientes.htm" />"><i class="fa fa-users"></i> Pacientes</a>
+	             </li>
+	             <li>
+	                 <a href="<c:url value="/maintenance/laboratorista.htm" />"><i class="fa fa-user-md"></i> Laboratoristas</a>
+	             </li>
+	             <li>
+	                 <a href="<c:url value="/maintenance/citas.htm" />"><i class="fa fa-calendar-check-o"></i> Citas</a>
+	             </li>
+             </sec:authorize>
              <li>
-                 <a href="#"><i class="fa fa-file-o"></i> Ex&#225;menes</a>
+                 <a href="#"><i class="fa fa-file-o"></i> Reportes</a>
            		<ul class="nav nav-second-level">
            		  	<li>
-                         <a href="<c:url value="/maintenance/examenes.htm"/>">Archivo</a>
-                     </li>
-           		  	<li>
-                         <a href="<c:url value="/maintenance/catalogoExamenes.htm"/>">Cat&#225;logos</a>
-                     </li>
-                     <li>
-                         <a href="<c:url value="/maintenance/clasificacion.htm"/>">Clasificaciones</a>
-                     </li>
-                 </ul>
-             </li>
-           		
-             <li>
-                 <a href="<c:url value="/maintenance/pacientes.htm" />"><i class="fa fa-users"></i> Pacientes</a>
-             </li>
-             <li>
-                 <a href="<c:url value="/maintenance/laboratorista.htm" />"><i class="fa fa-user-md"></i> Laboratoristas</a>
-             </li>
-             <li>
-                 <a href="<c:url value="/maintenance/citas.htm" />"><i class="fa fa-calendar-check-o"></i> Citas</a>
-             </li>
-             <li>
-                 <a href="#"><i class="fa fa-file-o"></i>Reportes</a>
-           		<ul class="nav nav-second-level">
-           		  	<li>
-                         <a href="<c:url value="/maintenance/reportes.htm"/>">Reporte Pacientes</a>
+                         <a href="<c:url value="/maintenance/reportes.htm"/>">Pacientes</a>
                      </li>
            		  	<li>
                          <a href="<c:url value="#"/>">Ex&#225;menes</a>
