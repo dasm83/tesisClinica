@@ -210,7 +210,7 @@ public class CatalogoExamenesMaintenanceController {
 	@ModelAttribute(value="unidadSelec")
 	private List<Map<String,String>> getUnidades(){
 		List<Map<String,String>> brief = new ArrayList<>();
-	    String[] unidades= {"UI/L","UI/ml","g/L","g/dL","mEq","mEq/L","mg","mg/L","mg/dL","mL","U/L","--","U/mL"}; 
+	    String[] unidades= {"UI/L","UI/ml","g/L","g/dL","mEq","mEq/L","mg","mg/L","mg/dL","mL","U/L","--","U/mL","+/-"}; 
 	   
 	    for (String elemento: unidades){
 			Map<String,String> map = new HashMap<>();

@@ -94,6 +94,12 @@ var cols = [
 				{ "data": "date"},
 			];
 
+//$( function() {
+//	$('#pacient').autocomplete({
+//		serviceUrl: 'auto.json?sugL',
+//		type: 'POST'
+//	});
+// });
 
 $("body").on('click','#verExamen',function(){
 	var row = $("table.dataTable tbody tr.active");
@@ -123,7 +129,11 @@ $("body").on('click','#verPerfil',function(){
 		  backdrop: 'static'
 		});
     $("#myModal").modal('show');
+    
 });
+
+
+
 </script>
 </body>
 </html>
