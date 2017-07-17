@@ -91,8 +91,8 @@ var cols = [
                 "class": "tableAction",
                 "orderable": false,
                 "data": null,
-                "defaultContent": "<a href='#' id='updMainOnView' class='btnAct' title='Actualizar'><i class='fa fa-pencil-square-o' aria-hidden='true'></i></a>"+
-                				"<a href='#' id='delMainOnView' class='btnAct' title='Eliminar'><i class='fa fa-minus-square-o' aria-hidden='true'></i></a>"
+                "defaultContent": "<a href='#' id='updMainOnView' class='btnAct' title='Actualizar'><i class='fa fa-pencil-square-o' aria-hidden='true'></i></a>"
+                				+"<a href='#' id='delMainOnView' class='btnAct' title='Eliminar'><i class='fa fa-minus-square-o' aria-hidden='true'></i></a>"
             }
 		];
 
