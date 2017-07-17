@@ -210,6 +210,7 @@ var cols = [
 			{ "data": "apellidos"}
 		];
 
+
 $(document).ready(function(){
 	var table = $(dataTable).DataTable( {
 		"serverSide" : true,
