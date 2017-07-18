@@ -7,6 +7,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>${title}</title>
+<!-- autocomplete -->
+<script src="<c:url value="/resources/js/jquery.autocomplete.js" />"></script>
+<link href="<c:url value='/resources/css/autocomplete.css' />" rel="stylesheet">
+
 <link href="<c:url value='/resources/css/datatables.min.css' />" rel="stylesheet">
 </head>
 <body>
@@ -86,22 +90,34 @@
 <script type="text/javascript">
 var dataTable = "#maintenanceTable";
 var urlJ = "tipoExamen-ajax.json"
-//$.fn.dataTableExt.errMode = 'ignore';
+$.fn.dataTableExt.errMode = 'ignore';
 var langUrl = "<c:url value='/resources/locales/datatable-es.json' />"
 var cols = [
 				{ "data": "tipo"},
 				{ "data": "lab"},
 				{ "data": "date"},
-			];
 
-//$( function() {
-//	$('#pacient').autocomplete({
-//		serviceUrl: 'auto.json?sugL',
-//		type: 'POST'
-//	});
-// });
+				];
+				
+var table = $(dataTable).DataTable( {
+	"serverSide" : false,
+	"columns": cols,
+	"language":{
+		"url" : langUrl
+	},
+	"lengthChange": false,
+	"pageLength": 20,
+	"searching" : false,
+});
 
-$("body").on('click','#verExamen',function(){
+$( function() {
+	$('#search').autocomplete({
+		serviceUrl: 'auto.json?sugP',
+		type: 'POST'
+	});
+ });
+
+$("body").on('click','#verExamen',function(){  
 	var row = $("table.dataTable tbody tr.active");
 	var table = $('#maintenanceTable').DataTable();
 	var datarow= table.row(row);
@@ -131,9 +147,6 @@ $("body").on('click','#verPerfil',function(){
     $("#myModal").modal('show');
     
 });
-
-
-
 </script>
 </body>
 </html>

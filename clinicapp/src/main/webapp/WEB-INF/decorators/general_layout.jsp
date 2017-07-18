@@ -44,16 +44,16 @@
 	             </li>
              </sec:authorize>
              <li>
-                 <a href="#"><i class="fa fa-file-o"></i> Reportes</a>
+                 <a href="#"><i class="fa fa-bar-chart"></i> Reportes</a>
            		<ul class="nav nav-second-level">
            		  	<li>
                          <a href="<c:url value="/maintenance/reportes.htm"/>">Pacientes</a>
                      </li>
            		  	<li>
-                         <a href="<c:url value="#"/>">Ex&#225;menes</a>
+                         <a href="<c:url value="/maintenance/Eventos.htm"/>">Eventos</a>
                      </li>
                      <li>
-                         <a href="<c:url value="#"/>">Horarios</a>
+                         <a href="<c:url value="#"/>">Ex&#225;menes</a>
                      </li>
                  </ul>
              </li>

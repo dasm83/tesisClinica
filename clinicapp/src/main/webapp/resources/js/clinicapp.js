@@ -403,7 +403,6 @@ $( function() { /// jquery start point
 		var table = $(dataTable).DataTable();
 		table.clear(); // deleting current rows
 		table.destroy(); // destroying table so we can initialize again with different parameters (url)
-		
 		table = $(dataTable).DataTable( {
 			"serverSide" : true,
 			"ajax" : {
@@ -417,7 +416,7 @@ $( function() { /// jquery start point
 			},
 			"lengthChange": false,
 			"pageLength": 20,
-			"searching" : false
+			"searching" : false,
 		});
 	});
 	 

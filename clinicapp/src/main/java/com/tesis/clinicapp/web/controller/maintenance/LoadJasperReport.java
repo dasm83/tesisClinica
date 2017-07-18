@@ -6,7 +6,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,6 +39,7 @@ import com.tesis.clinicapp.service.ExamenService;
 import com.tesis.clinicapp.service.ItemsExamenService;
 import com.tesis.clinicapp.service.PacienteService;
 import com.tesis.clinicapp.util.TableData;
+import com.tesis.clinicapp.web.form.maintenance.citasReportForm;
 import com.tesis.clinicapp.web.form.maintenance.reportForm;
 
 import net.sf.jasperreports.engine.JRException;
@@ -60,12 +63,17 @@ public class LoadJasperReport {
     
 	private static final String URL = "/maintenance/reportes.htm";
 	private static final String URL2 = "/maintenance/rportes.htm";
+	private static final String URLcitas = "/maintenance/citasReportes.htm";
 	private static final String URLreport = "/maintenance/reportes.txt";
+	private static final String URLreportcitas = "/maintenance/Eventos.htm";
 	private static final String URLj = "/maintenance/tipoExamen-ajax.json";
 	
 	
 	private static final String JSP = "/maintenance/reportes";
+	private static final String JSPCitas = "/maintenance/Eventos";
 	private static final String FORM = "reportForm";
+	private static final String FORMcitas = "citasReportForm";
+	
 	
 	private ItemsExamenService itemService;
 	
@@ -87,6 +95,12 @@ public class LoadJasperReport {
 		return new ModelAndView(JSP,FORM,new reportForm());
 	}
 	
+	@RequestMapping(method = RequestMethod.GET, value = URLreportcitas)
+    public ModelAndView getCitas(HttpServletRequest request){
+		request.setAttribute("title", "Reportes de Citas Programadas");
+		return new ModelAndView(JSPCitas,FORMcitas,new citasReportForm());
+	}
+	
 	@ModelAttribute("jasperRptFormats")
     public ArrayList getJasperRptFormats()
     {
@@ -95,7 +109,72 @@ public class LoadJasperReport {
         jasperRptFormats.add("PDF");
         return jasperRptFormats;
     }   
-	  
+	
+	
+	@RequestMapping(method = RequestMethod.GET, value = URLcitas)
+	public ModelAndView generateReportCitas(HttpServletRequest request,HttpServletResponse response,citasReportForm form,ModelAndView modelAndView) throws ParseException {
+	
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+		Date date1 = formatter.parse(form.getFechaInicio());
+		Date date2 = formatter.parse(form.getFechaFin());
+		 String reportFileName="citasReportes";
+		HashMap<String,Object> dataSource=new HashMap<String,Object>();
+		
+		 Connection conn = null;
+	      try {
+	          try {
+	   
+	               Class.forName("org.postgresql.Driver");
+	              } catch (ClassNotFoundException e) {
+	                  e.printStackTrace();
+	              }  
+	   
+	           conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/clinica","postgres","postgres");
+	           if (conn != null)
+	       {
+	           System.out.println("Database Connected");
+	       }
+	       else
+	       {
+	           System.out.println(" connection Failed ");
+	       }
+	   
+	            String rptFormat = "pdf"; 
+	            dataSource.put("inicio",date1);
+	            dataSource.put("fin",date2);
+	            
+	            JasperReport jasperReport = getCompiledFile(reportFileName, request);
+	            
+	            if  (rptFormat.equalsIgnoreCase("pdf") )  {
+	         	   
+	    	        //	  modelAndView = new ModelAndView("pdfReport", dataSource)
+	    	             generateReportPDF(response, dataSource, jasperReport, conn); // For PDF report
+	    	   
+	    	    }
+	      } catch (Exception e) {
+	   	   
+	             e.printStackTrace();
+	   
+	         } finally {
+	   
+	              try {
+	   
+	              if (conn != null) {
+	                  conn.close();
+	                  conn = null;
+	              }
+	   
+	              } catch (SQLException expSQL) {
+	   
+	                  System.out.println("SQLExp::CLOSING::" + expSQL.toString());
+	   
+	              }
+	   
+	       } 
+		
+		 return null;
+    }
+		
 	  @RequestMapping(method = RequestMethod.GET, value = URL2)
 	  public ModelAndView generateReport(HttpServletRequest request,HttpServletResponse response,reportForm form,ModelAndView modelAndView) throws ParseException {
 		  System.out.println("entro");
