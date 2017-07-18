@@ -18,7 +18,7 @@
 <div class="input-group">
     <input type="text" id="search" class="form-control" placeholder="Buscar Paciente">
     <span class="input-group-btn" style="width:1;">
-        <button id="buscarExamenes" class="btn btn-default" type="button">Buscar</button>
+        <button id="goSearch" class="btn btn-default" type="button">Buscar</button>
     </span>
 </div>
 <br>
@@ -37,7 +37,7 @@
 <div class="col-sm-4"></div>
   <div class="col-sm-4">
   <button id="verExamen" class="btn btn-default" type="button">Ver Examen</button> 
- <button id="verPerfil" class="btn btn-default" type="button">perfil Completo</button>
+ <button id="verPerfil" class="btn btn-default" type="button">Perfil Completo</button>
   </div>
   <div class="col-sm-4"></div> 
 </div>
@@ -95,9 +95,8 @@ var langUrl = "<c:url value='/resources/locales/datatable-es.json' />"
 var cols = [
 				{ "data": "tipo"},
 				{ "data": "lab"},
-				{ "data": "date"},
-
-				];
+				{ "data": "date"}
+			];
 				
 var table = $(dataTable).DataTable( {
 	"serverSide" : false,

@@ -390,36 +390,7 @@ $( function() { /// jquery start point
 				}, 4000);
 			}
 		});
-	});	
-	
-	//Buscar Examenes del paciente
-	
-		$('#buscarExamenes').click(function(){
-		var searching = $('#search').val();
-		if(searching == ''){
-			return null;
-		}
-		
-		var table = $(dataTable).DataTable();
-		table.clear(); // deleting current rows
-		table.destroy(); // destroying table so we can initialize again with different parameters (url)
-		table = $(dataTable).DataTable( {
-			"serverSide" : true,
-			"ajax" : {
-				"url" : urlJ+"?search="+searching,
-				"type": "POST"
-			},
-			
-			"columns": cols,
-			"language":{
-				"url" : langUrl
-			},
-			"lengthChange": false,
-			"pageLength": 20,
-			"searching" : false,
-		});
 	});
-	 
 	
 	//cargar el select: items de examenes
 	
