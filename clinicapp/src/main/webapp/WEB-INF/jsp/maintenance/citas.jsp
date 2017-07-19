@@ -8,6 +8,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>${title}</title>
+
 <script src="<c:url value="/resources/js/jquery.eventCalendar.min.js"/>"></script>
 <script src="<c:url value="/resources/js/moment.js"/>"></script>
 <link href="<c:url value='/resources/css/datatables.min.css' />" rel="stylesheet">
