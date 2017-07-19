@@ -266,6 +266,11 @@ $( function() { /// jquery start point
 		//New date
 	$("#myModalOnView2 #okBtndate").click(function(){
 		
+			
+		if(!validate()){
+			return;
+		}
+		
 		var data = $('#citaForm').serialize();
 		
 		$.ajax({
@@ -355,7 +360,7 @@ $( function() { /// jquery start point
 				}, 4000);
 			},
 			error: function(jqXHR, error, errorThrown){
-				$("#myModalOnViewDet").find('.modal-body').html("<div style='text-align:center'><h3>Error</h3>"+jqXHR.responseText+"</div>");
+				$("#myModalOnViewDet").find('.modal-body').html("<div style='text-align:center'><h3>Valores Incorrectos</h3>"+jqXHR.responseText+"</div>");
 				setTimeout(function(){
 					$("#myModalOnViewDet").modal('hide');
 				}, 4000);
@@ -366,6 +371,10 @@ $( function() { /// jquery start point
 	//Insert para valores de referencia
 
 	$("#saveBtnCatVr").click(function(){
+		
+		if(!validate()){
+			return;
+		}
 		
 		var data = $('#detailFormCatVr').serialize();
 		

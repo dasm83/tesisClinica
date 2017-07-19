@@ -45,11 +45,7 @@
     				<div class="col-lg-2">
       						<input type="text" class="form-control input-sm" id="ageMax" name="items[${loop.index}].maxAge" value="${item.maxAge}" placeholder="Edad Maxima">
     					</div>
-    				<div class="col-lg-2">
-    					<button type="button" value="mes" id="mesAnio" class="btn btn-default input-sm">Mes</button>
-    				</div>
-							    					 
-							
+							    					 							
   				</div>
   				<br>
   				<div class="form-group">
@@ -106,7 +102,7 @@ var url = "examCatVr.txt";
 var mainURL = "catalogoExamenes.htm"
 $(document).ready(function() {
 	
-	    var MaxInputs       = 40; //Número Maximo de Campos
+	    var MaxInputs       = 120; //Número Maximo de Campos
 	    var contenedor       = $("#contenedor"); //ID del contenedor
 	    var AddButton       = $("#agregarCampo"); //ID del Botón Agregar
 	   // var AnioMes			= $("#mesAnio");
@@ -117,7 +113,7 @@ $(document).ready(function() {
 		    var contador=x;
 		    var FieldCount = x; //para el seguimiento de los campos
 		  }else{
-			  var contador=(x/15);
+			  var contador=(x/14);
 		  }
 	    
 	  $(AddButton).click(function (e) {
@@ -125,7 +121,7 @@ $(document).ready(function() {
 	        {
 	            FieldCount++;
 	            //agregar campo
-$(contenedor).append('<div class="row"><div class="panel panel-default"><div class="panel-heading">Valores de Referencia<div class="panel-title pull-right"><a id="delete" href="#" class="fa fa-trash fa-1x" aria-hidden="true"></a><input type="hidden" name="items['+contador+'].estado"/></div></div><div class="panel-body"><div class="form-group"><label for="ejemplo_email_3" class="col-lg-1 control-label">Sexo :</label><div class="col-lg-1"><select path="vr" name="items['+contador+'].sex" class="form-control input-sm"><option selected>M</option><option>F</option><option></option></select><input type="hidden" class="form-control input-sm" id="idItem" path="items" name="items['+contador+'].id"/></div></div><br><div class="form-group"><label for="ejemplo_password_3" class="col-lg-2 control-label">Edad Minima :</label><div class="col-lg-2"><input type="text" class="form-control input-sm" id="edadMin" path="items" name="items['+contador+'].minAge" placeholder="Texto '+ contador +'"></div><label for="ejemplo_password_3" class="col-lg-2 control-label">Edad Maxima :</label><div class="col-lg-2"><input type="text" class="form-control input-sm" id="edadMax" path="items" name="items['+contador+'].maxAge" placeholder="Texto '+ contador +'"></div><div class="col-lg-2"><button type="button" value="mes" id="mesAnio" class="btn btn-default input-sm">Mes</button></div></div><br><div class="form-group"><label for="ejemplo_password_3" class="col-lg-2 control-label">Valor de Referencia:</label><div class="col-lg-2"><input type="text" class="form-control input-sm" id="ejemplo_password_2" path="items" name="items['+contador+'].vRMin" placeholder="Texto '+contador +'"></div><div class="col-lg-2"><select id="sel" path="items" name="items['+contador+'].typeRango" class="form-control input-sm" ><option selected>-</option><option><</option><option>></option><option><=</option></select></div><div class="col-lg-2"><input path="items" name="items['+contador+'].vRMax" type="text" class="form-control input-sm" id="ejemplo_password_3" placeholder="Texto '+ contador +'"></div></div></div></div></div>');
+$(contenedor).append('<div class="row"><div class="panel panel-default"><div class="panel-heading">Valores de Referencia<div class="panel-title pull-right"><a id="delete" href="#" class="fa fa-trash fa-1x" aria-hidden="true"></a><input type="hidden" name="items['+contador+'].estado"/></div></div><div class="panel-body"><div class="form-group"><label for="ejemplo_email_3" class="col-lg-1 control-label">Sexo :</label><div class="col-lg-1"><select path="vr" name="items['+contador+'].sex" class="form-control input-sm"><option selected>M</option><option>F</option><option></option></select><input type="hidden" id="idItem" path="items" name="items['+contador+'].id"/></div></div><br><div class="form-group"><label for="ejemplo_password_3" class="col-lg-2 control-label">Edad Minima :</label><div class="col-lg-2"><input type="text" class="form-control input-sm" id="edadMin" path="items" name="items['+contador+'].minAge" placeholder="Texto '+ contador +'"></div><label for="ejemplo_password_3" class="col-lg-2 control-label">Edad Maxima :</label><div class="col-lg-2"><input type="text" class="form-control input-sm" id="edadMax" path="items" name="items['+contador+'].maxAge" placeholder="Texto '+ contador +'"></div></div><br><div class="form-group"><label for="ejemplo_password_3" class="col-lg-2 control-label">Valor de Referencia:</label><div class="col-lg-2"><input type="text" class="form-control input-sm" id="ejemplo_password_2" path="items" name="items['+contador+'].vRMin" placeholder="Texto '+contador +'"></div><div class="col-lg-2"><select id="sel" path="items" name="items['+contador+'].typeRango" class="form-control input-sm" ><option selected>-</option><option><</option><option>></option><option><=</option></select></div><div class="col-lg-2"><input path="items" name="items['+contador+'].vRMax" type="text" class="form-control input-sm" id="ejemplo_password_3" placeholder="Texto '+ contador +'"></div></div></div></div></div>');
 				x++; //text box increment
 	            contador++;
 	        }
@@ -149,12 +145,29 @@ $(contenedor).append('<div class="row"><div class="panel panel-default"><div cla
     //	$(this).parent().prevAll().contents("input[name$='vRMin']").text("V.N.");
     //	$(this).parent().prevAll().contents("input[name$='vRMin']").attr("disabled", "true");
     	}else if(v=="-"){
-    		$(this).parent().prevAll().contents("input[name$='vRMin']").attr("value","");
+    		$(this).parent().prevAll().contents("input[name$='vRMin']").val(" ");
+    		$(this).parent().prevAll().contents("input[name$='vRMin']").attr("value"," ");
+    		$(this).parent().prevAll().contents("input[name$='vRMin']").attr('readonly',false);
     	//	$(this).parent().prevAll().contents("input[name$='vRMin']").removeAttr('disabled');
+    	//	$(this).parent().prevAll().contents("input[name$='vRMin']").prop("disabled", false);
     	}
     	
     }); 
 });	   
+
+
+function validate(){
+	var arrayInputs = $('input[class $= input-sm]');
+	    for(i = 0; i < arrayInputs.length; i++){
+			if(!arrayInputs[i].value){
+            	alert("campo vacio");
+				return false;
+            	break;
+        }
+    }
+	    
+	return true;
+}
 </script>
 </body>
 </html>

@@ -16,10 +16,10 @@
 		<div class="row">
 			<div class="col-lg-10">
 				<form:label for="name" path="nombre">Nombre de Examen:</form:label>
-				<form:input id="name" path="nombre" cssClass="form-control"/>
+				<form:input id="name" class="examen" path="nombre" cssClass="form-control"/>
 				<br>
 				<form:label for="description" path="descripcion">Descripcion:</form:label>
-				<form:input id="description" path="descripcion" cssClass="form-control"/>
+				<form:input id="description" class="examen" path="descripcion" cssClass="form-control"/>
 				<br>
 				<label>Tipo de ex&#225;men:</label>
 		      	<form:select id="type" name="type" path="clasificacion">
@@ -27,7 +27,6 @@
 						<form:option path="clasificacion" value="${type.id}">${type.name}</form:option>
 					</c:forEach>
 				</form:select>
-				<br>
 				<br>
 			</div>
 			</div>
@@ -141,6 +140,20 @@ $(contenedor).append('<div class="row"><div class="col-lg-6"><input type="text" 
 	        return false;
 	 });
 });    
+
+function validate(){
+	var arrayInputs = $('input[class $= examen]');
+	$('input[class $= examen]').css( "border", "3px solid red" );
+	    //for(i = 0; i < arrayInputs.length; i++){
+		//	if(!arrayInputs[i].value){
+        //    	alert("campo vacio");
+		//		return false;
+        //    	break;
+       // }
+   // }
+	    
+	return false;
+}
 </script>
 </body>
 </html>

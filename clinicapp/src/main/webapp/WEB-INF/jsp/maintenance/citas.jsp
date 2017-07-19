@@ -50,7 +50,7 @@
 			<div class="row">
 					    <div class='col-lg-10'>
 					      <div class="form-group">
-					      <label class="col-lg-2 control-label">Fecha :</label>
+					      <label class="col-lg-2 control-label">Fecha   :</label>
 					        <div class='input-group date' id='datetimepicker1'> 
 					          <form:input id="date" path="date" type='text' class="form-control" />
 					          <span class="input-group-addon">
@@ -188,6 +188,9 @@
 		  });
 		  
 		  $("body").on("click","#newDate", function(e){ 
+			  $('#pacient').val(" ");
+			  $('#descript').val(" ");
+			  $('#date').val(" ");
 				  $("#myModalOnView2").modal({
 					backdrop: 'static'
 					});
@@ -195,6 +198,23 @@
 		        return false;
 		 });
 });	  
+	
+function validate(){
+		
+	var valid = true;
+		
+		if(!$("#pacient").val()){
+		 	valid= false;
+	 		}
+		if(!$("#descript").val()){
+		 	valid= false;
+	 		}
+		if(!$("#date").val()){
+		 	valid= false;
+	 		}
+	    
+	return valid;
+}
 </script>
 </body>
 </html>

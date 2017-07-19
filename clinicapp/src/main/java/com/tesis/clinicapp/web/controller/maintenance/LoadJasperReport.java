@@ -353,6 +353,7 @@ public @ResponseBody TableData dataTable(HttpServletRequest request, @RequestPar
 				Map<String,String> list = new HashMap<>();
 				
 				list.put("DT_RowId",e.getId().toString());
+				list.put("pacient",s.getNombres().toString());
 				list.put("tipo", e.getCatalogoExamen().getNombre().toString() );
 			    list.put("lab",  e.getCatalogoExamen().getClasificacion().getCategoria().toString());
 				list.put("date", e.getFecha().toString());

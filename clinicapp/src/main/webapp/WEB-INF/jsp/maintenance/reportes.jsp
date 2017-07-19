@@ -56,29 +56,29 @@
 			<form:input path="paciente" id="iDpaciente" cssStyle="display:none"/>
 			<form:input path="examen" id="iDexamen" cssStyle="display:none"/>
 			
-			    <label for="pacient" class="col-lg-2 control-label">Paciente :</label>
-			    	<div class="col-lg-10">
-			    		<input id="pacient"  class="form-control"/>
+			    <label for="pacient" class="col-lg-3 control-label">Paciente :</label>
+			    	<div class="col-lg-9">
+			    		<input disabled id="pacient"  class="form-control"/>
 			        </div>
 			</div>	
 				
 			<div class="form-group">
-			    <label for="pacient" class="col-lg-4 control-label">Tipo Examen:</label>
-			    	<div class="col-lg-8">
-			    		<input id="tipoExamen"  class="form-control"/>
+			    <label for="pacient" class="col-lg-3 control-label">Tipo Examen:</label>
+			    	<div class="col-lg-9">
+			    		<input disabled id="tipoExamen"  class="form-control"/>
 			        </div>
 			</div>	
 			
 			<div class="form-group">
-			    <label for="pacient" class="col-lg-4 control-label">Nombre del Examen:</label>
-			    	<div class="col-lg-18">
-			    		<input id="nameExam"  class="form-control"/>
+			    <label for="pacient" class="col-lg-3 control-label">Examen:</label>
+			    	<div class="col-lg-9">
+			    		<input disabled id="nameExam"  class="form-control"/>
 			        </div>
 			</div>
 		      </div>
 		      <div class="modal-footer">
-		        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-		        <button id="okBtn" type="submit" type="button" class="btn btn-primary">Aceptar</button>
+		  <!--        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button> -->
+		        <button id="okBtn" type="submit" type="button" class="btn btn-primary" data-dismiss="modal" >Aceptar</button>
 		      </div>
 		    </div><!-- /.modal-content -->
 		  </div><!-- /.modal-dialog -->
@@ -126,7 +126,9 @@ $("body").on('click','#verExamen',function(){
 	var personId = data.personid;
 	document.getElementById("iDpaciente").value=personId;
 	document.getElementById("iDexamen").value=id;
-	
+	document.getElementById("pacient").value=data.pacient;
+	document.getElementById("tipoExamen").value=data.lab;
+	document.getElementById("nameExam").value=data.tipo;
 	$("#myModal").modal({ /// configuring modal before launching
 	  backdrop: 'static'
 	});

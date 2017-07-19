@@ -176,7 +176,7 @@
 									<label>Tel&#233;fono:</label>
 								</div>
 								<div class="input col">
-									<form:input path="phone" cssClass="text"/>
+									<form:input path="phone" cssClass="number"/>
 								</div>
 							</div>
 							<div class="row">
@@ -265,12 +265,8 @@ function validate(){
 		$("#myModal #surnames_temp").addClass("error");
 		valid = false;
 	}
-	if(!$("#myModal #dui_temp").val()){
-		$("#myModal #dui_temp").addClass("error");
-		valid = false;
-	}
-	if(!$("#myModal #nit_temp").val()){
-		$("#myModal #nit_temp").addClass("error");
+	if(!$("#myModal #age_temp").val()){
+		$("#myModal #age_temp").addClass("error");
 		valid = false;
 	}
 	
