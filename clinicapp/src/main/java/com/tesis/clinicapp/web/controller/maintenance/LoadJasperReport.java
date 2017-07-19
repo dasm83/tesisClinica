@@ -29,8 +29,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.tesis.clinicapp.model.CatalogoExamen;
-import com.tesis.clinicapp.model.CatalogoItemsExamen;
 import com.tesis.clinicapp.model.Clasificacion;
 import com.tesis.clinicapp.model.Examen;
 import com.tesis.clinicapp.model.Paciente;
@@ -302,14 +300,13 @@ public class LoadJasperReport {
 	    } 
 	  
 	  private JasperReport getCompiledFile(String fileName, HttpServletRequest request) throws JRException {
- 
 		  File reportFile = new File("C:/Users/Byron/git/dasm83/tesisClinica/clinicapp/src/main/webapp/WEB-INF/reports/"+fileName+".jasper");
-		        JasperReport jasperReport = (JasperReport) JRLoader.loadObjectFromFile(reportFile.getPath());		      
-		       return jasperReport;
-		    } 
+		  JasperReport jasperReport = (JasperReport) JRLoader.loadObjectFromFile(reportFile.getPath());		      
+		  return jasperReport;
+	  }
 	 
 	  @ModelAttribute(value="examClasificacion")
-		private List<Map<String,String>> getExamTypes(){
+	  private List<Map<String,String>> getExamTypes(){
 			List<Map<String,String>> brief = new ArrayList<>();
 			List<Clasificacion> types = clasService.findAll();
 			
@@ -324,7 +321,7 @@ public class LoadJasperReport {
 		}
 	  
 	  @RequestMapping(method = RequestMethod.POST, value = URLj, produces = "application/json")
-public @ResponseBody TableData dataTable(HttpServletRequest request, @RequestParam(value="order[0][column]") int col,@RequestParam(value="order[0][dir]") String dir, @RequestParam(required=false,name="search") String search){
+	  public @ResponseBody TableData dataTable(HttpServletRequest request, @RequestParam(value="order[0][column]") int col,@RequestParam(value="order[0][dir]") String dir, @RequestParam(required=false,name="search") String search){
 			TableData json = new TableData();
 			List<Map<String,String>> data = getExamsList(
 						Integer.parseInt(request.getParameter("start")),
@@ -346,7 +343,6 @@ public @ResponseBody TableData dataTable(HttpServletRequest request, @RequestPar
 		private List<Map<String,String>> getExamsList(int start,int length, int col, String order, String search){
 			List<Map<String,String>> brief = new ArrayList<>();
 			Paciente s= pacientService.getByExactName(search);
-			System.out.println("");
 		  
 			Set<Examen> set = s.getExamens();
 			for(Examen e:set){
