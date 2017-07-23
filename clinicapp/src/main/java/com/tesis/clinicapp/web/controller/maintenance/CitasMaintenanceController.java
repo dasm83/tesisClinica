@@ -104,12 +104,21 @@ public class CitasMaintenanceController {
 		String msj = "";
 		
 		if(id != null){ //si es diferente a null es una actualizacion, el registro ya existe
-				
+		    System.out.println(pt.getNombres().toString());
 			Citas cita = citService.findById(id);
 			cita.setDescripcion(form.getDescription());
 			cita.setPaciente(pt);
-			cita.setFechaReserva(formatFecha(form.getDate()));
-	//		citService.saveOrUpdate(cita);
+			String fecha= form.getDate();
+			
+			try {
+				Date d= formatter.parse(fecha);
+				cita.setFechaReserva(d);
+				
+			}catch(ParseException e) {
+				e.printStackTrace();
+			}
+			citService.saveOrUpdate(cita);
+			msj="Cita Modificada";
 			
 		}else{
 			

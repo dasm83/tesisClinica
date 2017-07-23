@@ -9,7 +9,7 @@ public class MySiteMeshFilter extends ConfigurableSiteMeshFilter {
 	@Override
 	protected void applyCustomConfiguration(SiteMeshFilterBuilder builder) { 
 		builder.addTagRuleBundles(new DivExtractingTagRuleBundle())
-		.addDecoratorPaths("/index.htm", "/WEB-INF/decorators/general_layout.jsp","/WEB-INF/decorators/base_layout.jsp")
+		.addDecoratorPaths("/index.htm", "/WEB-INF/decorators/baseforIndexOnly.jsp","/WEB-INF/decorators/base_layout.jsp")
 		.addDecoratorPaths("/maintenance/*", "/WEB-INF/decorators/general_layout.jsp","/WEB-INF/decorators/base_layout.jsp")
 		.addDecoratorPaths("/admin/*", "/WEB-INF/decorators/configure_layout.jsp","/WEB-INF/decorators/base_layout.jsp")
 		.addExcludedPath("*-ajax.htm")

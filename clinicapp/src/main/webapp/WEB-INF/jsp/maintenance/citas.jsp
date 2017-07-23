@@ -8,6 +8,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>${title}</title>
+<!-- autocomplete -->
+<script src="<c:url value="/resources/js/jquery.autocomplete.js" />"></script>
+<link href="<c:url value='/resources/css/autocomplete.css' />" rel="stylesheet">
 
 <script src="<c:url value="/resources/js/jquery.eventCalendar.min.js"/>"></script>
 <script src="<c:url value="/resources/js/moment.js"/>"></script>
@@ -172,9 +175,9 @@
 				    success : function(json) {	 	
 		
 					 var Jcita=json;
-		
 					$('#cit').val(Jcita[0].id);
 					$('#pacient').val(Jcita[0].paciente);
+				    $('#pacient').attr('readonly','readonly');
 					$('#descript').val(Jcita[0].descripcion);
 					$('#date').val(Jcita[0].date);
 					$("#myModalOnView2").modal({
@@ -189,6 +192,7 @@
 		  });
 		  
 		  $("body").on("click","#newDate", function(e){ 
+			  $('#pacient').attr('readonly',false);
 			  $('#pacient').val(" ");
 			  $('#descript').val(" ");
 			  $('#date').val(" ");
@@ -216,6 +220,13 @@ function validate(){
 	    
 	return valid;
 }
+
+$( function() {
+	$('#pacient').autocomplete({
+		serviceUrl: 'auto.json?sugP',
+		type: 'POST'
+	});
+ });
 </script>
 </body>
 </html>

@@ -94,7 +94,7 @@ public class ExamenMaintenanceController {
     public ModelAndView get(HttpServletRequest request){
 		
 		/// we have to set the view's title (text inserted on title html tag)
-		request.setAttribute("title", "Ex√°menes");
+		request.setAttribute("title", "Ex·menes");
 		
 		return new ModelAndView(JSP,FORM,new ExamenesMainForm());
 		

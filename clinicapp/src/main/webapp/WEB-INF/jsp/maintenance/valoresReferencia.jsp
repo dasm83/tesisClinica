@@ -131,7 +131,8 @@ $(contenedor).append('<div class="row"><div class="panel panel-default"><div cla
 	  $("body").on("click","#delete", function(e){ //click en eliminar campo
 	        //if( x > 1 ) {
 	            $(this).next().val("delete");
-	        	$(this).parent('div').parent('div').parent('div').hide(); //eliminar el campo   
+	        	//$(this).parent('div').parent('div').parent('div').hide(); //eliminar el campo
+	        	$(this).parent('div').parent('div').parent('div').hide();
 	            x--;
 	       // }
 	        return false;

@@ -279,11 +279,12 @@ public class CatalogoExamenesMaintenanceController {
 	@SuppressWarnings("unused")
 	@RequestMapping(method = RequestMethod.POST, value = URLexamCat, produces = "text/plain")
 	public @ResponseBody String modCatExamTable(HttpServletRequest request, HttpServletResponse response, CatalogoExamDetail form) throws ParseException{
-		
+		System.out.println("1");
 		Long id = form.getExamCatId();
 		String msj= "Registro Guardado"; 
 
 		if(id != null){
+			System.out.println("2");
 			Clasificacion Cla= clasService.findById(form.getClasificacion());
 			CatalogoExamen catEx= catExamService.findById(id);
 			Set<CatalogoItemsExamen> catItms = catEx.getCatalogoItemsExamens();
@@ -297,6 +298,7 @@ public class CatalogoExamenesMaintenanceController {
 							break;
 						
 						}else if(formItem.getOldId().equals("vacio")){
+							System.out.println("3");
 							CatalogoItemsExamen itemOnEx = new CatalogoItemsExamen();
 							itemOnEx.setCatalogoExamen(catEx);
 							itemOnEx.setNombre(formItem.getNombre());
@@ -306,9 +308,14 @@ public class CatalogoExamenesMaintenanceController {
 							break;
 							
 						}else if(formItem.getOldId().equals("delete")){
+							System.out.println("4"+formItem.getNombre());
+							if(!formItem.getNombre().equals("")){
+							System.out.println("5");
 							CatalogoItemsExamen itemOnEx = itemCatService.findById(formItem.getId());
+							System.out.println("6");
 							itemCatService.delete(itemOnEx);
-							break;
+							System.out.println("7");
+							break;}
 						}
 							
 					}

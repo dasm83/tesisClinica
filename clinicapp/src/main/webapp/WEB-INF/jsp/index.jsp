@@ -144,14 +144,14 @@
         <span id="mes" class="timeline-balloon-date-month"></span>
     </div>
 
-    <c:set var="x" scope="session" value="0"/>
-    <c:forEach items="${citas}" var="p" varStatus="loop"> 
-      <c:if test="${p.id%2==0}">	
+<c:forEach items="${citas}" var="p" varStatus="loop"> 
+      <c:if test="${loop.index%2==0}">	
       <div  class="col-sm-offset-6 col-sm-6  timeline-item">
         <div class="row">
             <div class="col-sm-offset-1 col-sm-11">
                 <div class="timeline-panel debits">
                     <ul class="timeline-panel-ul">
+    
                         <li><span class="importo">${p.paciente.nombres}</span></li>
                         <li><span class="causale">${p.descripcion}</span> </li>
                         <li><p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> <fmt:formatDate value="${p.fechaReserva}" pattern="HH:mm:ss"/></small></p> </li>
@@ -163,7 +163,7 @@
      </div>
    </c:if>
     
-    <c:if test="${p.id%2!=0}">
+    <c:if test="${loop.index%2!=0}">
     <div class="col-sm-6  timeline-item">
         <div class="row">
             <div class="col-sm-11">
@@ -179,7 +179,6 @@
         </div>
     </div>
  </c:if>
-<c:set var="x" scope="session" value="1"/>
 </c:forEach>
 
 </div>
@@ -202,9 +201,10 @@ $(document).ready(function(){
 	$('#dia').text(d);	
 	}
 	
-    $('#mes').text('ABR');   
+    $('#mes').text('JUL');   
 	
 });
+
 
 </script>
 </body>
